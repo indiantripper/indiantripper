@@ -70,4 +70,24 @@ roughly 300–350 KB each. To move hosts later, carry `content/`, `static/`, the
 builder and theme together, then rebuild. Keeping the `/images/` paths preserves
 the image links. Original artwork and generation prompts are saved separately
 in the task's `48-ghante-ka-din` review folder; only the small website copies
-are committed here. The post labels the pictures as AI-generated illustrations.
+are committed here. The two illustrations are stored with the post’s website assets.
+
+## Share a post
+
+Every individual post has a Share menu next to the reading controls: WhatsApp,
+Copy link, Save image, and (on supported secure browsers) native link/image sharing.
+The menu never sends anything until the reader chooses a destination.
+
+Social link previews use each post's title, excerpt and local image. Add optional
+front-matter fields to choose the image explicitly:
+
+    image: /images/2026/48-ghante-ka-din/rooftop.jpg
+    image_alt: A short description of the image
+
+Otherwise, the first local `/images/` picture in the post is used. Posts without
+one use `static/images/share/time-turner.jpg`. Old external pictures are not
+selected automatically, since many are missing. Open Graph and large-image card
+metadata are included in the static HTML. Messaging apps decide how to display
+and cache previews; their crawler must be able to access the page and image.
+Native Web Share and clipboard APIs require a secure context; the page keeps
+WhatsApp, a manual/legacy copy fallback, and Save image available without them.

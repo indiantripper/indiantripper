@@ -28,6 +28,49 @@
     document.addEventListener('click', function (e) { if (!preferences.contains(e.target)) preferences.open = false; });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && preferences.open) { preferences.open = false; preferences.querySelector('summary').focus(); } });
   }
+  var shareMenu = document.querySelector('.post-share');
+  if (shareMenu) {
+    var shareTitle = shareMenu.dataset.shareTitle, shareUrl = shareMenu.dataset.shareUrl;
+    var shareData = { title: shareTitle, text: shareTitle, url: shareUrl };
+    var shareStatus = shareMenu.querySelector('.share-status');
+    var manualLink = shareMenu.querySelector('.share-manual');
+    var nativeShare = shareMenu.querySelector('[data-share-native]');
+    var imageShare = shareMenu.querySelector('[data-share-image-native]'), shareFile = null;
+    function status(message) { shareStatus.textContent = message; }
+    if (navigator.share) {
+      nativeShare.hidden = false;
+      nativeShare.addEventListener('click', function () {
+        navigator.share(shareData).catch(function (error) { if (error.name !== 'AbortError') status('Sharing is unavailable. Try WhatsApp or copy the link.'); });
+      });
+    }
+    shareMenu.querySelector('[data-share-copy]').addEventListener('click', function () {
+      function fallback() {
+        manualLink.hidden = false;
+        var input = manualLink.querySelector('input'); input.focus(); input.select();
+        try { if (document.execCommand('copy')) { status('Link copied.'); manualLink.hidden = true; return; } } catch (e) {}
+        status('Select and copy the post link above.');
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(shareUrl).then(function () { status('Link copied.'); }).catch(fallback);
+      else fallback();
+    });
+    shareMenu.addEventListener('toggle', function () {
+      if (!shareMenu.open || shareFile || !navigator.canShare || !navigator.share || !window.isSecureContext) return;
+      fetch(shareMenu.dataset.shareImage).then(function (response) {
+        if (!response.ok) throw new Error('Image unavailable'); return response.blob();
+      }).then(function (blob) {
+        var type = blob.type.split(';')[0]; if (!/^image\/(jpeg|png|webp)$/.test(type)) return;
+        var ext = type === 'image/jpeg' ? 'jpg' : type.split('/')[1];
+        var file = new File([blob], 'time-turner-share.' + ext, { type: type });
+        if (navigator.canShare({ files: [file] })) { shareFile = file; imageShare.hidden = false; }
+      }).catch(function () {});
+    });
+    imageShare.addEventListener('click', function () {
+      if (!shareFile) return;
+      navigator.share({ files: [shareFile], title: shareTitle, text: shareTitle + '\n' + shareUrl }).catch(function (error) { if (error.name !== 'AbortError') status('Image sharing is unavailable. Use Save image instead.'); });
+    });
+    document.addEventListener('click', function (e) { if (!shareMenu.contains(e.target)) shareMenu.open = false; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && shareMenu.open) { shareMenu.open = false; shareMenu.querySelector('summary').focus(); } });
+  }
   function loadPosts(callback, onError) { fetch(base + '/search.json').then(function (r) { if (!r.ok) throw new Error('Search unavailable'); return r.json(); }).then(callback).catch(function () { if (onError) onError(); }); }
   var params = new URLSearchParams(location.search), oldId = params.get('p');
   if (oldId && /^\d+$/.test(oldId)) loadPosts(function (posts) { var p = posts.find(function (p) { return p.i === oldId; }); if (p) location.replace(base + p.u); });

@@ -227,6 +227,7 @@ def load(site):
             posts.append({
                 'title': meta['title'], 'date': d, 'path': path, 'id': meta.get('id', ''), 'raw': raw,
                 'excerpt': meta.get('excerpt', ''),
+                'image': meta.get('image', ''), 'image_alt': meta.get('image_alt', ''),
                 'cats': [c.strip() for c in meta.get('categories', '').split(',') if c.strip()],
                 'tags': [c.strip() for c in meta.get('tags', '').split(',') if c.strip()],
                 'comments': comments, 'file': f,
@@ -321,7 +322,37 @@ class Site:
                           '<div><p>College days. New cities. Long walks.<br>A few pets, and a lot of passing thoughts.</p><div class="year-links">%s</div>'
                           '<a class="text-link" href="%s">Wander through the years →</a></div></section>') % (links, self.u('/years/'))
 
-    def page(self, path, title, body, body_class='', description='', singular=False, noindex=False, og_type='website', story_filter=None):
+    def post_image(self, post):
+        image = post.get('image', '')
+        if not image:
+            match = re.search(r'''<img\b[^>]*\bsrc=["'](/images/[^"']+)["']''', post['raw'])
+            image = html.unescape(match.group(1)) if match else ''
+        if image.startswith('/images/') and os.path.isfile(os.path.join(ROOT, 'static', image.lstrip('/'))):
+            return image, post.get('image_alt') or html.unescape(post['title'])
+        if post.get('image'):
+            self.problems.append('Missing local share image for %s: %s' % (post['file'], image))
+        return '/images/share/time-turner.jpg', 'Time Turner — Stories from my life'
+
+    def share_controls(self, post, image):
+        title = html.unescape(post['title'])
+        url = self.canonical(post['path'])
+        whatsapp = 'https://wa.me/?text=' + quote(title + '\n' + url, safe='')
+        return ('<details class="post-share" data-share-title="%s" data-share-url="%s" data-share-image="%s">'
+                '<summary class="share-trigger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 13v7h16v-7"/></svg>Share</summary>'
+                '<div class="share-panel"><p class="share-heading">Share this post</p>'
+                '<div class="share-preview"><img src="%s" alt="" width="240" height="126"><strong lang="%s">%s</strong><span>indiantripper.in</span></div>'
+                '<div class="share-actions"><button type="button" data-share-native hidden>Share…</button>'
+                '<a href="%s" target="_blank" rel="noopener noreferrer">WhatsApp</a>'
+                '<button type="button" data-share-copy>Copy link</button>'
+                '<button type="button" data-share-image-native hidden>Share image</button>'
+                '<a href="%s" download>Save image</a></div>'
+                '<label class="share-manual" hidden>Post link<input type="text" readonly value="%s" aria-label="Post link"></label>'
+                '<p class="share-status" role="status" aria-live="polite"></p></div></details>') % (
+                    esc(title, quote=True), esc(url, quote=True), esc(self.u(image), quote=True),
+                    esc(self.u(image), quote=True), post['lang'], esc(title), esc(whatsapp, quote=True),
+                    esc(self.u(image), quote=True), esc(url, quote=True))
+
+    def page(self, path, title, body, body_class='', description='', singular=False, noindex=False, og_type='website', story_filter=None, social_image='/images/share/time-turner.jpg', social_alt='Time Turner — Stories from my life'):
         s = self.site
         description = description or s['description']
         robots = '<meta name="robots" content="noindex, nofollow">\n' if (noindex or self.preview) else ''
@@ -343,6 +374,8 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 <title>%(title)s</title><meta name="description" content="%(description)s">
 %(robots)s<link rel="canonical" href="%(canonical)s">
 <meta property="og:site_name" content="%(site)s"><meta property="og:type" content="%(og_type)s"><meta property="og:title" content="%(title)s"><meta property="og:description" content="%(description)s"><meta property="og:url" content="%(canonical)s">
+<meta property="og:image" content="%(social_image)s"><meta property="og:image:alt" content="%(social_alt)s">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="%(title)s"><meta name="twitter:description" content="%(description)s"><meta name="twitter:image" content="%(social_image)s">
 <link rel="icon" type="image/svg+xml" href="%(favicon)s"><meta name="color-scheme" content="light dark"><link rel="alternate" type="application/rss+xml" title="%(site)s" href="%(feed)s">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="%(fonts)s"><link rel="stylesheet" href="%(css)s">
 </head><body class="%(body_class)s"><a class="screen-reader-text" href="#content">Skip to content</a>
@@ -365,7 +398,8 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             'threads_current': selected(path.startswith(('/threads/', '/category/'))),
             'years_current': selected(path.startswith('/years/') or re.match(r'^/\d{4}/', path)),
             'user_icon': icon('user'), 'search_icon': icon('search'), 'moon': icon('moon'), 'sun': icon('sun'),
-            'settings_icon': icon('settings'), 'story_filter': story_filter}
+            'settings_icon': icon('settings'), 'story_filter': story_filter,
+            'social_image': esc(self.canonical(social_image)), 'social_alt': esc(social_alt)}
 
     def search_form(self):
         return ('<form role="search" method="get" class="search-form" action="%s"><label>'
@@ -490,6 +524,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 
     def single(self, i):
         p = self.posts[i]
+        image, image_alt = self.post_image(p)
         older = self.posts[i + 1] if i + 1 < len(self.posts) else None
         newer = self.posts[i - 1] if i > 0 else None
         nav = ''
@@ -497,7 +532,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             nav += '<a href="%s"><span class="label">%s</span><h2 lang="%s">%s</h2></a>' % (
                 self.u(other['path']), label, other['lang'], esc(html.unescape(other['title']))) if other else '<span></span>'
         cats = ''.join('<a href="%s">%s</a>' % (self.u('/category/%s/' % c), self.category_label(c)) for c in p['cats'])
-        body = '''<main class="wrap reader"><div class="reader-tools"><a class="back" href="%(home)s">← Back to the notebook</a><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div></div>
+        body = '''<main class="wrap reader"><div class="reader-tools"><a class="back" href="%(home)s">← Back to the notebook</a><div class="reader-actions"><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div>%(share)s</div></div>
 <article id="post-%(id)s" class="single-entry post">%(cat)s<h1 class="entry-title" lang="%(lang)s">%(title)s</h1><div class="byline"><span class="author-initial" aria-hidden="true">H</span><div><span>%(author)s</span><time datetime="%(iso)s">%(date)s</time></div><span class="reading-time">%(reading)s</span></div><div class="entry-content" lang="%(lang)s">%(content)s</div><div class="article-ending"><span aria-hidden="true">✳</span><nav class="post-threads" aria-label="This post’s threads">%(cats)s</nav></div></article>
 <section class="author-note"><span class="author-initial" aria-hidden="true">H</span><div><h2>Written by %(author)s</h2><p>I’ve been keeping these pages since 2008. Some posts are trips, some are poems, most are just life.</p><a class="text-link" href="%(about)s">A little about me →</a></div></section>
 %(comments)s<section class="next-pages"><h2 class="label">STAY A LITTLE LONGER</h2><nav class="post-nav" aria-label="More posts">%(nav)s</nav></section></main>''' % {
@@ -505,10 +540,10 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             'title': esc(html.unescape(p['title'])), 'author': esc(self.site.get('author', 'Harsh')),
             'iso': p['date'].isoformat(), 'date': fmt_date(p['date'], 'long'), 'reading': self.reading(p),
             'content': render_body(p['raw'], self.site, self.base), 'cats': cats, 'about': self.u('/about/'),
-            'comments': self.comments_html(p), 'nav': nav}
+            'comments': self.comments_html(p), 'nav': nav, 'share': self.share_controls(p, image)}
         desc = html.unescape(p.setdefault('excerpt_html', excerpt_of(p)))[:300]
         self.write(p['path'], self.page(p['path'], '%s – %s' % (p['title'], self.site['title']), body,
-                   body_class='single single-post', description=desc, singular=True, og_type='article'))
+                   body_class='single single-post', description=desc, singular=True, og_type='article', social_image=image, social_alt=image_alt))
 
     # ---- everything
 
