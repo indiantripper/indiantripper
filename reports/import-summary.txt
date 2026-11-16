@@ -1,0 +1,16 @@
+Import summary
+==============
+Published posts written:            376
+Comments written:                   2454 (on 250 posts)
+Pingbacks/trackbacks left out:      49
+Unapproved/trashed comments left out: 3
+
+Kept private (outside the repo, in /Users/harshsingh/Documents/indiantripper-migration/private):
+  drafts:                 57
+  password-protected:     0
+  trashed:                4
+  pages (incl. drafts):   6
+
+Posts with Word leftovers cleaned:  2
+Posts whose featured image is lost: 36
+Image tags listed in images.csv:    617

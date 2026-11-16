@@ -1,0 +1,25 @@
+{
+  "title": "Time Turner",
+  "description": "Stories from My Life",
+  "site_url": "https://indiantripper.in",
+  "language": "en-US",
+  "author": "Harsh",
+  "posts_per_page": 10,
+  "menu": [
+    "travel",
+    "books-and-movies",
+    "nitie-2",
+    "pets-2",
+    "life-and-philosophy",
+    "poem-humor-fiction"
+  ],
+  "eyebrow": "Stories from my life 🌱 · since June 2008",
+  "show_headline": false,
+  "headline": "Turn back <span>the hourglass.</span>",
+  "intro": "Trips, college days at NITIE, pets, books, and a lot of Hindi scribbles. Written by Harsh, one post at a time.",
+  "random_label": "Read a random story",
+  "about_title": "Hi, I'm Harsh",
+  "about": "I started this blog in 2008 and it has followed me through college, NITIE, new cities and a few pets. Some posts are trips, some are poems, most are just life.",
+  "about_photo": "",
+  "comment_author_links": false
+}

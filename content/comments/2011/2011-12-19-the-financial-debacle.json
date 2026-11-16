@@ -1,0 +1,56 @@
+[
+ {
+  "id": 2308,
+  "parent": 0,
+  "author": "Latha",
+  "url": "http://www.optimistsoul.com",
+  "date": "2011-12-19 14:19:41",
+  "by_site_author": false,
+  "content": "You climbing up??? That's ok.. Very soon you would enjoy the ride down!  :smile:"
+ },
+ {
+  "id": 2309,
+  "parent": 2308,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2011-12-19 20:21:11",
+  "by_site_author": true,
+  "content": "coz everything balances itself .. sooner or later ... The ultimate Law of Equilibrium ... B-)"
+ },
+ {
+  "id": 2310,
+  "parent": 0,
+  "author": "Gayatri",
+  "url": "http://www.doubleexpat.blogspot.com",
+  "date": "2011-12-20 04:16:12",
+  "by_site_author": false,
+  "content": "Ohhh no! It happens to the best of us. Your luck will be back! And whenever I read \"Mango Man\", it always makes me laugh!"
+ },
+ {
+  "id": 2311,
+  "parent": 0,
+  "author": "scorpria",
+  "url": "http://alphabetworld.wordpress.com",
+  "date": "2011-12-20 08:43:51",
+  "by_site_author": false,
+  "content": "Hehe...dont fret...for every bad is followed by a good too ;)\nHope the good rushes to meet you ;)"
+ },
+ {
+  "id": 2312,
+  "parent": 2310,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2011-12-20 18:30:48",
+  "by_site_author": true,
+  "content": "hey .. I just hope that it gets back to aid me, sooner than later :) .. Mango Man, to me, sounds somewhere on the lines of Monkey Man or something like that :P :P"
+ },
+ {
+  "id": 2313,
+  "parent": 2311,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2011-12-20 18:32:14",
+  "by_site_author": true,
+  "content": "I too hope for the same ... As Corporate Finance says \"Market has no memory\" and \"There is no profit/loss unless it is realized\" :P ;)"
+ }
+]

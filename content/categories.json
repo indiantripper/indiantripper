@@ -1,0 +1,57 @@
+[
+ {
+  "slug": "nitie-2",
+  "name": "NITIE",
+  "description": ""
+ },
+ {
+  "slug": "books-and-movies",
+  "name": "किताबें",
+  "description": ""
+ },
+ {
+  "slug": "college-2",
+  "name": "कॉलेज के दिन",
+  "description": ""
+ },
+ {
+  "slug": "sports",
+  "name": "खेल",
+  "description": ""
+ },
+ {
+  "slug": "life-and-philosophy",
+  "name": "ज़िंदगी के किस्से",
+  "description": ""
+ },
+ {
+  "slug": "cyber-world",
+  "name": "डिजिटल दुनिया",
+  "description": ""
+ },
+ {
+  "slug": "rambling",
+  "name": "दिल की बातें",
+  "description": ""
+ },
+ {
+  "slug": "pets-2",
+  "name": "पूंछ वाले दोस्त",
+  "description": ""
+ },
+ {
+  "slug": "poem-humor-fiction",
+  "name": "बेतरतीब ख्याल",
+  "description": ""
+ },
+ {
+  "slug": "uncategorized",
+  "name": "विविध",
+  "description": ""
+ },
+ {
+  "slug": "travel",
+  "name": "सफ़रनामा",
+  "description": ""
+ }
+]

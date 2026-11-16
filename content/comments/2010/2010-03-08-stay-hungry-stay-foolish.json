@@ -1,0 +1,56 @@
+[
+ {
+  "id": 1680,
+  "parent": 0,
+  "author": "Anu",
+  "url": "http://anubha-bhat.blogspot.com",
+  "date": "2010-03-09 18:16:58",
+  "by_site_author": false,
+  "content": "Hmm interesting :) We should indeed stop and ask ourselves what we want in life, and the answer will baffle us! Moreover, staying hungry is the same as wanting more things in life and pursuing them. It's the pursuit that keeps you going."
+ },
+ {
+  "id": 1681,
+  "parent": 1680,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2010-03-10 10:06:41",
+  "by_site_author": true,
+  "content": "the quest to satisfy one's hunger ... is life .... ;)"
+ },
+ {
+  "id": 1682,
+  "parent": 0,
+  "author": "Latha",
+  "url": "",
+  "date": "2010-03-11 16:02:18",
+  "by_site_author": false,
+  "content": "I am one of those who believe in Destiny rather than willpower. I am too scared to read these books.. what if I get motivated?? :P :D"
+ },
+ {
+  "id": 1683,
+  "parent": 0,
+  "author": "Rohit K Sureka",
+  "url": "",
+  "date": "2010-03-17 16:08:44",
+  "by_site_author": false,
+  "content": "Nice post..deserve to be voted..........."
+ },
+ {
+  "id": 1684,
+  "parent": 1682,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2010-03-18 17:34:15",
+  "by_site_author": true,
+  "content": ":P"
+ },
+ {
+  "id": 1685,
+  "parent": 1683,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2010-03-18 17:35:27",
+  "by_site_author": true,
+  "content": "thnx Rohit ... :D"
+ }
+]

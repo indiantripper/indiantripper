@@ -1,0 +1,20 @@
+[
+ {
+  "id": 2493,
+  "parent": 0,
+  "author": "Avada Kedavra",
+  "url": "",
+  "date": "2014-08-14 06:43:49",
+  "by_site_author": false,
+  "content": "I love Gokarna. Have been there few times but would love to visit again. Beaches there are too good. But never tried any trails there. Looks like a fun trip. :)"
+ },
+ {
+  "id": 2494,
+  "parent": 2493,
+  "author": "Harsh",
+  "url": "",
+  "date": "2014-08-24 12:46:12",
+  "by_site_author": true,
+  "content": "Visited all the Sunset points? Most of them  are at the areas which are not reachable via road. Do give them a visit next time :)"
+ }
+]

@@ -1,0 +1,65 @@
+[
+ {
+  "id": 1990,
+  "parent": 0,
+  "author": "Latha",
+  "url": "",
+  "date": "2010-10-22 22:24:51",
+  "by_site_author": false,
+  "content": "Like @ Infinity!!!!  :grin:  Kya ji chota chethan bhagath???  :lol:"
+ },
+ {
+  "id": 1991,
+  "parent": 0,
+  "author": "Kiran",
+  "url": "http://kirantarun.com/blog",
+  "date": "2010-10-23 17:08:47",
+  "by_site_author": false,
+  "content": "Very poetic ;) What's the occasion?"
+ },
+ {
+  "id": 1992,
+  "parent": 0,
+  "author": "kanagu",
+  "url": "http://www.kanaguonline.wordpress.com",
+  "date": "2010-10-23 17:32:29",
+  "by_site_author": false,
+  "content": "what happened Harsh???"
+ },
+ {
+  "id": 1993,
+  "parent": 1991,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2010-10-23 19:31:15",
+  "by_site_author": true,
+  "content": "lol ... nothing in particular ... just a passing mood ;)"
+ },
+ {
+  "id": 1994,
+  "parent": 1992,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2010-10-23 19:31:51",
+  "by_site_author": true,
+  "content": "just trying a hand in philosophy :P"
+ },
+ {
+  "id": 1995,
+  "parent": 0,
+  "author": "Scorpria",
+  "url": "http://alphabetworld.wordpress.com",
+  "date": "2010-10-25 10:12:30",
+  "by_site_author": false,
+  "content": "Wha!????  :shock:"
+ },
+ {
+  "id": 1996,
+  "parent": 1995,
+  "author": "Harsh",
+  "url": "http://magicalharsh.com/",
+  "date": "2010-10-25 15:31:37",
+  "by_site_author": true,
+  "content": ":mrgreen: :mrgreen:"
+ }
+]
