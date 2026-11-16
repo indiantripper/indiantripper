@@ -341,7 +341,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 <title>%(title)s</title><meta name="description" content="%(description)s">
 %(robots)s<link rel="canonical" href="%(canonical)s">
 <meta property="og:site_name" content="%(site)s"><meta property="og:type" content="%(og_type)s"><meta property="og:title" content="%(title)s"><meta property="og:description" content="%(description)s"><meta property="og:url" content="%(canonical)s">
-<meta name="color-scheme" content="light dark"><link rel="alternate" type="application/rss+xml" title="%(site)s" href="%(feed)s">
+<link rel="icon" type="image/svg+xml" href="%(favicon)s"><meta name="color-scheme" content="light dark"><link rel="alternate" type="application/rss+xml" title="%(site)s" href="%(feed)s">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="%(fonts)s"><link rel="stylesheet" href="%(css)s">
 </head><body class="%(body_class)s"><a class="screen-reader-text" href="#content">Skip to content</a>
 <header class="site-header wrap"><a class="site-title" href="%(home)s" rel="home">%(site)s</a>
@@ -355,6 +355,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             'lang': esc(s.get('language', 'en-US')), 'base': esc(self.base), 'title': esc(html.unescape(title)),
             'description': esc(description), 'robots': robots, 'canonical': esc(self.canonical(path)),
             'site': esc(s['title']), 'og_type': og_type, 'feed': self.u('/feed.xml'), 'fonts': esc(FONTS),
+            'favicon': self.u('/favicon.svg') + '?v=sprout1',
             'css': self.u('/assets/style.css') + self.asset_v, 'js': self.u('/assets/theme.js') + self.asset_v,
             'body_class': body_class, 'home': self.u('/'), 'body': body, 'year': datetime.date.today().year,
             'threads': self.u('/threads/'), 'years': self.u('/years/'), 'about': self.u('/about/'),
