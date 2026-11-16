@@ -135,6 +135,8 @@ def render_body(raw, site, base):
     host = site['site_url'].split('//', 1)[1]
     # links to the blog's own address follow the current build (production or preview)
     body = re.sub(r'(href=["\'])https?://(?:www\.)?' + re.escape(host) + r'(?=[/"\'])', r'\1' + base, body)
+    if base:
+        body = re.sub(r'''(\b(?:src|poster)=["'])(/images/)''', lambda m: m.group(1) + base + m.group(2), body)
     body = re.sub(r'<img(?![^>]*\bloading=)', '<img loading="lazy"', body)
     return body
 

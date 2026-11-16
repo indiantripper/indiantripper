@@ -46,3 +46,28 @@ The moon/sun button changes appearance. The sliders button opens text size and p
 Only posts with existing comments show a discussion. New comments stay closed. Tags have no links or labels in the theme; old tag archive addresses are retained as unlisted, noindex compatibility pages.
 
 A preview build still uses `/indiantripper/`, `noindex`, and blocking robots.txt. Do not add a CNAME or switch DNS until the domain migration is approved.
+
+## Images that travel with the blog
+
+Store the web-sized copy of each image in `static/images/<year>/<post-slug>/`.
+For this post, the files are `static/images/2026/48-ghante-ka-din/rooftop.jpg`
+and `night-reading.jpg`. Refer to them in the post using a site-relative URL:
+
+    <figure>
+      <img src="/images/2026/48-ghante-ka-din/rooftop.jpg"
+           alt="Describe the image" width="1280" height="853">
+      <figcaption>Optional caption</figcaption>
+    </figure>
+
+The build copies `static/` into `docs/`. Preview builds add their path prefix to
+local image URLs automatically. Uploading a file only to `static/` on GitHub does
+not publish it: rebuild and commit `docs/` as well. Do not link images to GitHub
+raw-file URLs or temporary upload URLs.
+
+Keep full-resolution originals outside this public repository and publish
+compressed JPEG/WebP copies. The two illustrations for “48 घंटे का दिन” are
+roughly 300–350 KB each. To move hosts later, carry `content/`, `static/`, the
+builder and theme together, then rebuild. Keeping the `/images/` paths preserves
+the image links. Original artwork and generation prompts are saved separately
+in the task's `48-ghante-ka-din` review folder; only the small website copies
+are committed here. The post labels the pictures as AI-generated illustrations.
