@@ -1,10 +1,10 @@
 {
   "title": "Time Turner",
-  "description": "Stories from My Life",
+  "description": "Life, in my own words.",
   "site_url": "https://indiantripper.in",
   "language": "en-US",
   "author": "Harsh",
-  "posts_per_page": 10,
+  "posts_per_page": 6,
   "menu": [
     "travel",
     "books-and-movies",

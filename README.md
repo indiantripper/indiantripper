@@ -6,7 +6,7 @@ A static copy of the blog, built from plain files. No WordPress, no database.
 - `content/posts/<year>/` — one file per post. Top lines are the title, date, categories and tags; the rest is the post.
 - `content/comments/<year>/` — the old comments for each post. Comments are closed; these are display-only.
 - `content/site.json` — site title, menu, home page and About text.
-- `theme/` — the look (stylesheet and script from the Time Turner theme).
+- `theme/` — the open notebook stylesheet and reading-preference script.
 - `static/` — optional. Anything placed here is copied to the site as-is, e.g. `static/images/goa.jpg` appears at `/images/goa.jpg`.
 - `docs/` — the built site that GitHub Pages serves. Never edit it by hand; it is rebuilt each time.
 - `reports/` — import summary, a list of every image address in old posts, and the list of post addresses.
@@ -37,3 +37,12 @@ Then build, check the preview, commit and push.
 ## Keep out of this folder
 This repository is public. Drafts, password-protected posts and the backups live outside it
 (`../private` and `../backup`). Commenter email and IP addresses were never imported.
+
+## Open notebook theme
+The brand links home. Threads (`/threads/`) browses categories; Years (`/years/`) browses the dated archive. Each thread and year has its own paginated, directly linkable page. The language links filter stories within the selected thread or year.
+
+The moon/sun button changes appearance. The sliders button opens text size and thread label preferences (Hindi, English, or both). Preferences stay in that reader’s browser. English category labels are `name_en` in `content/categories.json`.
+
+Only posts with existing comments show a discussion. New comments stay closed. Tags have no links or labels in the theme; old tag archive addresses are retained as unlisted, noindex compatibility pages.
+
+A preview build still uses `/indiantripper/`, `noindex`, and blocking robots.txt. Do not add a CNAME or switch DNS until the domain migration is approved.
