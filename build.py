@@ -530,9 +530,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             self.single(i)
 
         # Compact notebook home; the brand is the home link.
-        intro = ('<section class="intro"><div class="intro-copy"><h1 lang="hi">कुछ बातें। <em lang="en">A few things.</em></h1><p>%s</p></div>'
-                 '<a class="notebook-mark" href="%s"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M24 3v42M3 24h42M9 9l30 30M9 39 39 9"/><circle cx="24" cy="24" r="15"/></svg><span>Hindi, English &amp; life.</span></a></section>'
-                 ) % (esc(s['description']), self.u('/about/'))
+        intro = '<section class="intro"><div class="intro-copy"><h1 lang="hi">कुछ बातें। <em lang="en">A few things.</em></h1><p>%s</p></div></section>' % esc(s['description'])
         home_title = '%s – %s' % (s['title'], s['description'])
         self.listing('/', posts, home_title, intro=intro, body_class='home blog')
         for lang, label in (('hi', 'हिंदी'), ('en', 'English')):
