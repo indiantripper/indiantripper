@@ -1,6 +1,6 @@
 # indiantripper.in (Time Turner)
 
-A static copy of the blog, built from plain files. No WordPress, no database.
+A static copy of the blog, built from plain files. No WordPress or content database. The browser editor saves back to this repository.
 
 ## What is where
 - `content/posts/<year>/` — one file per post. Top lines are the title, date, categories and tags; the rest is the post.
@@ -12,6 +12,13 @@ A static copy of the blog, built from plain files. No WordPress, no database.
 - `reports/` — import summary, a list of every image address in old posts, and the list of post addresses.
 
 ## Build
+Install the parser once in a local environment:
+
+    python3 -m venv .venv
+    .venv/bin/python -m pip install -r requirements.txt
+
+Use `.venv/bin/python` for the commands below (or activate the environment first).
+
     python3 build.py                 # production build for https://indiantripper.in
     python3 build.py --serve         # preview on this Mac at http://localhost:8000
     python3 build.py --preview /REPO # build for https://USER.github.io/REPO/ (hidden from search engines)
@@ -91,3 +98,41 @@ metadata are included in the static HTML. Messaging apps decide how to display
 and cache previews; their crawler must be able to access the page and image.
 Native Web Share and clipboard APIs require a secure context; the page keeps
 WhatsApp, a manual/legacy copy fallback, and Save image available without them.
+
+## Write and publish in the browser
+
+Open https://indiantripper.in/admin/ or the secure editor directly:
+https://app.pagescms.org/indiantripper/indiantripper/main/collection/posts
+
+1. Sign in with the `indiantripper` GitHub account.
+2. In **Posts**, open an existing post or choose **New entry**.
+3. Fill in the title, date and Threads. Write or paste into **Your post**.
+4. Use the image tool to upload photos inside the article. **Share cover** picks
+   the preview image shown when a link is shared. Uploaded images stay under
+   `static/images/`, with public URLs under `/images/`.
+5. **Save** publishes immediately. Wait for the **Publish blog** run to finish,
+   then reload the blog. No local build or terminal commands are required.
+
+This is a public repository. Saved post text and uploaded images are public,
+including old versions in Git history. This setup deliberately has no draft
+status. Keep unfinished writing outside this editor until ready to publish.
+The editor's rich-text view previews formatting; its Source tab is optional.
+
+GitHub Pages now deploys the artifact produced by
+`.github/workflows/publish.yml`, rather than serving the checked-in `docs/`
+folder directly. Editor commits trigger the Python build automatically. The
+last successful deployment stays live if a later build fails. `docs/` is a
+local build output/snapshot; rebuild from `content/`, `static/` and `theme/`
+when migrating or testing locally. Do not manually publish a stale `docs/`.
+
+The one-time Pages CMS GitHub App installation must be restricted to
+`indiantripper/indiantripper`. No access to `gitagraph.com` or other repositories
+is needed. No GitHub token is embedded in the website.
+
+The editor accepts HTML bodies and YAML frontmatter, including list-valued
+Threads, quoted titles, multiline summaries and dates. All legacy post bodies,
+IDs, addresses and comments are preserved. Existing paths and IDs stay hidden
+and read-only in the editor; unknown frontmatter (such as old tags) is preserved.
+Filenames are generated only when a post is created, with a timestamp to avoid
+collisions for Hindi titles. Renaming files is disabled so title/date edits do
+not change a post's address.

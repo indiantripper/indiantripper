@@ -6,10 +6,24 @@
                                           https://USER.github.io/repo-name/ (hidden from search engines)
     python3 build.py --serve              build, then preview at http://localhost:8000
 
-Only the Python standard library is used.
+Install the frontmatter parser with: python3 -m pip install -r requirements.txt
 """
 import argparse, datetime, hashlib, html, json, os, re, shutil, sys
 from urllib.parse import quote, unquote
+try:
+    import yaml
+except ImportError:
+    raise SystemExit("Install build dependencies first: python3 -m pip install -r requirements.txt")
+
+class ContentLoader(yaml.SafeLoader):
+    """CMS YAML uses strings for dates and words such as Yes/No."""
+
+ContentLoader.yaml_implicit_resolvers = {
+    key: [(tag, regex) for tag, regex in entries
+          if tag not in ('tag:yaml.org,2002:bool', 'tag:yaml.org,2002:timestamp')]
+    for key, entries in yaml.SafeLoader.yaml_implicit_resolvers.items()
+}
+
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 CONTENT = os.path.join(ROOT, 'content')
@@ -183,14 +197,28 @@ def plural(n, word):
 # ---------------------------------------------------------------- loading
 
 def parse_file(path):
-    text = open(path, encoding='utf-8').read().replace('\r\n', '\n')
+    with open(path, encoding='utf-8') as source:
+        text = source.read().replace('\r\n', '\n')
     meta = {}
     if text.startswith('---\n'):
-        head, _, body = text[4:].partition('\n---\n')
-        for line in head.split('\n'):
-            if ':' in line:
-                k, v = line.split(':', 1)
-                meta[k.strip().lower()] = v.strip()
+        head, separator, body = text[4:].partition('\n---\n')
+        if not separator:
+            raise ValueError('missing closing frontmatter delimiter')
+        values = yaml.load(head, Loader=ContentLoader) or {}
+        if not isinstance(values, dict):
+            raise ValueError('frontmatter must be a mapping')
+        for key, value in values.items():
+            if isinstance(value, list):
+                if any(isinstance(item, (dict, list)) for item in value):
+                    raise ValueError('frontmatter lists must contain simple values')
+                value = ', '.join(str(item) for item in value)
+            elif isinstance(value, datetime.datetime):
+                value = value.strftime('%Y-%m-%d %H:%M:%S')
+            elif isinstance(value, datetime.date):
+                value = value.isoformat()
+            elif isinstance(value, dict):
+                raise ValueError('nested frontmatter objects are not supported')
+            meta[str(key).lower()] = '' if value is None else str(value)
     else:
         body = text
     return meta, body.lstrip('\n')
@@ -204,7 +232,11 @@ def load(site):
             if not f.endswith(('.html', '.txt', '.md')):
                 continue
             full = os.path.join(dirpath, f)
-            meta, raw = parse_file(full)
+            try:
+                meta, raw = parse_file(full)
+            except (ValueError, yaml.YAMLError) as error:
+                problems.append('%s: invalid frontmatter: %s' % (f, error))
+                continue
             if meta.get('status', 'publish').lower() not in ('publish', 'published'):
                 continue
             stem = os.path.splitext(f)[0]
@@ -218,20 +250,25 @@ def load(site):
             if not meta.get('title'):
                 problems.append('%s: missing "title:" line' % f)
                 continue
-            slug = meta.get('slug') or re.sub(r'^\d{4}-\d{2}-\d{2}-', '', stem).strip().lower().replace(' ', '-')
-            path = meta.get('path') or '/%04d/%02d/%02d/%s/' % (d.year, d.month, d.day, quote(slug, safe='-_.~').lower())
+            slug = meta.get('slug') or re.sub(r'^\d{4}-\d{2}-\d{2}-', '', stem).strip().lower().replace(' ', '-').strip('-')
+            # CMS filenames keep the creation date, so editing a title or publish date
+            # does not change the address. Existing explicit paths always take precedence.
+            url_date = d
+            if not meta.get('path') and re.match(r'^\d{4}-\d{2}-\d{2}-', stem):
+                url_date = datetime.datetime.strptime(stem[:10], '%Y-%m-%d')
+            path = meta.get('path') or '/%04d/%02d/%02d/%s/' % (url_date.year, url_date.month, url_date.day, quote(slug, safe='-_.~').lower())
             if not path.endswith('/'):
                 path += '/'
             cfile = os.path.join(CONTENT, 'comments', os.path.relpath(dirpath, pdir), stem + '.json')
             comments = json.load(open(cfile, encoding='utf-8')) if os.path.exists(cfile) else []
             posts.append({
-                'title': meta['title'], 'date': d, 'path': path, 'id': meta.get('id', ''), 'raw': raw,
+                'title': meta['title'], 'date': d, 'path': path, 'id': meta.get('id') or hashlib.sha1(path.encode('utf-8')).hexdigest()[:12], 'raw': raw,
                 'excerpt': meta.get('excerpt', ''),
                 'image': meta.get('image', ''), 'image_alt': meta.get('image_alt', ''),
                 'cats': [c.strip() for c in meta.get('categories', '').split(',') if c.strip()],
                 'tags': [c.strip() for c in meta.get('tags', '').split(',') if c.strip()],
                 'comments': comments, 'file': f,
-                'lang': 'hi' if is_hindi(meta['title']) else 'en',
+                'lang': meta['language'] if meta.get('language') in ('hi', 'en') else 'hi' if is_hindi(meta['title']) else 'en',
             })
     posts.sort(key=lambda p: (p['date'], p['id'].zfill(9)), reverse=True)
     seen = {}
