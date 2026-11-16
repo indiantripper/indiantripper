@@ -14,15 +14,15 @@
   applyTheme();
   if (themeButton) themeButton.addEventListener('click', function () { theme = theme === 'dark' ? 'light' : 'dark'; store('tt-theme', theme); applyTheme(); });
   if (system.addEventListener) system.addEventListener('change', function (e) { if (!read('tt-theme')) { theme = e.matches ? 'dark' : 'light'; applyTheme(); } });
-  var fs = Number(read('tt-fs')) || 18, buttons = document.querySelectorAll('[data-tt-size]');
+  var fs = Number(read('tt-fs-v2')) || 21, buttons = document.querySelectorAll('[data-tt-size]');
   function applySize() {
-    fs = Math.max(16, Math.min(24, fs)); root.style.setProperty('--fs', fs + 'px');
-    buttons.forEach(function (b) { b.disabled = Number(b.dataset.ttSize) < 0 ? fs <= 16 : fs >= 24; });
+    fs = Math.max(19, Math.min(27, fs)); root.style.setProperty('--fs', fs + 'px');
+    buttons.forEach(function (b) { b.disabled = Number(b.dataset.ttSize) < 0 ? fs <= 19 : fs >= 27; });
   }
   applySize();
-  buttons.forEach(function (b) { b.addEventListener('click', function () { fs += Number(b.dataset.ttSize); applySize(); store('tt-fs', fs); }); });
-  var labels = document.getElementById('tt-labels');
-  if (labels) { labels.value = root.dataset.labels || 'both'; labels.addEventListener('change', function () { root.dataset.labels = labels.value; store('tt-labels', labels.value); }); }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { fs += Number(b.dataset.ttSize); applySize(); store('tt-fs-v2', fs); }); });
+  var storyLanguage = document.getElementById('tt-story-language');
+  if (storyLanguage) storyLanguage.addEventListener('change', function () { location.assign(storyLanguage.value); });
   var preferences = document.querySelector('.preferences');
   if (preferences) {
     document.addEventListener('click', function (e) { if (!preferences.contains(e.target)) preferences.open = false; });

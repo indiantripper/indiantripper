@@ -319,10 +319,12 @@ class Site:
                           '<div><p>College days. New cities. Long walks.<br>A few pets, and a lot of passing thoughts.</p><div class="year-links">%s</div>'
                           '<a class="text-link" href="%s">Wander through the years →</a></div></section>') % (links, self.u('/years/'))
 
-    def page(self, path, title, body, body_class='', description='', singular=False, noindex=False, og_type='website'):
+    def page(self, path, title, body, body_class='', description='', singular=False, noindex=False, og_type='website', story_filter=None):
         s = self.site
         description = description or s['description']
         robots = '<meta name="robots" content="noindex, nofollow">\n' if (noindex or self.preview) else ''
+        if story_filter is None:
+            story_filter = self.story_language_control('/')
         icons = {
             'moon': '<path d="M20 15A8 8 0 0 1 9 4a8 8 0 1 0 11 11Z"/>',
             'sun': '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>',
@@ -332,9 +334,9 @@ class Site:
         icon = lambda name: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">%s</svg>' % icons[name]
         selected = lambda match: ' aria-current="page"' if match else ''
         return '''<!doctype html>
-<html lang="%(lang)s" data-base="%(base)s" data-labels="both">
+<html lang="%(lang)s" data-base="%(base)s">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<script>try{var t=localStorage.getItem('tt-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;var f=Number(localStorage.getItem('tt-fs'));if(f>=16&&f<=24)document.documentElement.style.setProperty('--fs',f+'px');var l=localStorage.getItem('tt-labels');if(['hi','en','both'].includes(l))document.documentElement.dataset.labels=l;}catch(e){}
+<script>try{var t=localStorage.getItem('tt-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;var f=Number(localStorage.getItem('tt-fs-v2'));if(f>=19&&f<=27)document.documentElement.style.setProperty('--fs',f+'px');}catch(e){}
 document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='IMG'){i.classList.add('img-missing');var f=i.closest('figure,.wp-caption');if(f)f.classList.add('media-missing');}},true);</script>
 <title>%(title)s</title><meta name="description" content="%(description)s">
 %(robots)s<link rel="canonical" href="%(canonical)s">
@@ -346,7 +348,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 <nav class="main-nav" aria-label="Main"><a href="%(threads)s"%(threads_current)s>Threads</a><a href="%(years)s"%(years_current)s><span class="nav-long">Through the years</span><span class="nav-short">Years</span></a>
 <a class="icon-btn profile-link" href="%(about)s" aria-label="About Harsh">%(user_icon)s</a><a class="icon-btn" href="%(search)s" aria-label="Search the notebook">%(search_icon)s</a>
 <button class="icon-btn" id="tt-theme" aria-label="Switch light or dark mode"><span class="theme-dark">%(moon)s</span><span class="theme-light">%(sun)s</span></button>
-<details class="preferences"><summary class="icon-btn" aria-label="Text and thread display settings">%(settings_icon)s</summary><div class="preferences-panel"><h2>Reading comfort</h2><div class="preference-row"><span>Text size</span><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div></div><label class="preference-row"><span>Thread names</span><select id="tt-labels"><option value="hi">हिंदी</option><option value="en">English</option><option value="both" selected>हिंदी + English</option></select></label></div></details></nav></header>
+<details class="preferences"><summary class="icon-btn" aria-label="Reading controls">%(settings_icon)s</summary><div class="preferences-panel"><h2>Reading comfort</h2><div class="preference-row"><span>Text size</span><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div></div>%(story_filter)s</div></details></nav></header>
 <div id="content">%(body)s</div>
 <footer class="wrap site-footer"><div><a class="footer-title" href="%(home)s">%(site)s</a><p>Somewhere between a memory and a thought.</p></div><nav aria-label="Footer"><a href="%(threads)s">Threads</a><a href="%(years)s">The years</a><a href="%(about)s">About</a><a href="%(random)s">Surprise me</a><a href="%(feed)s">RSS</a><span>© %(year)s Harsh</span></nav></footer>
 <div class="toast" id="tt-toast" role="status" aria-live="polite"></div><script src="%(js)s" defer></script></body></html>''' % {
@@ -360,7 +362,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             'threads_current': selected(path.startswith(('/threads/', '/category/'))),
             'years_current': selected(path.startswith('/years/') or re.match(r'^/\d{4}/', path)),
             'user_icon': icon('user'), 'search_icon': icon('search'), 'moon': icon('moon'), 'sun': icon('sun'),
-            'settings_icon': icon('settings')}
+            'settings_icon': icon('settings'), 'story_filter': story_filter}
 
     def search_form(self):
         return ('<form role="search" method="get" class="search-form" action="%s"><label>'
@@ -414,6 +416,13 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             out.append('<a class="next page-numbers" href="%s">Older →</a>' % link(cur + 1))
         return '<nav class="navigation pagination" aria-label="Posts"><div class="nav-links">%s</div></nav>' % '\n'.join(out)
 
+    def story_language_control(self, root, lang=''):
+        options = ''.join('<option value="%s"%s>%s</option>' % (
+            self.u(root if not code else root + 'lang/%s/' % code),
+            ' selected' if lang == code else '', label)
+            for code, label in [('', 'All languages'), ('hi', 'हिंदी'), ('en', 'English')])
+        return '<label class="preference-row"><span>Post language</span><select id="tt-story-language">%s</select></label>' % options
+
     def listing(self, base_path, posts, title, intro='', lang='', current_cat='', noindex=False, body_class='archive'):
         per = int(self.site.get('posts_per_page', 10))
         total = max(1, -(-len(posts) // per))
@@ -422,24 +431,20 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
         side = self.category_navigation(current_cat) if current_cat else self.year_navigation(current_year) if current_year else ''
         root = '/category/%s/' % current_cat if current_cat else '/%s/' % current_year if current_year else '/'
         is_home = body_class == 'home blog'
-        language_links = '<nav class="seg" aria-label="Story language">%s</nav>' % ''.join(
-            '<a href="%s"%s%s>%s</a>' % (self.u(root if not code else root + 'lang/%s/' % code),
-            ' aria-current="page"' if lang == code else '', ' lang="hi"' if code == 'hi' else '', label)
-            for code, label in [('', 'Both'), ('hi', 'हिंदी'), ('en', 'English')])
         for n in range(1, total + 1):
             chunk = posts[(n - 1) * per:n * per]
             rows = ''.join(self.row(p) for p in chunk) or '<p class="empty">No stories here yet. Try another thread or language.</p>'
             path = base_path if n == 1 else '%spage/%d/' % (base_path, n)
             heading = self.category_label(current_cat) if current_cat else current_year
             hub_heading = '<h2 class="hub-title">%s</h2><p class="hub-count">%s · newest first</p>' % (heading, plural(len(posts), 'page')) if side else ''
-            filters = '<div class="list-toolbar"><h2 class="label">%s</h2>%s</div>' % ('RECENT PAGES' if is_home else 'THE PAGES', language_links)
+            filters = '<div class="list-toolbar"><h2 class="label">%s</h2></div>' % ('Recent pages' if is_home else 'The pages')
             content = '%s%s%s%s' % (hub_heading, filters, rows, self.pagination(base_path, n, total))
             if side:
                 content = '<div class="browse-layout">%s<div class="browse-posts">%s</div></div>' % (side, content)
             extras = self.home_extras() if is_home and n == 1 else ''
             body = '<main class="wrap notebook-list">%s%s%s</main>' % (intro if n == 1 or not is_home else '', content, extras)
             t = title if n == 1 else '%s – Page %d' % (title, n)
-            self.write(path, self.page(path, t, body, body_class=body_class, noindex=noindex))
+            self.write(path, self.page(path, t, body, body_class=body_class, noindex=noindex, story_filter=self.story_language_control(root, lang)))
 
     def archive_intro(self, label, heading, desc=''):
         d = '<div class="desc">%s</div>' % wpautop(desc) if desc else ''
@@ -524,7 +529,9 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             self.single(i)
 
         # Compact notebook home; the brand is the home link.
-        intro = '<section class="intro"><h1 lang="hi">कुछ बातें। <em lang="en">A few things.</em></h1><p>%s</p></section>' % esc(s['description'])
+        intro = ('<section class="intro"><div class="intro-copy"><h1 lang="hi">कुछ बातें। <em lang="en">A few things.</em></h1><p>%s</p></div>'
+                 '<a class="notebook-mark" href="%s"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M24 3v42M3 24h42M9 9l30 30M9 39 39 9"/><circle cx="24" cy="24" r="15"/></svg><span><strong>Harsh’s notebook</strong><br>Hindi, English &amp; life.</span></a></section>'
+                 ) % (esc(s['description']), self.u('/about/'))
         home_title = '%s – %s' % (s['title'], s['description'])
         self.listing('/', posts, home_title, intro=intro, body_class='home blog')
         for lang, label in (('hi', 'हिंदी'), ('en', 'English')):
