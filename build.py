@@ -292,6 +292,8 @@ class Site:
         tpath = os.path.join(CONTENT, 'tags.json')
         self.tag_name = json.load(open(tpath, encoding='utf-8')) if os.path.exists(tpath) else {}
         self.posts, self.problems = load(self.site)
+        counts = self.cat_counts()
+        self.cats.sort(key=lambda c: (-counts.get(c['slug'], 0), c['name'].casefold()))
         self.pages_written = 0
         self.asset_v = ''
 
@@ -322,13 +324,7 @@ class Site:
 
     def category_label(self, slug):
         c = next((c for c in self.cats if c['slug'] == slug), None)
-        hi = c['name'] if c else slug
-        en = c.get('name_en', hi) if c else slug
-        if hi == en:
-            return esc(hi)
-        return ('<span class="thread-label"><span class="label-hi" lang="hi">%s</span> '
-                '<span class="label-separator" aria-hidden="true">·</span> '
-                '<span class="label-en" lang="en">%s</span></span>') % (esc(hi), esc(en))
+        return esc(c.get('name_en') or c['name']) if c else esc(slug)
 
     def category_navigation(self, current):
         counts = self.cat_counts()
@@ -417,7 +413,8 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="%(fonts)s"><link rel="stylesheet" href="%(css)s">
 </head><body class="%(body_class)s"><a class="screen-reader-text" href="#content">Skip to content</a>
 <header class="site-header wrap"><a class="site-title" href="%(home)s" rel="home">%(site)s</a>
-<nav class="main-nav" aria-label="Main"><a href="%(threads)s"%(threads_current)s>Threads</a><a href="%(years)s"%(years_current)s><span class="nav-long">Through the years</span><span class="nav-short">Years</span></a>
+<nav class="main-nav" aria-label="Main"><a class="desktop-nav-link" href="%(threads)s"%(threads_current)s>Threads</a><a class="desktop-nav-link" href="%(years)s"%(years_current)s><span class="nav-long">Through the years</span><span class="nav-short">Years</span></a>
+<details class="mobile-menu"><summary class="icon-btn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary><nav class="mobile-menu-panel" aria-label="Explore"><a href="%(threads)s">Threads</a><a href="%(years)s">Through the years</a><a href="%(about)s">About Harsh</a></nav></details>
 <a class="icon-btn profile-link" href="%(about)s" aria-label="About Harsh">%(user_icon)s</a><a class="icon-btn" href="%(search)s" aria-label="Search the notebook">%(search_icon)s</a>
 <button class="icon-btn" id="tt-theme" aria-label="Switch light or dark mode"><span class="theme-dark">%(moon)s</span><span class="theme-light">%(sun)s</span></button>
 <details class="preferences"><summary class="icon-btn" aria-label="Reading controls">%(settings_icon)s</summary><div class="preferences-panel"><h2>Reading comfort</h2><div class="preference-row"><span>Text size</span><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div></div>%(story_filter)s</div></details></nav></header>
@@ -569,7 +566,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             nav += '<a href="%s"><span class="label">%s</span><h2 lang="%s">%s</h2></a>' % (
                 self.u(other['path']), label, other['lang'], esc(html.unescape(other['title']))) if other else '<span></span>'
         cats = ''.join('<a href="%s">%s</a>' % (self.u('/category/%s/' % c), self.category_label(c)) for c in p['cats'])
-        body = '''<main class="wrap reader"><div class="reader-tools"><a class="back" href="%(home)s">← Back to the notebook</a><div class="reader-actions"><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div>%(share)s</div></div>
+        body = '''<main class="wrap reader"><div class="reader-tools"><a class="back" href="%(home)s">← <span class="back-long">Back to the notebook</span><span class="back-short">Home</span></a><div class="reader-actions"><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div>%(share)s</div></div>
 <article id="post-%(id)s" class="single-entry post">%(cat)s<h1 class="entry-title" lang="%(lang)s">%(title)s</h1><div class="byline"><span class="author-initial" aria-hidden="true">H</span><div><span>%(author)s</span><time datetime="%(iso)s">%(date)s</time></div><span class="reading-time">%(reading)s</span></div><div class="entry-content" lang="%(lang)s">%(content)s</div><div class="article-ending"><span aria-hidden="true">✳</span><nav class="post-threads" aria-label="This post’s threads">%(cats)s</nav></div></article>
 <section class="author-note"><span class="author-initial" aria-hidden="true">H</span><div><h2>Written by %(author)s</h2><p>I’ve been keeping these pages since 2008. Some posts are trips, some are poems, most are just life.</p><a class="text-link" href="%(about)s">A little about me →</a></div></section>
 %(comments)s<section class="next-pages"><h2 class="label">STAY A LITTLE LONGER</h2><nav class="post-nav" aria-label="More posts">%(nav)s</nav></section></main>''' % {
@@ -612,7 +609,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
                          lang=lang, intro=self.archive_intro('The notebook', label), noindex=True)
         threads_intro = self.archive_intro('The notebook, by subject', 'Follow a thought.',
                                           'Places, poems, ordinary days. Find a thread to follow.')
-        first_thread = 'life-and-philosophy'
+        first_thread = next(c['slug'] for c in self.cats if self.cat_counts().get(c['slug']))
         self.listing('/threads/', [p for p in posts if first_thread in p['cats']], 'Threads – ' + s['title'],
                      intro=threads_intro, current_cat=first_thread)
         latest_year = posts[0]['date'].year

@@ -61,28 +61,28 @@ content:
       multiple: true
       min: 1
       values:
-      - name: nitie-2
-        label: NITIE
-      - name: books-and-movies
-        label: किताबें · Books & films
-      - name: college-2
-        label: कॉलेज के दिन · College days
-      - name: sports
-        label: खेल · Sports
-      - name: life-and-philosophy
-        label: ज़िंदगी के किस्से · Life & reflections
-      - name: cyber-world
-        label: डिजिटल दुनिया · Digital life
       - name: rambling
-        label: दिल की बातें · Personal thoughts
-      - name: pets-2
-        label: पूंछ वाले दोस्त · Animal companions
+        label: Passing Thoughts
+      - name: life-and-philosophy
+        label: Life & Reflections
+      - name: college-2
+        label: College Days
       - name: poem-humor-fiction
-        label: बेतरतीब ख्याल · Poems & musings
-      - name: uncategorized
-        label: विविध · Miscellany
+        label: Poems & Stories
       - name: travel
-        label: सफ़रनामा · Travels
+        label: Travels
+      - name: cyber-world
+        label: Digital Life
+      - name: books-and-movies
+        label: Books & Films
+      - name: nitie-2
+        label: NITIE Days
+      - name: sports
+        label: Sports
+      - name: uncategorized
+        label: Odds & Ends
+      - name: pets-2
+        label: Animal Friends
   - name: language
     label: Post language
     type: select

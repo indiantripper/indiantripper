@@ -28,6 +28,11 @@
     document.addEventListener('click', function (e) { if (!preferences.contains(e.target)) preferences.open = false; });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && preferences.open) { preferences.open = false; preferences.querySelector('summary').focus(); } });
   }
+  var mobileMenu = document.querySelector('.mobile-menu');
+  if (mobileMenu) {
+    document.addEventListener('click', function (e) { if (!mobileMenu.contains(e.target)) mobileMenu.open = false; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && mobileMenu.open) { mobileMenu.open = false; mobileMenu.querySelector('summary').focus(); } });
+  }
   var shareMenu = document.querySelector('.post-share');
   if (shareMenu) {
     var shareTitle = shareMenu.dataset.shareTitle, shareUrl = shareMenu.dataset.shareUrl;

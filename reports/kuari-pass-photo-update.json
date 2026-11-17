@@ -1,0 +1,72 @@
+{
+  "photos": [
+    {
+      "post": "kuari-pass",
+      "image": "/images/2025/kuari-pass/snowy-forest.jpg",
+      "width": 1280,
+      "height": 960
+    },
+    {
+      "post": "kuari-pass",
+      "image": "/images/2025/kuari-pass/himalayan-panorama.jpg",
+      "width": 1280,
+      "height": 960
+    },
+    {
+      "post": "kuari-pass",
+      "image": "/images/2025/kuari-pass/summit-flag.jpg",
+      "width": 960,
+      "height": 1280
+    },
+    {
+      "post": "kuari-pass",
+      "image": "/images/2025/kuari-pass/trail-companion.jpg",
+      "width": 960,
+      "height": 1280
+    },
+    {
+      "post": "har-ki-dun",
+      "image": "/images/travel/har-ki-dun-winter-trek/tripoto-1.jpg",
+      "source": "https://static2.tripoto.com/media/filter/nl/img/30339/TripDocument/10915001_10152675133908434_8923392649036679292_o.jpg",
+      "width": 1280,
+      "height": 853
+    },
+    {
+      "post": "har-ki-dun",
+      "image": "/images/travel/har-ki-dun-winter-trek/tripoto-2.jpg",
+      "source": "https://static2.tripoto.com/media/filter/nl/img/30339/TripDocument/10271170_10152675133493434_2369372477616797551_o.jpg",
+      "width": 1280,
+      "height": 853
+    },
+    {
+      "post": "har-ki-dun",
+      "image": "/images/travel/har-ki-dun-winter-trek/tripoto-3.jpg",
+      "source": "https://static2.tripoto.com/media/filter/nl/img/30339/TripDocument/10845834_10152675133283434_5786743524585207219_o.jpg",
+      "width": 1280,
+      "height": 834
+    },
+    {
+      "post": "har-ki-dun",
+      "image": "/images/travel/har-ki-dun-winter-trek/tripoto-4.jpg",
+      "source": "https://static2.tripoto.com/media/filter/nl/gen/30339/TripDocument/10258704_10152693381878434_4117484468935870241_n_2.jpg",
+      "width": 1280,
+      "height": 853
+    },
+    {
+      "post": "har-ki-dun",
+      "image": "/images/travel/har-ki-dun-winter-trek/tripoto-5.jpg",
+      "source": "https://static2.tripoto.com/media/filter/nl/img/30339/TripDocument/10679791_10152670998333434_4568413041291256033_o_2.jpg",
+      "width": 1280,
+      "height": 852
+    }
+  ],
+  "retired_empty_kuari_blocks": [
+    "<!-- wp:image {\"id\":4140,\"sizeSlug\":\"large\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image size-large\"><img src=\"https://indiantripper.in/wp-content/uploads/2025/03/1000085195-768x1024.jpg\" alt=\"\" class=\"wp-image-4140\"/></figure>\n<!-- /wp:image -->",
+    "<!-- wp:image {\"id\":4147,\"sizeSlug\":\"large\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image size-large\"><img src=\"https://indiantripper.in/wp-content/uploads/2025/03/IMG20241225102045-1024x768.jpg\" alt=\"\" class=\"wp-image-4147\"/></figure>\n<!-- /wp:image -->",
+    "<!-- wp:image {\"id\":4142,\"sizeSlug\":\"large\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image size-large\"><img src=\"https://indiantripper.in/wp-content/uploads/2025/03/IMG20241227193024-768x1024.jpg\" alt=\"\" class=\"wp-image-4142\"/></figure>\n<!-- /wp:image -->",
+    "<!-- wp:image {\"id\":4139,\"sizeSlug\":\"large\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image size-large\"><img src=\"https://indiantripper.in/wp-content/uploads/2025/03/IMG20241226094132-1024x768.jpg\" alt=\"\" class=\"wp-image-4139\"/></figure>\n<!-- /wp:image -->",
+    "<!-- wp:image {\"id\":4141,\"sizeSlug\":\"large\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image size-large\"><img src=\"https://indiantripper.in/wp-content/uploads/2025/03/IMG20241226094204-1024x768.jpg\" alt=\"\" class=\"wp-image-4141\"/></figure>\n<!-- /wp:image -->",
+    "<!-- wp:image {\"id\":4143,\"sizeSlug\":\"large\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image size-large\"><img src=\"https://indiantripper.in/wp-content/uploads/2025/03/IMG20241226112041-768x1024.jpg\" alt=\"\" class=\"wp-image-4143\"/></figure>\n<!-- /wp:image -->"
+  ],
+  "har_ki_dun_note": "Added five verified Tripoto-hosted photos as a gallery. Missing original campsite photo slots are not claimed restored."
+}
