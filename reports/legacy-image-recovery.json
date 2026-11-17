@@ -2377,9 +2377,27 @@
       "image": "/images/legacy/7b0d21b2ec97123fab6a.jpg",
       "download_source": "https://i.imgur.com/Qg022Gt.jpg",
       "sha256": "7b0d21b2ec97123fab6ab2a5a29ace811e9d9dbc588a95fcc0e3fdc7386b3709"
+    },
+    {
+      "post": "content/posts/2017/2017-04-19-magical-village-grahan.html",
+      "attribute": "src",
+      "original": "http://www.indiantripper.com/wp-content/uploads/2017/04/39.jpg",
+      "image": "/images/legacy/70b59b22990f9fb38a96.jpg",
+      "download_source": "https://static2.tripoto.com/media/filter/nl/img/30339/TripDocument/1489590933_img_20170312_082520725.jpg",
+      "sha256": "70b59b22990f9fb38a96a28663173dd33a0ea26f3e45f8bde2bdc93a581ccf05",
+      "matched_by": "exact caption: And the washroom :D"
+    },
+    {
+      "post": "content/posts/2017/2017-04-19-magical-village-grahan.html",
+      "attribute": "href",
+      "original": "http://www.indiantripper.com/wp-content/uploads/2017/04/39.jpg",
+      "image": "/images/legacy/70b59b22990f9fb38a96.jpg",
+      "download_source": "https://static2.tripoto.com/media/filter/nl/img/30339/TripDocument/1489590933_img_20170312_082520725.jpg",
+      "sha256": "70b59b22990f9fb38a96a28663173dd33a0ea26f3e45f8bde2bdc93a581ccf05",
+      "matched_by": "exact caption: And the washroom :D"
     }
   ],
-  "unique_files": 237,
+  "unique_files": 238,
   "note": "Only existing image URLs in HTML attributes changed. Visible text, metadata, and post addresses preserved. Old InfinityFree/custom-domain hosting was not fetched.",
   "markup_repairs": [
     {
