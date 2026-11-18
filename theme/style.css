@@ -104,3 +104,9 @@
  .browse-nav a[aria-current=page]{background:var(--soft)}.browse-layout{gap:14px;padding-top:12px}.trip-gallery{grid-template-columns:1fr;gap:16px}
 }
 @media(max-width:350px){.site-header.wrap{padding-inline:12px}.site-title{font-size:20px}.main-nav{gap:1px}.main-nav .icon-btn{width:30px}}
+
+/* Use consistent article photo widths and keep captions on the same measure. */
+.entry-content figure.wp-caption{float:none!important;width:100%!important;max-width:100%!important;margin-inline:auto!important}
+.entry-content figure.wp-caption>a{display:block;max-width:100%}
+.entry-content figure.wp-caption img{display:block;width:100%!important;height:auto!important;max-width:100%!important;margin-inline:auto}
+.entry-content figure.wp-caption>figcaption{width:100%;box-sizing:border-box;margin-inline:0;text-align:center}
