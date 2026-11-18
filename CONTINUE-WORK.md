@@ -55,6 +55,7 @@ To preview: `python build.py --serve`. Commit the source changes and push to `ma
 - Short `/read/.../` links serve the complete article with the original address canonical. Share controls use the short link; old links and archive entries stay intact.
 - `share_image` is an optional sharing-only override. Title cards should not become in-article illustrations or thumbnails. `image` and the first local post photo remain normal cover/thumbnail choices.
 - The approved प्रेत आत्माएं mosquito-net illustration is in the post and used in sharing. अंतिम ऋण has an approved Kumbhakarna/Vibhishana illustration.
+- वक्त now has an illustration of personified Time trapped in a spreadsheet cell, used in the article and sharing. The earlier वक्त title card is retained as an unused fallback asset.
 - Do not publish the deferred महाकाली, किताबें और दोस्ती or रात illustration experiments. No realistic invented likeness of Harsh.
 - Ignore Kalsubai photo recovery until a new instruction. Other image gaps and link-recovery reports are under `reports/`.
 - No messages, email, external accounts or DNS changes are needed for routine blog updates.
