@@ -106,7 +106,14 @@
 @media(max-width:350px){.site-header.wrap{padding-inline:12px}.site-title{font-size:20px}.main-nav{gap:1px}.main-nav .icon-btn{width:30px}}
 
 /* Use consistent article photo widths and keep captions on the same measure. */
-.entry-content figure.wp-caption{float:none!important;width:100%!important;max-width:100%!important;margin-inline:auto!important}
+.entry-content figure.wp-caption{float:none!important;width:min(100%,var(--image-width,100%))!important;max-width:100%!important;margin-inline:auto!important}
 .entry-content figure.wp-caption>a{display:block;max-width:100%}
 .entry-content figure.wp-caption img{display:block;width:100%!important;height:auto!important;max-width:100%!important;margin-inline:auto}
 .entry-content figure.wp-caption>figcaption{width:100%;box-sizing:border-box;margin-inline:0;text-align:center}
+/* Cover uncaptioned legacy images and block-editor figures as well. */
+.entry-content img:where(:not(.wp-smiley):not(.emoji)){float:none!important;display:block;width:auto!important;height:auto!important;max-width:100%!important;margin-inline:auto}
+.entry-content figure:has(img){float:none!important;width:min(100%,var(--image-width,100%))!important;max-width:100%!important;margin-inline:auto!important}
+.entry-content figure:has(img)>a{display:block;max-width:100%}
+.entry-content figure:has(img) img{display:block;width:100%!important;height:auto!important;max-width:100%!important;margin-inline:auto}
+.entry-content figure:has(img)>figcaption{width:100%;box-sizing:border-box;margin-inline:0;text-align:center}
+.entry-content img.wp-smiley,.entry-content img.emoji,.entry-content img[src*="/images/legacy/icon-"],.entry-content img[src*="/wp-includes/images/smilies/"]{display:inline;width:1em!important;height:1em!important;margin:0;vertical-align:-.1em}

@@ -136,6 +136,77 @@ def youtube_embed(m):
             'loading="lazy" allowfullscreen></iframe></figure>\n\n' % m.group(1))
 
 
+def local_image_width(src):
+    """Read local image headers so small originals are never enlarged to column width."""
+    path = unquote(src.split('?', 1)[0])
+    if not path.startswith('/images/'):
+        return None
+    static = os.path.realpath(os.path.join(ROOT, 'static'))
+    file = os.path.realpath(os.path.join(static, path.lstrip('/')))
+    if os.path.commonpath([static, file]) != static:
+        return None
+    try:
+        with open(file, 'rb') as stream:
+            data = stream.read()
+        if data.startswith(b'\x89PNG\r\n\x1a\n') and len(data) >= 24:
+            return int.from_bytes(data[16:20], 'big')
+        if data.startswith((b'GIF87a', b'GIF89a')) and len(data) >= 10:
+            return int.from_bytes(data[6:8], 'little')
+        if data.startswith(b'\xff\xd8'):
+            pos = 2
+            rotate = False
+            while pos + 4 <= len(data):
+                if data[pos] != 255:
+                    break
+                while pos < len(data) and data[pos] == 255:
+                    pos += 1
+                marker = data[pos]; pos += 1
+                if marker in (0xd8, 0x01) or 0xd0 <= marker <= 0xd7:
+                    continue
+                if marker in (0xd9, 0xda):
+                    break
+                length = int.from_bytes(data[pos:pos + 2], 'big')
+                if length < 2:
+                    break
+                if marker == 0xe1 and data[pos + 2:pos + 8] == b'Exif\0\0':
+                    tiff = pos + 8
+                    order = 'little' if data[tiff:tiff + 2] == b'II' else 'big'
+                    directory = tiff + int.from_bytes(data[tiff + 4:tiff + 8], order)
+                    count = int.from_bytes(data[directory:directory + 2], order)
+                    for entry in range(directory + 2, min(directory + 2 + count * 12, pos + length), 12):
+                        if int.from_bytes(data[entry:entry + 2], order) == 0x112:
+                            rotate = int.from_bytes(data[entry + 8:entry + 10], order) in (5, 6, 7, 8)
+                if marker in (0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf) and pos + 7 <= len(data):
+                    return int.from_bytes(data[pos + 3:pos + 5] if rotate else data[pos + 5:pos + 7], 'big')
+                pos += length
+        if data.startswith(b'RIFF') and data[8:12] == b'WEBP':
+            if data[12:16] == b'VP8X' and len(data) >= 30:
+                return 1 + int.from_bytes(data[24:27], 'little')
+            if data[12:16] == b'VP8L' and len(data) >= 25:
+                return 1 + (int.from_bytes(data[21:25], 'little') & 0x3fff)
+            if data[12:16] == b'VP8 ' and len(data) >= 30:
+                return int.from_bytes(data[26:28], 'little') & 0x3fff
+    except (OSError, IndexError, ValueError):
+        pass
+    return None
+
+
+def size_image_figure(match):
+    figure = match.group(0)
+    image = re.search(r'<img\b[^>]*\bsrc=([\"\'])(.*?)\1', figure, flags=re.S)
+    width = local_image_width(html.unescape(image.group(2))) if image else None
+    if not width:
+        return figure
+    tag = re.match(r'<figure\b[^>]*>', figure).group(0)
+    style = re.search(r'\bstyle=([\"\'])(.*?)\1', tag, flags=re.S)
+    rule = '--image-width:%spx;' % width
+    if style:
+        updated = tag[:style.start(2)] + style.group(2).rstrip(';') + ';' + rule + tag[style.end(2):]
+    else:
+        updated = tag[:-1] + ' style="' + rule + '">'
+    return updated + figure[len(tag):]
+
+
 def render_body(raw, site, base):
     body = raw
     body = re.sub(r'\[caption([^\]]*)\](.*?)\[/caption\]', caption_html, body, flags=re.S)
@@ -146,6 +217,7 @@ def render_body(raw, site, base):
         body = re.sub(r'<!--\s*/?wp:.*?-->', '', body, flags=re.S)
     else:
         body = wpautop(body)
+    body = re.sub(r'<figure\b[^>]*>.*?</figure>', size_image_figure, body, flags=re.S)
     host = site['site_url'].split('//', 1)[1]
     # links to the blog's own address follow the current build (production or preview)
     body = re.sub(r'(href=["\'])https?://(?:www\.)?' + re.escape(host) + r'(?=[/"\'])', r'\1' + base, body)
