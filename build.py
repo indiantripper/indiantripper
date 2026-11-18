@@ -378,6 +378,7 @@ def load(site):
                 'excerpt': meta.get('excerpt', ''),
                 'form': 'poem' if meta.get('form') == 'poem' else 'prose',
                 'image': meta.get('image', ''), 'image_alt': meta.get('image_alt', ''),
+                'share_image': meta.get('share_image', ''), 'share_slug': meta.get('share_slug', ''),
                 'cats': [c.strip() for c in meta.get('categories', '').split(',') if c.strip()],
                 'tags': [c.strip() for c in meta.get('tags', '').split(',') if c.strip()],
                 'comments': comments, 'file': f,
@@ -405,10 +406,38 @@ class Site:
         tpath = os.path.join(CONTENT, 'tags.json')
         self.tag_name = json.load(open(tpath, encoding='utf-8')) if os.path.exists(tpath) else {}
         self.posts, self.problems = load(self.site)
+        self.share_paths = self.load_share_paths()
         counts = self.cat_counts()
         self.cats.sort(key=lambda c: (-counts.get(c['slug'], 0), c['name'].casefold()))
         self.pages_written = 0
         self.asset_v = ''
+
+    def load_share_paths(self):
+        config = os.path.join(CONTENT, 'share-links.json')
+        slugs = {}
+        if os.path.exists(config):
+            with open(config, encoding='utf-8') as source:
+                slugs = json.load(source)
+        if not isinstance(slugs, dict):
+            raise ValueError('share-links.json must map post IDs to short slugs')
+        known = {p['id'] for p in self.posts}
+        unknown = set(slugs) - known
+        if unknown:
+            raise ValueError('Share links reference missing posts: ' + ', '.join(sorted(unknown)))
+        paths, used = {}, set()
+        originals = {unquote(p['path']).casefold() for p in self.posts}
+        for p in self.posts:
+            slug = p.get('share_slug') or slugs.get(p['id'], '')
+            if not slug:
+                continue
+            if not isinstance(slug, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', slug):
+                raise ValueError('Use lowercase Roman letters, numbers and hyphens for share_slug: ' + p['file'])
+            path = '/read/' + slug + '/'
+            if path in used or path.casefold() in originals:
+                raise ValueError('Duplicate share address: ' + path)
+            paths[p['id']] = path
+            used.add(path)
+        return paths
 
     def u(self, path):
         return self.base + path
@@ -469,19 +498,19 @@ class Site:
                           '<a class="text-link" href="%s">Wander through the years →</a></div></section>') % (links, self.u('/years/'))
 
     def post_image(self, post):
-        image = post.get('image', '')
+        image = post.get('share_image') or post.get('image', '')
         if not image:
             match = re.search(r'''<img\b[^>]*\bsrc=["'](/images/[^"']+)["']''', post['raw'])
             image = html.unescape(match.group(1)) if match else ''
         if image.startswith('/images/') and os.path.isfile(os.path.join(ROOT, 'static', image.lstrip('/'))):
             return image, post.get('image_alt') or html.unescape(post['title'])
-        if post.get('image'):
+        if post.get('share_image') or post.get('image'):
             self.problems.append('Missing local share image for %s: %s' % (post['file'], image))
         return '/images/share/time-turner.jpg', 'Time Turner — Stories from my life'
 
     def share_controls(self, post, image):
         title = html.unescape(post['title'])
-        url = self.canonical(post['path'])
+        url = self.canonical(self.share_paths.get(post['id'], post['path']))
         whatsapp = 'https://wa.me/?text=' + quote(title + '\n' + url, safe='')
         return ('<details class="post-share" data-share-title="%s" data-share-url="%s" data-share-image="%s">'
                 '<summary class="share-trigger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 13v7h16v-7"/></svg>Share</summary>'
@@ -664,7 +693,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             path = base_path if n == 1 else '%spage/%d/' % (base_path, n)
             heading = self.category_label(current_cat) if current_cat else current_year
             hub_heading = '<h2 class="hub-title">%s</h2><p class="hub-count">%s · newest first</p>' % (heading, plural(len(posts), 'page')) if side else ''
-            filters = '<div class="list-toolbar"><h2 class="label">%s</h2></div>' % ('Recent pages' if is_home else 'The pages')
+            filters = '<div class="list-toolbar"><h2 class="label">%s</h2></div>' % ('Recent posts' if is_home else 'The pages')
             content = '%s%s%s%s' % (hub_heading, filters, rows, self.pagination(base_path, n, total))
             if side:
                 content = '<div class="browse-layout">%s<div class="browse-posts">%s</div></div>' % (side, content)
@@ -732,8 +761,15 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             'content': render_body(p['raw'], self.site, self.base), 'cats': cats, 'about': self.u('/about/'),
             'comments': self.comments_html(p), 'nav': nav, 'share': self.share_controls(p, image)}
         desc = html.unescape(p.setdefault('excerpt_html', excerpt_of(p)))[:300]
-        self.write(p['path'], self.page(p['path'], '%s – %s' % (p['title'], self.site['title']), body,
+        title = '%s – %s' % (html.unescape(p['title']), self.site['title'])
+        self.write(p['path'], self.page(p['path'], title, body,
                    body_class='single single-post', description=desc, singular=True, og_type='article', social_image=image, social_alt=image_alt))
+        share_path = self.share_paths.get(p['id'])
+        if share_path:
+            # A full static article gives link-preview crawlers the same image and text
+            # without relying on JavaScript or a redirect. The historical URL stays canonical.
+            self.write(share_path, self.page(p['path'], title, body, noindex=True,
+                       body_class='single single-post', description=desc, singular=True, og_type='article', social_image=image, social_alt=image_alt))
 
     # ---- everything
 

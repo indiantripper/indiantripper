@@ -17,7 +17,7 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 ## For new readers
 
 - [ ] Consider a short author/context line beneath the title, retaining “Stories from my life 🌱” and the compact header. Do not restore the large author-introduction section previously removed.
-- [ ] Add clean Roman-script aliases for Hindi post links. Preserve every existing address and its content; do not break shared links or search results.
+- [x] Add clean Roman-script aliases for Hindi post links. Preserve every existing address and its content; do not break shared links or search results.
 - [ ] Continue selecting one appropriate share image per post where useful. Existing per-post sharing and preview metadata are already implemented.
 - [ ] Add optional audio players for poems after Harsh supplies recordings. A short recital can also be shared separately.
 
@@ -37,19 +37,19 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 
 ### Organisation and discovery
 
-- [ ] Audit Travels: remove non-travel film/college posts, make Travels the first label on genuine trip posts (including Har Ki Dun, Sandhan Valley, Kasol and Rajmachi), and add Hiking in the Rain. Preserve original addresses.
+- [x] Audit Travels: remove non-travel film/college posts, make Travels the first label on genuine trip posts (including Har Ki Dun, Sandhan Valley, Kasol and Rajmachi), and add Hiking in the Rain. Preserve original addresses.
 - [ ] Review Poems & Stories beyond the new verse metadata: reflective essays, the अंतर्द्वंद serial and three surviving Jeep & Bourbon group-story chapters need clearer routes into them.
 - [ ] Create an अंतर्द्वंद series page ordered parts 1–4 with previous/next chapter links.
 - [ ] Give Jeep & Bourbon an explanatory collection page and source context. Do not unlist historical posts without a separate decision.
 - [ ] Build a Monsoon collection: Meghalaya, both Malshej posts, Kalsubai, Rajmachi, #MumbaiRains and Hiking in the Rain.
 - [ ] Build Lucknow, then and now around the 2019 post and 48 घंटे का दिन. The user confirmed that Time Turner is inspired by Harry Potter; do not attribute the name's origin to Lucknow without evidence.
 - [ ] Build a Humour / हास्य collection around प्रेत आत्माएं, वक्त and similar deadpan Hindi prose.
-- [ ] Expand Animal Friends through a reading-based archive audit. A Tale of Two Kids and Village Trip, Animal Farm and Neelu are already members; identify other suitable posts.
+- [x] Expand Furry Friends through a reading-based archive audit. A Tale of Two Kids and Village Trip, Animal Farm and Neelu are already members; identify other suitable posts.
 
 ### Images, sharing and participation
 
 - [ ] Recover Lucknow's missing image, old filename Screenshot_20190505-21410601.png, using a supplied original or a suitable replacement.
-- [ ] Create individual share previews for strong text-only posts such as प्रेत आत्माएं, without identifiable stock-like portraits.
+- [x] Create individual share previews for all 13 Favourites: existing photos, an approved mosquito-net illustration for प्रेत आत्माएं, and five individual title cards for text-only posts. No identifiable stock-like portraits.
 - [ ] Review image positions in Rajmachi and A Tale of Two Kids where they interrupt a sentence.
 - [ ] Verify the source/licence of Rajmachi's firefly image and replace or credit it appropriately.
 - [ ] Check and attribute Kasol's song-lyric captions; verify sources before editing.
@@ -88,3 +88,13 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 - [x] Add Jojo & Friends to the Favourites animal section and make Furry Friends its primary thread, retaining Life & Reflections too.
 
 - [x] Add Har Ki Dun Winter Trek to Travel in Favourites, retaining all existing selections (13 selections total).
+
+## Completed — Threads and sharing, 18 November 2026
+
+- [x] Review Travels by reading context: remove six misplaced college/film entries, make genuine trips travel-first, add Hiking in the Rain, Monkeys on the Trail and both preserved Dharavi copies. Keep real local outings, even when they are college memories. Travels now has 34 posts. Changes and reasons: `reports/threads-cleanup.json`.
+- [x] Add six animal-centred pieces to Furry Friends: Khaao Khaao, My Little Friend, Monkeys on the Trail, The tree and the bird, मेरा मित्र गधा, and The Green Trail. Furry Friends now has 11 posts.
+- [x] Refile We shall overcome under Life & Reflections / Passing Thoughts.
+- [x] Add stable short share links for all 29 Hindi-titled posts and the eight remaining English Favourites. Retain every original post address.
+- [x] Add a generated boy/mosquito-net/ghost illustration to प्रेत आत्माएं and sharing. Keep the five typographic preview cards outside original article bodies.
+- [x] Rename the homepage heading to Recent posts.
+- [x] Save `CONTINUE-WORK.md` with Mac locations, repository access and instructions for another account/computer.

@@ -1,0 +1,412 @@
+{
+  "date": "2026-11-18",
+  "changes": [
+    {
+      "id": "4107",
+      "title": "मेरा मित्र गधा",
+      "path": "/2023/11/29/%e0%a4%ae%e0%a5%87%e0%a4%b0%e0%a4%be-%e0%a4%ae%e0%a4%bf%e0%a4%a4%e0%a5%8d%e0%a4%b0-%e0%a4%97%e0%a4%a7%e0%a4%be/",
+      "before": [
+        "poem-humor-fiction"
+      ],
+      "after": [
+        "pets-2",
+        "poem-humor-fiction"
+      ],
+      "reason": "Animals are the central subject, not an incidental mention; retain the original context too.",
+      "body_sha256": "baadc232ecd75faa90eb7224aa64922bdc9a99b6c58ea4da5b69ba62daaa748a"
+    },
+    {
+      "id": "4006",
+      "title": "Khaao Khaao",
+      "path": "/2023/03/18/khaao-khaao/",
+      "before": [
+        "life-and-philosophy"
+      ],
+      "after": [
+        "pets-2",
+        "life-and-philosophy"
+      ],
+      "reason": "Animals are the central subject, not an incidental mention; retain the original context too.",
+      "body_sha256": "96ed97367bc5daaa014214776169b87d2d80997e1fe0aa9620d5aaf34197ad96"
+    },
+    {
+      "id": "3562",
+      "title": "The Green Trail 🌳",
+      "path": "/2020/05/25/kasol/",
+      "before": [
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "pets-2"
+      ],
+      "reason": "Animals are the central subject, not an incidental mention; retain the original context too.",
+      "body_sha256": "f400a80961559aa42701889fe2da71df3231e26e735388bd6c3500791d2bf275"
+    },
+    {
+      "id": "3509",
+      "title": "Hiking in the Rain",
+      "path": "/2019/09/15/hiking-in-the-rain/",
+      "before": [
+        "life-and-philosophy"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy"
+      ],
+      "reason": "An actual hike or guided place visit missing from Travels. Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "a7d8f048d3ac5f66b11ca6382524e084e3ed2ce69e09329508eeb92b9d95bfc1"
+    },
+    {
+      "id": "3365",
+      "title": "Of Dreams & Mountains",
+      "path": "/2018/10/21/of-dreams-mountains/",
+      "before": [
+        "life-and-philosophy",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "9ddb87902ab7eead9a1292fb379053fa2631ca792064de511df5de7fa50e5aff"
+    },
+    {
+      "id": "3308",
+      "title": "Monkeys on the Trail",
+      "path": "/2018/07/07/monkeys-on-the-trail/",
+      "before": [
+        "life-and-philosophy"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy",
+        "pets-2"
+      ],
+      "reason": "An actual hike or guided place visit missing from Travels. Put Travels first on a genuine outing; retain other relevant memberships. Animals are the central subject, not an incidental mention; retain the original context too.",
+      "body_sha256": "22c21819104e24a87d4e156ec8e7aa2e152723a09f273aebccf8320296909d36"
+    },
+    {
+      "id": "3094",
+      "title": "Monachil to Granada",
+      "path": "/2017/09/26/monachil-to-granada/",
+      "before": [
+        "life-and-philosophy",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "ea6ec455ce20cc2524f1a4ee70eea68e9e6081a2332d69cf046812ee29913940"
+    },
+    {
+      "id": "3057",
+      "title": "The tree and the bird",
+      "path": "/2017/05/06/babool-tree-four-birds/",
+      "before": [
+        "life-and-philosophy"
+      ],
+      "after": [
+        "pets-2",
+        "life-and-philosophy"
+      ],
+      "reason": "Animals are the central subject, not an incidental mention; retain the original context too.",
+      "body_sha256": "f61440ad453d00d4451eecbdc2edba30816ba3bb5fd420c363fb09ce5f90693a"
+    },
+    {
+      "id": "2552",
+      "title": "Har Ki Dun Winter Trek",
+      "path": "/2015/01/07/har-ki-dun-winter-trek/",
+      "before": [
+        "life-and-philosophy",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "88f99c84ff928501bf6d6dfe8add29fa478502e8ccd5ac14bd9208c9516b46e0"
+    },
+    {
+      "id": "2513",
+      "title": "My Little Friend",
+      "path": "/2014/10/24/my-little-friend/",
+      "before": [
+        "life-and-philosophy",
+        "poem-humor-fiction"
+      ],
+      "after": [
+        "pets-2",
+        "life-and-philosophy",
+        "poem-humor-fiction"
+      ],
+      "reason": "Animals are the central subject, not an incidental mention; retain the original context too.",
+      "body_sha256": "acae394b23dbab0344ec6288930609912a50a937678b5d33c3e5bab3d796d641"
+    },
+    {
+      "id": "2311",
+      "title": "The Trippy Gokarna Trip",
+      "path": "/2014/07/29/trippy-gokarna-trip/",
+      "before": [
+        "nitie-2",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "nitie-2"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "7ffa7ee292923341c6285db2750c99158d5c3b6e8bafefeae30f473c585dd1d1"
+    },
+    {
+      "id": "2280",
+      "title": "Naagphani - Duke's Nose Trek",
+      "path": "/2014/07/05/naagphani-dukes-nose-trek/",
+      "before": [
+        "life-and-philosophy",
+        "rambling",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy",
+        "rambling"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "1e9c41e8222be3c9409677edff992bba837f389246f78624de47d61b3aef8e45"
+    },
+    {
+      "id": "2252",
+      "title": "Rajmachi Trek - The Night Expedition",
+      "path": "/2014/06/16/rajmachi-trek-night-expedition/",
+      "before": [
+        "life-and-philosophy",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "6654c09a2dddee596babd0153b65d5a0c9c203aa06469a8713abe1cb4244ec38"
+    },
+    {
+      "id": "2169",
+      "title": "On the Rocks - Sandhan Valley Trek",
+      "path": "/2014/03/24/rocks-sandhan-valley-trek/",
+      "before": [
+        "life-and-philosophy",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "27ed896ea1b8fcbff2dcde6a3a6a04edab619b334c67b7be4109b3d2b31af05a"
+    },
+    {
+      "id": "2156",
+      "title": "An Experience called \"Kasol\"",
+      "path": "/2014/03/19/kasol-experience/",
+      "before": [
+        "life-and-philosophy",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "b7912bbecb8ca60f8731041be3a279c1f91387ed426cdaca207d69702f1195f5"
+    },
+    {
+      "id": "2146",
+      "title": "We shall overcome",
+      "path": "/2014/01/16/we-shall-overcome/",
+      "before": [
+        "college-2",
+        "rambling"
+      ],
+      "after": [
+        "life-and-philosophy",
+        "rambling"
+      ],
+      "reason": "Post-college shared-flat life rather than a college event.",
+      "body_sha256": "071bfdd9994377f3d44391826e448085e5948629405a08ab7de6196364666589"
+    },
+    {
+      "id": "2138",
+      "title": "Bhutan - The Land of Thunder Dragon",
+      "path": "/2014/01/12/bhutan-travel-guide/",
+      "before": [
+        "nitie-2",
+        "college-2",
+        "life-and-philosophy",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "nitie-2",
+        "college-2",
+        "life-and-philosophy"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "9337077dc73c9b22430d7a19c21aa4487be288e1dbb4c1e01a6788e327d6fa78"
+    },
+    {
+      "id": "1928",
+      "title": "A spirit called \"Dharavi\"",
+      "path": "/2012/08/09/a-spirit-called-dharavi-2/",
+      "before": [
+        "life-and-philosophy",
+        "rambling"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy",
+        "rambling"
+      ],
+      "reason": "An actual hike or guided place visit missing from Travels. Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "4f8964423ce2a6538706948e90fa318e8212b7a8b87e8c7532676145ec9130c9"
+    },
+    {
+      "id": "254",
+      "title": "A spirit called Dharavi",
+      "path": "/2012/08/09/a-spirit-called-dharavi/",
+      "before": [
+        "life-and-philosophy"
+      ],
+      "after": [
+        "travel",
+        "life-and-philosophy"
+      ],
+      "reason": "An actual hike or guided place visit missing from Travels. Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "4f8964423ce2a6538706948e90fa318e8212b7a8b87e8c7532676145ec9130c9"
+    },
+    {
+      "id": "126",
+      "title": "Post Semester Report",
+      "path": "/2009/06/01/post-semester-report/",
+      "before": [
+        "college-2",
+        "cyber-world",
+        "travel"
+      ],
+      "after": [
+        "college-2",
+        "cyber-world"
+      ],
+      "reason": "A college update, food competition, or film discussion rather than a journey.",
+      "body_sha256": "52b7660ef95195930f3364d31d14309f4fc0f0f5cda6692d4171b8c7dd149545"
+    },
+    {
+      "id": "118",
+      "title": "The Golgappa Competition",
+      "path": "/2009/04/08/the-golgappa-competition/",
+      "before": [
+        "college-2",
+        "rambling",
+        "poem-humor-fiction",
+        "travel"
+      ],
+      "after": [
+        "college-2",
+        "rambling",
+        "poem-humor-fiction"
+      ],
+      "reason": "A college update, food competition, or film discussion rather than a journey.",
+      "body_sha256": "554d9b9806e3a4c6f453b83d884d6c38eb4dba08307718a667b551c2a7f0f8d4"
+    },
+    {
+      "id": "116",
+      "title": "Boyz Night Out",
+      "path": "/2009/03/28/boyz-night-out/",
+      "before": [
+        "college-2",
+        "rambling",
+        "travel"
+      ],
+      "after": [
+        "travel",
+        "college-2",
+        "rambling"
+      ],
+      "reason": "Put Travels first on a genuine outing; retain other relevant memberships.",
+      "body_sha256": "da3fdafe1b51f223b6bb4873a44b92f99bd88f62a6e2bf9e565342d03228d32c"
+    },
+    {
+      "id": "87",
+      "title": "Hurray !!! its weekend",
+      "path": "/2008/11/07/hurray-its-weekend/",
+      "before": [
+        "college-2",
+        "rambling",
+        "travel"
+      ],
+      "after": [
+        "college-2",
+        "rambling"
+      ],
+      "reason": "A college update, food competition, or film discussion rather than a journey.",
+      "body_sha256": "71f3437e340e81fa23e8ed240891151b0985289c2294b0a6e634b03fca84913e"
+    },
+    {
+      "id": "81",
+      "title": "3 of the most irritating hours of my life",
+      "path": "/2008/10/07/3-of-the-most-irritating-hours-of-my-life/",
+      "before": [
+        "books-and-movies",
+        "travel"
+      ],
+      "after": [
+        "books-and-movies"
+      ],
+      "reason": "A college update, food competition, or film discussion rather than a journey.",
+      "body_sha256": "7e1294a4bf2327b53b7e845d57e41f2c12b3589d4ec02549b60a66b87e6a5f94"
+    },
+    {
+      "id": "71",
+      "title": "08 . 08 . 08",
+      "path": "/2008/08/08/08-08-08/",
+      "before": [
+        "books-and-movies",
+        "life-and-philosophy",
+        "poem-humor-fiction",
+        "travel"
+      ],
+      "after": [
+        "books-and-movies",
+        "life-and-philosophy",
+        "poem-humor-fiction"
+      ],
+      "reason": "A college update, food competition, or film discussion rather than a journey.",
+      "body_sha256": "6df6e47e575a888d48516bc74cd19a300d0b5cd87942641c1a8f3400b251b283"
+    },
+    {
+      "id": "51",
+      "title": "Govinda Govinda Govinda Govinda Govindaaaa",
+      "path": "/2008/06/11/govinda-govinda-govinda-govinda-govindaaaa/",
+      "before": [
+        "books-and-movies",
+        "travel"
+      ],
+      "after": [
+        "books-and-movies"
+      ],
+      "reason": "A college update, food competition, or film discussion rather than a journey.",
+      "body_sha256": "04a2ca3007707107d0b1d7a2b1ce3705b2ffc3db6965c11bf936c79bb7ffc3a8"
+    }
+  ],
+  "travel_count": 34,
+  "furry_friends_count": 11,
+  "notes": [
+    "Both existing Dharavi copies remain published at their original addresses.",
+    "Local outings such as Boyz Night Out and A Hectic Day remain in Travels after reading their full text.",
+    "Travel writing with an incidental animal encounter is not automatically added to Furry Friends."
+  ]
+}

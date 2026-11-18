@@ -68,7 +68,7 @@ and `night-reading.jpg`. Refer to them in the post using a site-relative URL:
 
 The build copies `static/` into `docs/`. Preview builds add their path prefix to
 local image URLs automatically. Uploading a file only to `static/` on GitHub does
-not publish it: rebuild and commit `docs/` as well. Do not link images to GitHub
+not publish it until the automatic build succeeds. Commit and push the source image and post changes; do not commit generated `docs/`. Do not link images to GitHub
 raw-file URLs or temporary upload URLs.
 
 Keep full-resolution originals outside this public repository and publish
@@ -92,7 +92,9 @@ front-matter fields to choose the image explicitly:
     image_alt: A short description of the image
 
 Otherwise, the first local `/images/` picture in the post is used. Posts without
-one use `static/images/share/time-turner.jpg`. Old external pictures are not
+one use `static/images/share/time-turner.jpg`. Curated text-only Favourites can set
+`share_image` to an individual title card; this does not add it to the article
+or use it as a list thumbnail. Old external pictures are not
 selected automatically, since many are missing. Open Graph and large-image card
 metadata are included in the static HTML. Messaging apps decide how to display
 and cache previews; their crawler must be able to access the page and image.
@@ -136,3 +138,20 @@ and read-only in the editor; unknown frontmatter (such as old tags) is preserved
 Filenames are generated only when a post is created, with a timestamp to avoid
 collisions for Hindi titles. Renaming files is disabled so title/date edits do
 not change a post's address.
+
+## Continue from another account or computer
+
+Read [CONTINUE-WORK.md](CONTINUE-WORK.md) for the folder locations, account access,
+source map, current decisions and publishing checklist. All public source and
+web images are in this GitHub repository; the local migration backup and
+private writing are separate folders on the original Mac.
+
+## Short share links
+
+`content/share-links.json` maps existing post IDs to stable Roman-script slugs.
+A post can optionally set `share_slug: my-story`. Share controls use
+`/read/my-story/`; that address serves the complete article and social-preview
+metadata. The original historical address stays canonical, in archives and in
+the sitemap. Existing URLs are not renamed. Duplicate or unsafe share slugs
+fail the build rather than replacing an article. Keep these slugs stable once
+shared.

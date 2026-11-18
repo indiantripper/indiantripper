@@ -122,6 +122,14 @@ content:
       - png
       - webp
       rename: random
+  - name: share_image
+    label: Link preview override
+    type: image
+    description: Optional image used only in sharing, such as a title card. It is not added to the article.
+  - name: share_slug
+    label: Short share link
+    type: string
+    description: Optional stable short name using lowercase Roman letters, numbers and hyphens, for example pret-aatmaaye. Leave blank to retain the existing link.
   - name: image_alt
     label: Cover description
     type: string
