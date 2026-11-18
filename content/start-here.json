@@ -1,9 +1,9 @@
 {
-  "title": "Start here",
-  "description": "Begin with the ordinary: a mosquito net, an unhurried day, a conversation with time. Then follow a poem, a journey, or a page from college.",
+  "title": "Favourites",
+  "description": "A selection of personal stories, poems and journeys from Time Turner.",
   "groups": [
     {
-      "title": "Ordinary things, a straight face",
+      "title": "Everyday life",
       "posts": [
         {
           "post_id": "3791",
@@ -20,16 +20,24 @@
       ]
     },
     {
-      "title": "The animals we remember",
+      "title": "Furry Friends",
       "posts": [
         {
           "post_id": "2174",
           "note": "Kaalu disappears when college calls, returns whenever home does, and leaves one last surprise at the door."
+        },
+        {
+          "post_id": "2111",
+          "note": "A village visit, an animal farm, and a jet-black goat named Neelu who has forgotten an old friend."
+        },
+        {
+          "post_id": "4046",
+          "note": "Jojo the rabbit, aquarium companions, and a return to writing without overthinking it."
         }
       ]
     },
     {
-      "title": "Leave room for poetry",
+      "title": "Poems",
       "posts": [
         {
           "post_id": "4233",
@@ -42,7 +50,7 @@
       ]
     },
     {
-      "title": "Follow the rain and the trail",
+      "title": "Travel",
       "posts": [
         {
           "post_id": "3204",
@@ -59,7 +67,7 @@
       ]
     },
     {
-      "title": "An earlier page",
+      "title": "College days",
       "posts": [
         {
           "post_id": "118",

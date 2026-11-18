@@ -84,7 +84,7 @@ content:
       - name: uncategorized
         label: Odds & Ends
       - name: pets-2
-        label: Animal Friends
+        label: Furry Friends
   - name: language
     label: Post language
     type: select

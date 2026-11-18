@@ -130,3 +130,6 @@
 @media(max-width:850px){.entry-row.has-thumbnail .body{grid-template-columns:minmax(0,1fr) 112px;column-gap:16px}.row-thumbnail img{width:112px;height:84px}.start-card.has-image{grid-template-columns:minmax(0,1fr) 88px}.start-card .start-thumb{width:88px;height:66px}}
 @media(max-width:600px){.entry-row.has-thumbnail .body{grid-template-columns:minmax(0,1fr) 84px;column-gap:14px}.entry-row.has-thumbnail .body>.row-thumbnail{grid-row:1 / span 2;margin-top:4px}.row-thumbnail img{width:84px;height:70px}.entry-row.has-thumbnail .body>.excerpt,.entry-row.has-thumbnail .body>.meta{grid-column:1 / -1}.start-link{margin-left:0;display:block;margin-top:8px;font-size:14px}.start-grid{grid-template-columns:1fr;gap:14px}.start-card{padding:20px}.start-group>h2{font-size:25px}.start-card h3{font-size:25px}.start-card p,.start-ending{font-size:16px}.site-footer nav{flex-wrap:wrap}}
 .site-brand{margin:0;font:inherit;line-height:1.5;letter-spacing:normal}.intro.intro-compact{padding:18px 0 24px}.intro-compact .intro-copy>p{margin-top:0}
+
+/* Favourites opens directly with the selected writing. */
+.start-page{padding-top:22px}

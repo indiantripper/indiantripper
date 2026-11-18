@@ -77,3 +77,12 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 
 - [ ] Identify the exact post behind `http://magicalharsh.com/an-unproductive-day-out-of-my-life/`, labelled “Life @ NITIE” in the 2011 year-in-review. No exact migrated slug was found; keep it in the unresolved-link report until verified.
 - [ ] Continue recovering the 25 old-domain image-link occurrences listed in `reports/legacy-link-repair.json`; their original image files are still absent.
+
+## Favourites refinement — 18 November 2026
+
+- [x] Rename Start here to Favourites throughout navigation and the homepage; preserve `/start-here/` with a redirect.
+- [x] Remove the large introduction and simplify group labels.
+- [x] Add Village Trip, Animal Farm and Neelu to the selected animal stories (12 selections total).
+- [x] Rename the Animal Friends thread and curated animal section to Furry Friends, retaining the existing category address.
+
+- [x] Add Jojo & Friends to the Favourites animal section and make Furry Friends its primary thread, retaining Life & Reflections too.

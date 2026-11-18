@@ -526,13 +526,13 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="%(fonts)s"><link rel="stylesheet" href="%(css)s">
 </head><body class="%(body_class)s"><a class="screen-reader-text" href="#content">Skip to content</a>
 <header class="site-header wrap">%(brand)s
-<nav class="main-nav" aria-label="Main"><a class="desktop-nav-link" href="%(start)s"%(start_current)s>Start here</a><a class="desktop-nav-link" href="%(threads)s"%(threads_current)s>Threads</a><a class="desktop-nav-link" href="%(years)s"%(years_current)s><span class="nav-long">Through the years</span><span class="nav-short">Years</span></a>
-<details class="mobile-menu"><summary class="icon-btn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary><nav class="mobile-menu-panel" aria-label="Explore"><a href="%(start)s">Start here</a><a href="%(threads)s">Threads</a><a href="%(years)s">Through the years</a><a href="%(about)s">About Harsh</a></nav></details>
+<nav class="main-nav" aria-label="Main"><a class="desktop-nav-link" href="%(start)s"%(start_current)s>Favourites</a><a class="desktop-nav-link" href="%(threads)s"%(threads_current)s>Threads</a><a class="desktop-nav-link" href="%(years)s"%(years_current)s><span class="nav-long">Through the years</span><span class="nav-short">Years</span></a>
+<details class="mobile-menu"><summary class="icon-btn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary><nav class="mobile-menu-panel" aria-label="Explore"><a href="%(start)s">Favourites</a><a href="%(threads)s">Threads</a><a href="%(years)s">Through the years</a><a href="%(about)s">About Harsh</a></nav></details>
 <a class="icon-btn profile-link" href="%(about)s" aria-label="About Harsh">%(user_icon)s</a><a class="icon-btn" href="%(search)s" aria-label="Search the notebook">%(search_icon)s</a>
 <button class="icon-btn" id="tt-theme" aria-label="Switch light or dark mode"><span class="theme-dark">%(moon)s</span><span class="theme-light">%(sun)s</span></button>
 <details class="preferences"><summary class="icon-btn" aria-label="Reading controls">%(settings_icon)s</summary><div class="preferences-panel"><h2>Reading comfort</h2><div class="preference-row"><span>Text size</span><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div></div>%(story_filter)s</div></details></nav></header>
 <div id="content">%(body)s</div>
-<footer class="wrap site-footer"><div><a class="footer-title" href="%(home)s">%(site)s</a><p>Somewhere between a memory and a thought.</p></div><nav aria-label="Footer"><a href="%(start)s">Start here</a><a href="%(threads)s">Threads</a><a href="%(years)s">The years</a><a href="%(about)s">About</a><a href="%(random)s">Surprise me</a><a href="%(feed)s">RSS</a><span>© %(year)s Harsh</span></nav></footer>
+<footer class="wrap site-footer"><div><a class="footer-title" href="%(home)s">%(site)s</a><p>Somewhere between a memory and a thought.</p></div><nav aria-label="Footer"><a href="%(start)s">Favourites</a><a href="%(threads)s">Threads</a><a href="%(years)s">The years</a><a href="%(about)s">About</a><a href="%(random)s">Surprise me</a><a href="%(feed)s">RSS</a><span>© %(year)s Harsh</span></nav></footer>
 <div class="toast" id="tt-toast" role="status" aria-live="polite"></div><script src="%(js)s" defer></script></body></html>''' % {
             'lang': esc(s.get('language', 'en-US')), 'base': esc(self.base), 'title': esc(html.unescape(title)),
             'description': esc(description), 'robots': robots, 'canonical': esc(self.canonical(path)),
@@ -541,7 +541,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             'css': self.u('/assets/style.css') + self.asset_v, 'js': self.u('/assets/theme.js') + self.asset_v,
             'brand': ('<h1 class="site-brand"><a class="site-title" href="%s" rel="home">%s</a></h1>' if path == '/' else '<a class="site-title" href="%s" rel="home">%s</a>') % (self.u('/'), esc(s['title'])),
             'body_class': body_class, 'home': self.u('/'), 'body': body, 'year': datetime.date.today().year,
-            'start': self.u('/start-here/'), 'start_current': selected(path == '/start-here/'),
+            'start': self.u('/favourites/'), 'start_current': selected(path == '/favourites/'),
             'threads': self.u('/threads/'), 'years': self.u('/years/'), 'about': self.u('/about/'),
             'search': self.u('/search/'), 'random': self.u('/random/'),
             'threads_current': selected(path.startswith(('/threads/', '/category/'))),
@@ -604,9 +604,12 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
                                  'हिंदी' if post['lang'] == 'hi' else 'English', post['date'].year,
                                  post['lang'], esc(html.unescape(post['title'])), picture, esc(choice['note'])))
             sections.append('<section class="start-group"><h2>%s</h2><div class="start-grid">%s</div></section>' % (esc(group['title']), ''.join(cards)))
-        intro = self.archive_intro('A few places to begin', collection['title'], collection['description'])
-        body = '<main class="wrap start-page">%s%s<p class="start-ending">There is no right order. Follow a <a href="%s">thread</a>, or wander <a href="%s">through the years</a>.</p></main>' % (intro, ''.join(sections), self.u('/threads/'), self.u('/years/'))
-        self.write('/start-here/', self.page('/start-here/', 'Start here – ' + self.site['title'], body, body_class='start-here', description=collection['description']))
+        body = '<main class="wrap start-page"><h1 class="screen-reader-text">Favourites</h1>%s</main>' % ''.join(sections)
+        self.write('/favourites/', self.page('/favourites/', 'Favourites – ' + self.site['title'], body, body_class='favourites', description=collection['description']))
+        # Preserve the former introduction URL for existing bookmarks and shared links.
+        destination = self.u('/favourites/')
+        redirect = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=%s"><link rel="canonical" href="%s"><title>Favourites – %s</title></head><body><p><a href="%s">Continue to Favourites</a></p></body></html>' % (esc(destination), esc(self.canonical('/favourites/')), esc(self.site['title']), esc(destination))
+        self.write('/start-here/', redirect)
 
     def row(self, p):
         n = len(p['comments'])
@@ -754,7 +757,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             self.single(i)
 
         # Compact notebook home; the brand is the home link.
-        intro = '<section class="intro intro-compact"><div class="intro-copy"><p>%s <a class="start-link" href="%s">New here? Start here →</a></p></div></section>' % (esc(s['description']), self.u('/start-here/'))
+        intro = '<section class="intro intro-compact"><div class="intro-copy"><p>%s <a class="start-link" href="%s">Favourites →</a></p></div></section>' % (esc(s['description']), self.u('/favourites/'))
         home_title = '%s – %s' % (s['title'], s['description'])
         self.listing('/', posts, home_title, intro=intro, body_class='home blog')
         self.start_here()
@@ -838,7 +841,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
         self.write('/feed.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">'
                    '<channel><title>%s</title><link>%s/</link><description>%s</description><language>%s</language>\n%s</channel></rss>\n' % (
                        esc(s['title']), s['site_url'], esc(s.get('description', '')), esc(s.get('language', 'en-US')), items))
-        urls = ['<url><loc>%s%s</loc></url>' % (s['site_url'], path) for path in ['/', '/start-here/', '/threads/', '/about/']]
+        urls = ['<url><loc>%s%s</loc></url>' % (s['site_url'], path) for path in ['/', '/favourites/', '/threads/', '/about/']]
         urls += ['<url><loc>%s</loc><lastmod>%s</lastmod></url>' % (esc(self.canonical(p['path'])), p['date'].strftime('%Y-%m-%d')) for p in posts]
         urls += ['<url><loc>%s</loc></url>' % self.canonical('/category/%s/' % c['slug']) for c in self.cats if any(c['slug'] in p['cats'] for p in posts)]
         self.write('/sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % '\n'.join(urls))
