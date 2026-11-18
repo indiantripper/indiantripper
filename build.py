@@ -10,6 +10,7 @@ Install the frontmatter parser with: python3 -m pip install -r requirements.txt
 """
 import argparse, datetime, hashlib, html, json, os, re, shutil, sys
 from urllib.parse import quote, unquote
+from html.parser import HTMLParser
 try:
     import yaml
 except ImportError:
@@ -222,6 +223,7 @@ def render_body(raw, site, base):
     # links to the blog's own address follow the current build (production or preview)
     body = re.sub(r'(href=["\'])https?://(?:www\.)?' + re.escape(host) + r'(?=[/"\'])', r'\1' + base, body)
     if base:
+        body = re.sub(r'''(\bhref=["'])(/(?!/)[^"']*)''', lambda m: m.group(1) + (m.group(2) if m.group(2) == base or m.group(2).startswith(base + '/') else base + m.group(2)), body)
         body = re.sub(r'''(\b(?:src|poster)=["'])(/images/)''', lambda m: m.group(1) + base + m.group(2), body)
     body = re.sub(r'<img(?![^>]*\bloading=)', '<img loading="lazy"', body)
     return body
@@ -252,6 +254,44 @@ def excerpt_of(post):
         return esc(post['excerpt'])
     words = strip_tags(strip_shortcodes(post['raw'])).split()
     return esc(' '.join(words[:40]) + ('…' if len(words) > 40 else ''))
+
+
+class VerseText(HTMLParser):
+    """Extract authored line breaks without image captions or embedded markup."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.parts = []
+        self.hidden = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('figure', 'figcaption', 'script', 'style'):
+            self.hidden += 1
+        if tag == 'br' and not self.hidden:
+            self.parts.append('\n')
+
+    def handle_endtag(self, tag):
+        if tag in ('figure', 'figcaption', 'script', 'style'):
+            self.hidden = max(0, self.hidden - 1)
+        if tag in ('p', 'div', 'h1', 'h2', 'h3', 'blockquote', 'li') and not self.hidden:
+            self.parts.append('\n')
+
+    def handle_data(self, text):
+        if not self.hidden:
+            self.parts.append(text)
+
+
+def verse_lines(post):
+    if post.get('form') != 'poem' or post.get('excerpt'):
+        return []
+    raw = re.sub(r'\[caption[^\]]*\].*?\[/caption\]', '', post['raw'], flags=re.S)
+    parser = VerseText()
+    parser.feed(strip_shortcodes(raw))
+    return [line.strip() for line in ''.join(parser.parts).splitlines() if line.strip()][:4]
+
+
+def preview_of(post):
+    lines = verse_lines(post)
+    return '<br>'.join(esc(line) for line in lines) if lines else excerpt_of(post)
 
 
 def fmt_date(d, style):
@@ -336,6 +376,7 @@ def load(site):
             posts.append({
                 'title': meta['title'], 'date': d, 'path': path, 'id': meta.get('id') or hashlib.sha1(path.encode('utf-8')).hexdigest()[:12], 'raw': raw,
                 'excerpt': meta.get('excerpt', ''),
+                'form': 'poem' if meta.get('form') == 'poem' else 'prose',
                 'image': meta.get('image', ''), 'image_alt': meta.get('image_alt', ''),
                 'cats': [c.strip() for c in meta.get('categories', '').split(',') if c.strip()],
                 'tags': [c.strip() for c in meta.get('tags', '').split(',') if c.strip()],
@@ -416,11 +457,11 @@ class Site:
         return '<nav class="browse-nav year-nav" aria-label="Years">%s</nav>' % links
 
     def home_extras(self):
-        revisit = next((p for p in self.posts if p['id'] == '4052'), None)
+        revisit = next((p for p in self.posts if p['id'] == '2552'), None)
         earlier = ''
         if revisit:
-            earlier = ('<section class="earlier-page"><div><p class="label">FROM AN EARLIER PAGE</p><p class="old-date">ODISHA · OCTOBER 2024</p></div>'
-                       '<div><h2><a href="%s">Jhal Mudhi</a></h2><p>A family trip, familiar flavours, and a few very good things to eat.</p>'
+            earlier = ('<section class="earlier-page"><div><p class="label">FROM AN EARLIER PAGE</p><p class="old-date">UTTARAKHAND · JANUARY 2015</p></div>'
+                       '<div><h2><a href="%s">Har Ki Dun Winter Trek</a></h2><p>A new year in the Himalayas: snowy trails, unfamiliar companions, and plenty of reasons to laugh.</p>'
                        '<a class="text-link" href="%s">Revisit this story ↗</a></div></section>') % (self.u(revisit['path']), self.u(revisit['path']))
         links = ' <span aria-hidden="true">·</span> '.join('<a href="%s">%s</a>' % (self.u('/%s/' % y), y) for y in [2026, 2020, 2014, 2008])
         return earlier + ('<section class="years-invitation"><div><p class="label">A LIFE, IN CHAPTERS</p><h2>Some things change.<br><em>Some pages stay.</em></h2></div>'
@@ -484,21 +525,23 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 <link rel="icon" type="image/svg+xml" href="%(favicon)s"><meta name="color-scheme" content="light dark"><link rel="alternate" type="application/rss+xml" title="%(site)s" href="%(feed)s">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="%(fonts)s"><link rel="stylesheet" href="%(css)s">
 </head><body class="%(body_class)s"><a class="screen-reader-text" href="#content">Skip to content</a>
-<header class="site-header wrap"><a class="site-title" href="%(home)s" rel="home">%(site)s</a>
-<nav class="main-nav" aria-label="Main"><a class="desktop-nav-link" href="%(threads)s"%(threads_current)s>Threads</a><a class="desktop-nav-link" href="%(years)s"%(years_current)s><span class="nav-long">Through the years</span><span class="nav-short">Years</span></a>
-<details class="mobile-menu"><summary class="icon-btn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary><nav class="mobile-menu-panel" aria-label="Explore"><a href="%(threads)s">Threads</a><a href="%(years)s">Through the years</a><a href="%(about)s">About Harsh</a></nav></details>
+<header class="site-header wrap">%(brand)s
+<nav class="main-nav" aria-label="Main"><a class="desktop-nav-link" href="%(start)s"%(start_current)s>Start here</a><a class="desktop-nav-link" href="%(threads)s"%(threads_current)s>Threads</a><a class="desktop-nav-link" href="%(years)s"%(years_current)s><span class="nav-long">Through the years</span><span class="nav-short">Years</span></a>
+<details class="mobile-menu"><summary class="icon-btn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary><nav class="mobile-menu-panel" aria-label="Explore"><a href="%(start)s">Start here</a><a href="%(threads)s">Threads</a><a href="%(years)s">Through the years</a><a href="%(about)s">About Harsh</a></nav></details>
 <a class="icon-btn profile-link" href="%(about)s" aria-label="About Harsh">%(user_icon)s</a><a class="icon-btn" href="%(search)s" aria-label="Search the notebook">%(search_icon)s</a>
 <button class="icon-btn" id="tt-theme" aria-label="Switch light or dark mode"><span class="theme-dark">%(moon)s</span><span class="theme-light">%(sun)s</span></button>
 <details class="preferences"><summary class="icon-btn" aria-label="Reading controls">%(settings_icon)s</summary><div class="preferences-panel"><h2>Reading comfort</h2><div class="preference-row"><span>Text size</span><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div></div>%(story_filter)s</div></details></nav></header>
 <div id="content">%(body)s</div>
-<footer class="wrap site-footer"><div><a class="footer-title" href="%(home)s">%(site)s</a><p>Somewhere between a memory and a thought.</p></div><nav aria-label="Footer"><a href="%(threads)s">Threads</a><a href="%(years)s">The years</a><a href="%(about)s">About</a><a href="%(random)s">Surprise me</a><a href="%(feed)s">RSS</a><span>© %(year)s Harsh</span></nav></footer>
+<footer class="wrap site-footer"><div><a class="footer-title" href="%(home)s">%(site)s</a><p>Somewhere between a memory and a thought.</p></div><nav aria-label="Footer"><a href="%(start)s">Start here</a><a href="%(threads)s">Threads</a><a href="%(years)s">The years</a><a href="%(about)s">About</a><a href="%(random)s">Surprise me</a><a href="%(feed)s">RSS</a><span>© %(year)s Harsh</span></nav></footer>
 <div class="toast" id="tt-toast" role="status" aria-live="polite"></div><script src="%(js)s" defer></script></body></html>''' % {
             'lang': esc(s.get('language', 'en-US')), 'base': esc(self.base), 'title': esc(html.unescape(title)),
             'description': esc(description), 'robots': robots, 'canonical': esc(self.canonical(path)),
             'site': esc(s['title']), 'og_type': og_type, 'feed': self.u('/feed.xml'), 'fonts': esc(FONTS),
             'favicon': self.u('/favicon.svg') + '?v=sprout1',
             'css': self.u('/assets/style.css') + self.asset_v, 'js': self.u('/assets/theme.js') + self.asset_v,
+            'brand': ('<h1 class="site-brand"><a class="site-title" href="%s" rel="home">%s</a></h1>' if path == '/' else '<a class="site-title" href="%s" rel="home">%s</a>') % (self.u('/'), esc(s['title'])),
             'body_class': body_class, 'home': self.u('/'), 'body': body, 'year': datetime.date.today().year,
+            'start': self.u('/start-here/'), 'start_current': selected(path == '/start-here/'),
             'threads': self.u('/threads/'), 'years': self.u('/years/'), 'about': self.u('/about/'),
             'search': self.u('/search/'), 'random': self.u('/random/'),
             'threads_current': selected(path.startswith(('/threads/', '/category/'))),
@@ -530,15 +573,53 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             p['reading'] = '%d min read' % max(1, int(n / 200 + 0.5))
         return p['reading']
 
+    def thumbnail(self, post):
+        if 'thumbnail' not in post:
+            candidates = [post.get('image', '')] + re.findall(r'''<img\b[^>]*\bsrc=["'](/images/[^"']+)["']''', post['raw'])
+            post['thumbnail'] = ''
+            for candidate in candidates:
+                image = html.unescape(candidate).split('?', 1)[0]
+                if image.startswith('/images/') and image.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')) and (local_image_width(image) or 0) >= 320:
+                    post['thumbnail'] = image
+                    break
+        return post['thumbnail']
+
+    def start_here(self):
+        collection = json.load(open(os.path.join(CONTENT, 'start-here.json'), encoding='utf-8'))
+        by_id = {post['id']: post for post in self.posts}
+        sections, number = [], 0
+        for group in collection['groups']:
+            cards = []
+            for choice in group['posts']:
+                post = by_id.get(choice['post_id'])
+                if post is None:
+                    self.problems.append('Start here references missing post: %s' % choice['post_id'])
+                    continue
+                number += 1
+                image = self.thumbnail(post)
+                picture = '<img class="start-thumb" src="%s" alt="" loading="lazy" width="144" height="108">' % esc(self.u(image)) if image else ''
+                cards.append('<a class="start-card%s" href="%s"><span class="start-meta">%02d · %s · %s</span>'
+                             '<h3 lang="%s">%s</h3>%s<p>%s</p></a>' % (
+                                 ' has-image' if image else '', self.u(post['path']), number,
+                                 'हिंदी' if post['lang'] == 'hi' else 'English', post['date'].year,
+                                 post['lang'], esc(html.unescape(post['title'])), picture, esc(choice['note'])))
+            sections.append('<section class="start-group"><h2>%s</h2><div class="start-grid">%s</div></section>' % (esc(group['title']), ''.join(cards)))
+        intro = self.archive_intro('A few places to begin', collection['title'], collection['description'])
+        body = '<main class="wrap start-page">%s%s<p class="start-ending">There is no right order. Follow a <a href="%s">thread</a>, or wander <a href="%s">through the years</a>.</p></main>' % (intro, ''.join(sections), self.u('/threads/'), self.u('/years/'))
+        self.write('/start-here/', self.page('/start-here/', 'Start here – ' + self.site['title'], body, body_class='start-here', description=collection['description']))
+
     def row(self, p):
         n = len(p['comments'])
         comments = '<span>%s</span>' % plural(n, 'comment') if n else ''
-        return ('<article id="post-%s" class="entry-row post"><div class="when"><time datetime="%s">%s</time><span>%s</span></div>'
-                '<div class="body">%s<h2 lang="%s"><a href="%s">%s</a></h2><div class="excerpt" lang="%s"><p>%s</p></div>'
+        image = self.thumbnail(p)
+        picture = '<a class="row-thumbnail" href="%s" aria-label="Read %s"><img src="%s" alt="" loading="lazy" width="160" height="120"></a>' % (self.u(p['path']), esc(html.unescape(p['title'])), esc(self.u(image))) if image else ''
+        classes = (' has-thumbnail' if image else '') + (' is-poem' if verse_lines(p) else '')
+        return ('<article id="post-%s" class="entry-row post%s"><div class="when"><time datetime="%s">%s</time><span>%s</span></div>'
+                '<div class="body">%s<h2 lang="%s"><a href="%s">%s</a></h2>%s<div class="excerpt%s" lang="%s"><p>%s</p></div>'
                 '<div class="meta"><span>%s</span>%s</div></div><span class="row-arrow" aria-hidden="true">↗</span></article>\n') % (
-            esc(p['id']), p['date'].strftime('%Y-%m-%d'), p['date'].strftime('%d %b').lstrip('0').upper(), p['date'].year,
-            self.first_cat(p), p['lang'], self.u(p['path']), esc(html.unescape(p['title'])), p['lang'],
-            p.setdefault('excerpt_html', excerpt_of(p)), self.reading(p), comments)
+            esc(p['id']), classes, p['date'].strftime('%Y-%m-%d'), p['date'].strftime('%d %b').lstrip('0').upper(), p['date'].year,
+            self.first_cat(p), p['lang'], self.u(p['path']), esc(html.unescape(p['title'])), picture,
+            ' verse' if verse_lines(p) else '', p['lang'], preview_of(p), self.reading(p), comments)
 
     def pagination(self, base_path, cur, total):
         if total < 2:
@@ -673,9 +754,10 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             self.single(i)
 
         # Compact notebook home; the brand is the home link.
-        intro = '<section class="intro"><div class="intro-copy"><h1 lang="hi">कुछ बातें। <em lang="en">A few things.</em></h1><p>%s</p></div></section>' % esc(s['description'])
+        intro = '<section class="intro intro-compact"><div class="intro-copy"><p>%s <a class="start-link" href="%s">New here? Start here →</a></p></div></section>' % (esc(s['description']), self.u('/start-here/'))
         home_title = '%s – %s' % (s['title'], s['description'])
         self.listing('/', posts, home_title, intro=intro, body_class='home blog')
+        self.start_here()
         for lang, label in (('hi', 'हिंदी'), ('en', 'English')):
             self.listing('/lang/%s/' % lang, [p for p in posts if p['lang'] == lang], '%s – %s' % (label, s['title']),
                          lang=lang, intro=self.archive_intro('The notebook', label), noindex=True)
@@ -689,7 +771,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
                                         'Different places. Different versions of me. The same little corner of the internet.')
         self.listing('/years/', [p for p in posts if p['date'].year == latest_year], 'The years – ' + s['title'],
                      intro=years_intro, noindex=True)
-        about = '<main class="wrap about-page">%s<div class="about-copy"><p>%s</p></div><a class="text-link" href="%s">Meet me through the years →</a></main>' % (
+        about = '<main class="wrap about-page">%s<div class="about-copy"><p>%s</p><p>The name Time Turner comes from Harry Potter, a favourite of mine. This blog previously lived at magicalharsh.com.</p></div><a class="text-link" href="%s">Meet me through the years →</a></main>' % (
             self.archive_intro('The person behind the pages', "Hi, I’m Harsh."), esc(s['about']), self.u('/years/'))
         self.write('/about/', self.page('/about/', 'About Harsh – ' + s['title'], about, body_class='about'))
         # categories, tags, dates
@@ -722,6 +804,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 
         # search, random, 404
         index = [{'i': p['id'], 't': html.unescape(p['title']), 'u': p['path'], 'x': html.unescape(p['excerpt_html']),
+                  'v': verse_lines(p), 'im': self.thumbnail(p),
                   'd': fmt_date(p['date'], 'd'), 'm': fmt_date(p['date'], 'my'), 'l': p['lang'],
                   'c': self.cat_name.get(p['cats'][0], '') if p['cats'] else '', 'cs': p['cats'][0] if p['cats'] else '',
                   'r': self.reading(p), 'n': len(p['comments']),
@@ -755,7 +838,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
         self.write('/feed.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">'
                    '<channel><title>%s</title><link>%s/</link><description>%s</description><language>%s</language>\n%s</channel></rss>\n' % (
                        esc(s['title']), s['site_url'], esc(s.get('description', '')), esc(s.get('language', 'en-US')), items))
-        urls = ['<url><loc>%s%s</loc></url>' % (s['site_url'], path) for path in ['/', '/threads/', '/about/']]
+        urls = ['<url><loc>%s%s</loc></url>' % (s['site_url'], path) for path in ['/', '/start-here/', '/threads/', '/about/']]
         urls += ['<url><loc>%s</loc><lastmod>%s</lastmod></url>' % (esc(self.canonical(p['path'])), p['date'].strftime('%Y-%m-%d')) for p in posts]
         urls += ['<url><loc>%s</loc></url>' % self.canonical('/category/%s/' % c['slug']) for c in self.cats if any(c['slug'] in p['cats'] for p in posts)]
         self.write('/sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % '\n'.join(urls))

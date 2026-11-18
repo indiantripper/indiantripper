@@ -69,6 +69,8 @@ content:
         label: College Days
       - name: poem-humor-fiction
         label: Poems & Stories
+      - name: epic-retellings
+        label: Epic Retellings
       - name: travel
         label: Travels
       - name: cyber-world
@@ -95,10 +97,20 @@ content:
         label: हिंदी
       - name: en
         label: English
+  - name: form
+    label: Writing form
+    type: select
+    default: prose
+    options:
+      values:
+      - name: prose
+        label: Prose / story
+      - name: poem
+        label: Poem
   - name: excerpt
     label: Short preview
     type: text
-    description: Optional. A short introduction for the homepage and shared links.
+    description: Optional teaser for previews and shared links. Leave blank on poems to show the first four lines.
   - name: image
     label: Share cover
     type: image

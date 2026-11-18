@@ -1,0 +1,326 @@
+{
+  "repaired": [
+    {
+      "file": "content/posts/2013/2013-09-30-confessions-90s-kid.html",
+      "old": "http://magicalharsh.com/my-first-design/",
+      "target": "/2008/06/19/my-first-design/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2013/2013-09-30-confessions-90s-kid.html",
+      "old": "http://magicalharsh.com/orkut-addict/",
+      "target": "/2008/06/11/orkut-addict/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2013/2013-09-30-confessions-90s-kid.html",
+      "old": "http://magicalharsh.com/the-demon-is-back/",
+      "target": "/2009/05/01/the-demon-is-back/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2014/2014-08-24-postcards-andamans.html",
+      "old": "http://magicalharsh.com/kala-patthar-leech-forest-trek/",
+      "target": "/2014/09/13/kala-patthar-leech-forest-trek/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2014/2014-04-08-a-tale-of-two-kids.html",
+      "old": "http://magicalharsh.com/village-trip-animal-farm-neelu/",
+      "target": "/2014/01/05/village-trip-animal-farm-neelu/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2014/2014-07-05-naagphani-dukes-nose-trek.html",
+      "old": "http://magicalharsh.com/rajmachi-trek-night-expedition/",
+      "target": "/2014/06/16/rajmachi-trek-night-expedition/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2015/2015-09-14-tripping-through-malshej-ghat.html",
+      "old": "http://magicalharsh.com/malshej-ghat-land-waterfalls/",
+      "target": "/2014/08/29/malshej-ghat-land-waterfalls/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/miles-to-go-before-i-sleep/",
+      "target": "/2011/01/06/miles-to-go-before-i-sleep/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/the-catastrophe/",
+      "target": "/2011/01/12/the-catastrophe/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/were-moving-on/",
+      "target": "/2011/03/09/were-moving-on/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/2011/05/",
+      "target": "/2011/05/",
+      "match": "existing route"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/a-fresh-start/",
+      "target": "/2011/07/11/a-fresh-start/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/the-horrifying-tale-of-d-321/",
+      "target": "/2011/08/22/the-horrifying-tale-of-d-321/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/the-first-module-blues/",
+      "target": "/2011/07/29/the-first-module-blues/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/of-corruption-cricket-and-cumulation/",
+      "target": "/2011/08/20/of-corruption-cricket-and-cumulation/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/catastrophe/",
+      "target": "/2011/08/27/catastrophe/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/the-first-test/",
+      "target": "/2011/09/12/the-first-test/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/kingdom-of-dreams/",
+      "target": "/2011/09/07/kingdom-of-dreams/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "old": "http://magicalharsh.com/nadaan-parindey/",
+      "target": "/2011/11/13/nadaan-parindey/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2009/2009-05-01-the-demon-is-back.html",
+      "old": "http://magicalharsh.com/",
+      "target": "/",
+      "match": "existing route"
+    },
+    {
+      "file": "content/posts/2009/2009-05-01-the-demon-is-back.html",
+      "old": "http://magicalharsh.com/blog",
+      "target": "/",
+      "match": "existing route"
+    },
+    {
+      "file": "content/posts/2009/2009-05-01-the-demon-is-back.html",
+      "old": "http://magicalharsh.com/?p=820",
+      "target": "/2009/04/24/the-haunted-room/",
+      "match": "verified legacy WordPress id"
+    },
+    {
+      "file": "content/posts/2009/2009-07-29-the-haunted-room-report.html",
+      "old": "http://magicalharsh.com/the-haunted-room/",
+      "target": "/2009/04/24/the-haunted-room/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2010/2010-06-09-pre-final-year-end-of-yet-another-session.html",
+      "old": "http://magicalharsh.com/the-haunted-room/",
+      "target": "/2009/04/24/the-haunted-room/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2019/2019-09-15-hiking-in-the-rain.html",
+      "old": "http://www.indiantripper.com/camping-in-the-clouds/",
+      "target": "/2020/05/25/camping-in-the-clouds/",
+      "match": "bare self-embed / unique migrated slug"
+    },
+    {
+      "file": "content/posts/2020/2020-05-25-camping-in-the-clouds.html",
+      "old": "https://indiantripper.in/hiking-in-the-rain/",
+      "target": "/2019/09/15/hiking-in-the-rain/",
+      "match": "bare self-embed / unique migrated slug"
+    },
+    {
+      "file": "content/posts/2020/2020-05-31-monsoons.html",
+      "old": "http://www.indiantripper.com/chasing-the-monsoons/",
+      "target": "/2018/07/03/chasing-the-monsoons/",
+      "match": "unique migrated slug"
+    },
+    {
+      "file": "content/posts/2020/2020-06-19-a-house-for-mr-biswas.html",
+      "old": "http://www.indiantripper.com/?s=memories",
+      "target": "/search/?s=memories",
+      "match": "archive search"
+    },
+    {
+      "file": "content/posts/2016/2016-01-30-the-mcleodganj-trip.html",
+      "old": "http://magicalharsh.com/har-ki-dun-winter-trek/",
+      "target": "/2015/01/07/har-ki-dun-winter-trek/",
+      "match": "unique migrated slug"
+    }
+  ],
+  "unresolved": [
+    {
+      "file": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_04631.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2015/2015-09-14-tripping-through-malshej-ghat.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2015/09/IMG_6665.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2015/2015-09-14-tripping-through-malshej-ghat.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2015/09/IMG_20150912_121554031_HDR.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2012/2012-08-22-time-is-ticking-by.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2012/08/35380_411607875869_567885869_5129059_4348594_n.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+      "url": "http://magicalharsh.com/an-unproductive-day-out-of-my-life/",
+      "reason": "No exact migrated destination found"
+    },
+    {
+      "file": "content/posts/2009/2009-10-16-happy-diwali.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2009/10/6264_10152500798543434_8756959356818748496_n.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2017/2017-02-14-the-yellow-submarine.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2017/02/IMG_20170214_153338_737.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2017/2017-01-02-welcome-2017.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2017/01/wp-image-1314186846jpg.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2017/2017-09-26-monachil-to-granada.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2017/09/FullSizeRender.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-05-24-couchsurfing-new-age-scam.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/05/Screenshot_20180524-154534.png",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-05-24-couchsurfing-new-age-scam.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/05/Screenshot_20180524-154546.png",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-05-24-couchsurfing-new-age-scam.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/05/Screenshot_20180524-154601.png",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-05-24-couchsurfing-new-age-scam.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/05/IMG-20180524-WA0008.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-06-24-green-leaves.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/06/IMG-20180609-WA0004.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-06-24-green-leaves.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/06/IMG_20180622_183154368_PORTRAIT.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-06-24-green-leaves.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/06/IMG-20180619-WA0022.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-06-24-green-leaves.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/06/IMG_20180616_175408924.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-03-24-who-knows.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2016/09/25.jpeg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2018/2018-12-11-of-trains-tracks.html",
+      "url": "http://www.indiantripper.com/wp-content/uploads/2018/12/IMG_20151103_124953.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2016/2016-07-03-apparent-happiness.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2016/07/IMG-20160703-WA0003.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2016/2016-09-03-september.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2016/09/wp-1472904037928.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2016/2016-06-10-1-am.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2016/06/11054431_10152993619033434_1848796462962950155_n.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2016/2016-06-26-joy.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2016/06/Capture.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2016/2016-05-23-hamlet-called-tinchuley.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2016/05/IMG_9416.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2016/2016-05-23-hamlet-called-tinchuley.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2016/05/IMG_9324.jpg",
+      "reason": "Image original still missing"
+    },
+    {
+      "file": "content/posts/2016/2016-03-08-fire-still-burns.html",
+      "url": "http://magicalharsh.com/wp-content/uploads/2016/03/7648152_60x60.gif",
+      "reason": "Image original still missing"
+    }
+  ],
+  "changed_posts": [
+    "content/posts/2013/2013-09-30-confessions-90s-kid.html",
+    "content/posts/2014/2014-08-24-postcards-andamans.html",
+    "content/posts/2014/2014-04-08-a-tale-of-two-kids.html",
+    "content/posts/2014/2014-07-05-naagphani-dukes-nose-trek.html",
+    "content/posts/2015/2015-09-14-tripping-through-malshej-ghat.html",
+    "content/posts/2012/2012-01-01-sayonara-2011-my-life-from-my-eyes.html",
+    "content/posts/2009/2009-05-01-the-demon-is-back.html",
+    "content/posts/2009/2009-07-29-the-haunted-room-report.html",
+    "content/posts/2010/2010-06-09-pre-final-year-end-of-yet-another-session.html",
+    "content/posts/2019/2019-09-15-hiking-in-the-rain.html",
+    "content/posts/2020/2020-05-25-camping-in-the-clouds.html",
+    "content/posts/2020/2020-05-31-monsoons.html",
+    "content/posts/2020/2020-06-19-a-house-for-mr-biswas.html",
+    "content/posts/2016/2016-01-30-the-mcleodganj-trip.html"
+  ]
+}

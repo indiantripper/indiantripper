@@ -64,5 +64,11 @@
     "name": "Animal Friends",
     "description": "",
     "name_en": "Animal Friends"
+  },
+  {
+    "slug": "epic-retellings",
+    "name": "Epic Retellings",
+    "name_en": "Epic Retellings",
+    "description": "Poems retelling moments from the epics."
   }
 ]

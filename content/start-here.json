@@ -1,0 +1,71 @@
+{
+  "title": "Start here",
+  "description": "Begin with the ordinary: a mosquito net, an unhurried day, a conversation with time. Then follow a poem, a journey, or a page from college.",
+  "groups": [
+    {
+      "title": "Ordinary things, a straight face",
+      "posts": [
+        {
+          "post_id": "3791",
+          "note": "Ghosts have rules too. A mock-serious guide to surviving the night from inside a mosquito net."
+        },
+        {
+          "post_id": "4227",
+          "note": "Time drops by, gets trapped in an Excel cell, and stays for an unhurried afternoon."
+        },
+        {
+          "post_id": "2026111701",
+          "note": "A visit home to Lucknow, unhurried afternoons, and a fan that decides when the day begins."
+        }
+      ]
+    },
+    {
+      "title": "The animals we remember",
+      "posts": [
+        {
+          "post_id": "2174",
+          "note": "Kaalu disappears when college calls, returns whenever home does, and leaves one last surprise at the door."
+        }
+      ]
+    },
+    {
+      "title": "Leave room for poetry",
+      "posts": [
+        {
+          "post_id": "4233",
+          "note": "Kumbhakarna and Vibhishana meet between the claims of family, duty and conscience."
+        },
+        {
+          "post_id": "4220",
+          "note": "Returning to unread books feels a little like finding old friends—and an earlier self."
+        }
+      ]
+    },
+    {
+      "title": "Follow the rain and the trail",
+      "posts": [
+        {
+          "post_id": "3204",
+          "note": "Meghalaya, Meghdoot beside a lake, a curious cat, and a journey with an unexpected ending."
+        },
+        {
+          "post_id": "2252",
+          "note": "A night expedition with ten-rupee torches, fireflies, and a trail that keeps everyone guessing."
+        },
+        {
+          "post_id": "2445",
+          "note": "A promised beach, a forest full of leeches, and a destination with other plans."
+        }
+      ]
+    },
+    {
+      "title": "An earlier page",
+      "posts": [
+        {
+          "post_id": "118",
+          "note": "A college-era contest, a lot of golgappas, and the confidence to turn a snack into a sporting event."
+        }
+      ]
+    }
+  ]
+}

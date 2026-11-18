@@ -97,7 +97,11 @@
     hits.forEach(function (p) {
       var article = el('article', 'entry-row post'), when = el('div', 'when'), body = el('div', 'body'); when.append(el('span', '', p.d), el('span', '', p.m)); if (p.cs) body.append(category(p));
       var h = el('h2'), a = el('a', '', p.t); h.lang = p.l; a.href = base + p.u; h.append(a); body.append(h);
-      var excerpt = el('div', 'excerpt'); excerpt.lang = p.l; excerpt.append(el('p', '', p.x)); body.append(excerpt);
+      if (p.im) { article.classList.add('has-thumbnail'); var thumbnail = el('a', 'row-thumbnail'), photo = el('img'); thumbnail.href = base + p.u; thumbnail.setAttribute('aria-label', 'Read ' + p.t); photo.src = base + p.im; photo.alt = ''; photo.loading = 'lazy'; photo.width = 160; photo.height = 120; thumbnail.append(photo); body.append(thumbnail); }
+      var excerpt = el('div', 'excerpt'), preview = el('p'); excerpt.lang = p.l;
+      if (p.v && p.v.length) { excerpt.classList.add('verse'); p.v.forEach(function (line, i) { if (i) preview.append(document.createElement('br')); preview.append(document.createTextNode(line)); }); }
+      else preview.textContent = p.x;
+      excerpt.append(preview); body.append(excerpt);
       var meta = el('div', 'meta'); meta.append(el('span', '', p.r)); if (p.n) meta.append(el('span', '', p.n + (p.n === 1 ? ' comment' : ' comments'))); body.append(meta);
       var arrow = el('span', 'row-arrow', '↗'); arrow.setAttribute('aria-hidden', 'true'); article.append(when, body, arrow); box.append(article);
     });
