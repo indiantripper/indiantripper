@@ -1,0 +1,110 @@
+{
+  "images": [
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0440.jpg",
+      "image": "/images/gokarna-2014/img_0440.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "Rain along the seafront cottages in Gokarna",
+      "sha256": "02fc7c242617aeefcf4141b76e2d13490f21a0bfbf8cc88340797381b46a148b"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0448.jpg",
+      "image": "/images/gokarna-2014/img_0448.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "The forested headland and rough sea in Gokarna",
+      "sha256": "d4b443f0ef6005dbbb9629bb6f53ce8dd50ada496fc2b24b95ac143ea5638f2c"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0468.jpg",
+      "image": "/images/gokarna-2014/img_0468.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "Rocky coastline seen from the Gokarna cliff",
+      "sha256": "41c12a9f8efea58a66bcb9a1dec2c8ab00ced01236c6fd3a7996e4a5db6403da"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0486.jpg",
+      "image": "/images/gokarna-2014/img_0486.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "A view of Om Beach from the coastal trail",
+      "sha256": "12ee454d1f87610181be44da0ab9fb8cb6c092e5ebe9e6f633b7a9403d639b93"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0495.jpg",
+      "image": "/images/gokarna-2014/img_0495.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "Rocky shore framed by overhanging leaves",
+      "sha256": "be22e1ca135357da35888c27f16da0453f77bdf3baced13f8ce6a6615a449f11"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0500.jpg",
+      "image": "/images/gokarna-2014/img_0500.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "A group playing football along the beach",
+      "sha256": "b6e59346151b5c028c0c820eaaa37bf6d749706749ca6a05953363cdb3053357"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0504.jpg",
+      "image": "/images/gokarna-2014/img_0504.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "Low branches shading the shore at Om Beach",
+      "sha256": "908d2b3e8734b4944d31ac777bdd681d54fc9b3b6edbf26e02d202b66996e32d"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0546.jpg",
+      "image": "/images/gokarna-2014/img_0546.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "Waves breaking around rocks off Om Beach",
+      "sha256": "40330f1f2b767cfa38fa8dfd916cf5449beb76496f48f8f03809892af5be053b"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0627.jpg",
+      "image": "/images/gokarna-2014/img_0627.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "Monsoon clouds and palms on the trail back to Kudle Beach",
+      "sha256": "02900cd43585762baa6984773eb342c249298a5caeb2df2983945827ca4c0a4c"
+    },
+    {
+      "old": "http://magicalharsh.com/wp-content/uploads/2014/07/IMG_0670.jpg",
+      "image": "/images/gokarna-2014/img_0670.jpg",
+      "post": "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+      "source": "User-provided photo; matched by scene and surrounding text",
+      "alt": "A rocky inlet below the coastal clifftop",
+      "sha256": "1e60025d0ad56472ec17771acf831e75899c179b13924d015c1887161d02ad72"
+    },
+    {
+      "post": "content/posts/2019/2019-09-15-hiking-in-the-rain.html",
+      "old": "http://www.indiantripper.com/wp-content/uploads/2019/09/IMG_20190820_135244294_HDR-879x1024.jpg",
+      "image": "/images/hiking-in-the-rain/friends-on-trail.jpg",
+      "source": "User-provided replacement photo, placed to match the surrounding paragraph",
+      "alt": "Friends hiking beside a stream among birch trees in Norway",
+      "sha256": "020ba58a79da8c6cca9e7559061d03d5acb2b3ee16e9823e73e32f23da676559"
+    },
+    {
+      "post": "content/posts/2019/2019-09-15-hiking-in-the-rain.html",
+      "old": "http://www.indiantripper.com/wp-content/uploads/2019/09/Capture.png",
+      "image": "/images/hiking-in-the-rain/stream-crossing.jpg",
+      "source": "User-provided replacement photo, placed to match the surrounding paragraph",
+      "alt": "A hiker crossing a rocky stream beneath an overcast sky",
+      "sha256": "af895b7c97acfe73398fdb81073231651db9d6ca5e57f0f79e7bbd06e6463f1c"
+    }
+  ],
+  "changed_posts": [
+    "content/posts/2014/2014-07-29-trippy-gokarna-trip.html",
+    "content/posts/2019/2019-09-15-hiking-in-the-rain.html"
+  ],
+  "remaining_files": [
+    "Graffiti.jpg",
+    "IMG_04631.jpg"
+  ],
+  "removed_empty_hiking_slot": "Capture-1.png: user supplied two replacement photos for this post",
+  "kalsubai": "Unchanged at user request"
+}
