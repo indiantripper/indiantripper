@@ -86,3 +86,5 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 - [x] Rename the Animal Friends thread and curated animal section to Furry Friends, retaining the existing category address.
 
 - [x] Add Jojo & Friends to the Favourites animal section and make Furry Friends its primary thread, retaining Life & Reflections too.
+
+- [x] Add Har Ki Dun Winter Trek to Travel in Favourites, retaining all existing selections (13 selections total).
