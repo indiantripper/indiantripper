@@ -42,8 +42,13 @@ Category names to use are the `slug` values in `content/categories.json`.
 Then build, check the preview, commit and push.
 
 ## Keep out of this folder
-This repository is public. Drafts, password-protected posts and the backups live outside it
-(`../private` and `../backup`). Commenter email and IP addresses were never imported.
+This repository is public. Original drafts and backups live outside it
+(`../private` and `../backup`). Three formerly password-protected posts are now
+retained in this public repository at the owner’s request, with `status: private`.
+That status means **code only**, not confidential: the builder omits them from
+the website, but their source and history remain publicly readable on GitHub.
+Their historical comments are retained in source too. Commenter email and IP
+addresses were never imported.
 
 ## Open notebook theme
 The brand links home. Threads (`/threads/`) browses categories; Years (`/years/`) browses the dated archive. Each thread and year has its own paginated, directly linkable page. The post-language choice in Reading controls filters stories within the selected thread or year. Thread names use English and are ordered by post count, highest first. Counts and ordering update on every build.

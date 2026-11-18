@@ -98,3 +98,7 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 - [x] Add a generated boy/mosquito-net/ghost illustration to प्रेत आत्माएं and sharing. Keep the five typographic preview cards outside original article bodies.
 - [x] Rename the homepage heading to Recent posts.
 - [x] Save `CONTINUE-WORK.md` with Mac locations, repository access and instructions for another account/computer.
+
+## Code-only archive — 18 November 2026
+
+- [x] Withdraw the three formerly password-protected posts (IDs 165, 181, 3593) from the website using `status: private`. Keep original text, metadata and comments in the public repository with the user’s explicit permission. Exclude them from direct pages, listings, search, feed, random selection, navigation and sitemap. Do not republish without a new instruction.

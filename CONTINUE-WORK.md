@@ -51,7 +51,8 @@ To preview: `python build.py --serve`. Commit the source changes and push to `ma
 - Compact desktop/mobile header; light/dark appearance and reader text-size controls.
 - Navigation uses Favourites, Threads and Through the years. No large introductory hero or Harsh's notebook block.
 - Only categories, English names; no tags UI. Stable legacy category slugs remain.
-- Preserve original post URLs, post text and all historical comments. Comments stay closed; no empty-comments section.
+- Preserve original post URLs, post text and all historical comments except posts explicitly withdrawn from the website. Comments stay closed; no empty-comments section.
+- Three formerly password-protected posts are deliberately code-only (`status: private`): IDs 165 (Sorry ....), 181 (That girl ....), and 3593 (Is it falling apart or moving on ????). Keep their source and comments in GitHub, but do not publish them, list them, or recreate their website pages. The user explicitly accepts that the public repository exposes these sources. The builder excludes non-published status from all generated output.
 - Short `/read/.../` links serve the complete article with the original address canonical. Share controls use the short link; old links and archive entries stay intact.
 - `share_image` is an optional sharing-only override. Title cards should not become in-article illustrations or thumbnails. `image` and the first local post photo remain normal cover/thumbnail choices.
 - The approved प्रेत आत्माएं mosquito-net illustration is in the post and used in sharing. अंतिम ऋण has an approved Kumbhakarna/Vibhishana illustration.
