@@ -508,6 +508,59 @@ class Site:
             self.problems.append('Missing local share image for %s: %s' % (post['file'], image))
         return '/images/share/time-turner.jpg', 'Time Turner — Stories from my life'
 
+    SOCIAL_CARD_BYTES = 200 * 1024
+
+    def social_card(self, image):
+        """Return a preview-sized copy of a share image for link previews.
+
+        Messaging apps skip preview images that are too heavy, so any local image above
+        SOCIAL_CARD_BYTES is copied at a smaller size into the built site. The original stays
+        in the article. If the image library is missing or the file cannot be read, the
+        original address is returned unchanged.
+        """
+        cache = self.__dict__.setdefault('_social_cards', {})
+        if image in cache:
+            return cache[image]
+        cache[image] = image
+        source = os.path.join(ROOT, 'static', image.lstrip('/'))
+        try:
+            if not image.startswith('/images/') or os.path.getsize(source) <= self.SOCIAL_CARD_BYTES:
+                return image
+            from io import BytesIO
+            from PIL import Image, ImageOps
+            with Image.open(source) as opened:
+                picture = ImageOps.exif_transpose(opened)
+                if picture.mode in ('RGBA', 'LA', 'P'):
+                    picture = picture.convert('RGBA')
+                    flat = Image.new('RGB', picture.size, (255, 255, 255))
+                    flat.paste(picture, mask=picture.split()[-1])
+                    picture = flat
+                else:
+                    picture = picture.convert('RGB')
+            data = None
+            for side in (1200, 1000, 800, 600):
+                small = picture.copy()
+                small.thumbnail((side, side), Image.LANCZOS)
+                for quality in (82, 74, 66, 58):
+                    buffer = BytesIO()
+                    small.save(buffer, 'JPEG', quality=quality, optimize=True)
+                    if buffer.tell() <= self.SOCIAL_CARD_BYTES:
+                        data = buffer.getvalue()
+                        break
+                if data:
+                    break
+            if not data:
+                return image
+            card = '/images/share/auto/%s.jpg' % hashlib.sha1(image.encode('utf-8') + data).hexdigest()[:16]
+            target = os.path.join(self.out, card.lstrip('/'))
+            os.makedirs(os.path.dirname(target), exist_ok=True)
+            with open(target, 'wb') as handle:
+                handle.write(data)
+            cache[image] = card
+        except Exception as error:      # never let a preview image stop the blog from publishing
+            print('Share preview kept at full size for %s (%s)' % (image, error))
+        return cache[image]
+
     def share_controls(self, post, image):
         title = html.unescape(post['title'])
         url = self.canonical(self.share_paths.get(post['id'], post['path']))
@@ -744,6 +797,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
     def single(self, i):
         p = self.posts[i]
         image, image_alt = self.post_image(p)
+        social = self.social_card(image)
         older = self.posts[i + 1] if i + 1 < len(self.posts) else None
         newer = self.posts[i - 1] if i > 0 else None
         nav = ''
@@ -763,13 +817,13 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
         desc = html.unescape(p.setdefault('excerpt_html', excerpt_of(p)))[:300]
         title = '%s – %s' % (html.unescape(p['title']), self.site['title'])
         self.write(p['path'], self.page(p['path'], title, body,
-                   body_class='single single-post', description=desc, singular=True, og_type='article', social_image=image, social_alt=image_alt))
+                   body_class='single single-post', description=desc, singular=True, og_type='article', social_image=social, social_alt=image_alt))
         share_path = self.share_paths.get(p['id'])
         if share_path:
             # A full static article gives link-preview crawlers the same image and text
             # without relying on JavaScript or a redirect. The historical URL stays canonical.
             self.write(share_path, self.page(p['path'], title, body, noindex=True,
-                       body_class='single single-post', description=desc, singular=True, og_type='article', social_image=image, social_alt=image_alt))
+                       body_class='single single-post', description=desc, singular=True, og_type='article', social_image=social, social_alt=image_alt))
 
     # ---- everything
 
