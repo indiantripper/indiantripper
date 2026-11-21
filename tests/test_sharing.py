@@ -64,6 +64,25 @@ class Sharing(unittest.TestCase):
         self.assertIn('https%3A%2F%2Findiantripper.in%2Fread%2Fpret-aatmaaye%2F', controls)
         self.assertNotIn('http-equiv="refresh"', controls)
 
+    def test_heavy_share_images_get_a_light_preview_copy(self):
+        from PIL import Image
+        site = self.site()
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / 'static' / 'images').mkdir(parents=True)
+            noisy = Image.effect_noise((2400, 1600), 90).convert('RGB')
+            noisy.save(root / 'static' / 'images' / 'heavy.jpg', quality=95)
+            Image.new('RGB', (600, 315), 'white').save(root / 'static' / 'images' / 'light.jpg')
+            site.out = str(root / 'out')
+            with patch.object(blog, 'ROOT', str(root)):
+                self.assertGreater((root / 'static' / 'images' / 'heavy.jpg').stat().st_size, site.SOCIAL_CARD_BYTES)
+                card = site.social_card('/images/heavy.jpg')
+                self.assertTrue(card.startswith('/images/share/auto/'))
+                self.assertLessEqual((root / 'out' / card.lstrip('/')).stat().st_size, site.SOCIAL_CARD_BYTES)
+                self.assertEqual(site.social_card('/images/heavy.jpg'), card)
+                self.assertEqual(site.social_card('/images/light.jpg'), '/images/light.jpg')
+                self.assertEqual(site.social_card('/images/missing.jpg'), '/images/missing.jpg')
+
 
 if __name__ == '__main__':
     unittest.main()
