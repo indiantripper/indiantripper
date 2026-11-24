@@ -2,6 +2,21 @@
 (function () {
   'use strict';
   var root = document.documentElement, base = root.getAttribute('data-base') || '';
+  var earlier = document.querySelector('[data-daily-favourites]');
+  if (earlier) {
+    var favourites = JSON.parse(earlier.getAttribute('data-daily-favourites'));
+    // One shared daily pick, changing at midnight in India without a rebuild.
+    var day = Math.floor((Date.now() + 330 * 60000) / 86400000);
+    var pick = favourites[day % favourites.length];
+    if (pick) {
+      var heading = earlier.querySelector('h2');
+      heading.lang = pick.lang;
+      heading.querySelector('a').textContent = pick.title;
+      earlier.querySelectorAll('a').forEach(function (a) { a.setAttribute('href', pick.path); });
+      earlier.querySelector('.old-date').textContent = pick.date;
+      earlier.querySelector('.earlier-note').textContent = pick.note;
+    }
+  }
   function store(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }
   function read(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
   var system = window.matchMedia('(prefers-color-scheme: dark)'), saved = read('tt-theme');

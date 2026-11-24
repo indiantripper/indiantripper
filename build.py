@@ -495,12 +495,24 @@ class Site:
         return '<nav class="browse-nav year-nav" aria-label="Years">%s</nav>' % links
 
     def home_extras(self):
-        revisit = next((p for p in self.posts if p['id'] == '2552'), None)
+        collection = json.load(open(os.path.join(CONTENT, 'start-here.json'), encoding='utf-8'))
+        by_id = {p['id']: p for p in self.posts}
+        picks, seen = [], set()
+        for group in collection['groups']:
+            for choice in group['posts']:
+                p = by_id.get(choice['post_id'])
+                if p is not None and p['id'] not in seen:
+                    seen.add(p['id'])
+                    picks.append({'path': self.u(p['path']), 'title': html.unescape(p['title']),
+                                  'note': choice['note'], 'date': p['date'].strftime('%B %Y'), 'lang': p['lang']})
         earlier = ''
-        if revisit:
-            earlier = ('<section class="earlier-page"><div><p class="label">FROM AN EARLIER PAGE</p><p class="old-date">UTTARAKHAND · JANUARY 2015</p></div>'
-                       '<div><h2><a href="%s">Har Ki Dun Winter Trek</a></h2><p>A new year in the Himalayas: snowy trails, unfamiliar companions, and plenty of reasons to laugh.</p>'
-                       '<a class="text-link" href="%s">Revisit this story ↗</a></div></section>') % (self.u(revisit['path']), self.u(revisit['path']))
+        if picks:
+            pick = picks[0]
+            earlier = ('<section class="earlier-page" data-daily-favourites="%s"><div><p class="label">FROM AN EARLIER PAGE</p><p class="old-date">%s</p></div>'
+                       '<div><h2 lang="%s"><a href="%s">%s</a></h2><p class="earlier-note">%s</p>'
+                       '<a class="text-link" href="%s">Revisit this story ↗</a></div></section>') % (
+                           esc(json.dumps(picks, ensure_ascii=False)), esc(pick['date']), pick['lang'],
+                           esc(pick['path']), esc(pick['title']), esc(pick['note']), esc(pick['path']))
         links = ' <span aria-hidden="true">·</span> '.join('<a href="%s">%s</a>' % (self.u('/%s/' % y), y) for y in [2026, 2020, 2014, 2008])
         return earlier + ('<section class="years-invitation"><div><p class="label">A LIFE, IN CHAPTERS</p><h2>Some things change.<br><em>Some pages stay.</em></h2></div>'
                           '<div><p>College days. New cities. Long walks.<br>A few pets, and a lot of passing thoughts.</p><div class="year-links">%s</div>'
