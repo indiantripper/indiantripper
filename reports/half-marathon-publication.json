@@ -1,0 +1,29 @@
+{
+  "title": "कम ऑन भाई, बस थोड़ा और!",
+  "post_id": "2026112401",
+  "path": "/2026/11/24/come-on-bhai-bas-thoda-aur/",
+  "share_path": "/read/come-on-bhai-bas-thoda-aur/",
+  "categories": [
+    "Sports",
+    "Passing Thoughts"
+  ],
+  "cover": {
+    "image": "/images/2026/half-marathon/cover.jpg",
+    "source": "User-supplied photo, preserved in full and converted to JPEG. Display height limited without cropping."
+  },
+  "illustrations": [
+    {
+      "slug": "race-characters",
+      "prompt": "Use case: illustration-story. A single wide landscape painterly editorial illustration for an affectionate, deadpan Hindi essay about the eccentric people at an Indian half marathon. Scene on a tree-lined city road in early morning light. Two clear humorous race characters run side by side in the foreground: one lean older runner running effortlessly barefoot, and another cheerful runner dribbling an orange basketball as he runs. A few ordinary well-equipped runners in colourful running shoes behind them look mildly bewildered and a little out of breath. Small generic race bibs without legible words or numbers. Background runners are loose simplified silhouettes. Everyone is a deliberately stylised cartoon character, no realistic portrait or recognisable likeness of the blog author; avoid a bearded man in a cap as central character. Warm handmade gouache and watercolour brush textures on softly grained paper, warm amber sunrise and muted teal/green shadows, visually consistent with literary illustrations of a disappointed ghost outside a mosquito net and personified Time in a spreadsheet. Humour comes from postures and the situation, not exaggerated cruel caricature. Single coherent scene, no multiple panels or collage. Landscape approximately 3:2. No text, captions, logos, watermark, no finish-line banners.",
+      "generation_mode": "built-in image generation",
+      "image": "/images/2026/half-marathon/race-characters.jpg"
+    },
+    {
+      "slug": "water-station",
+      "prompt": "Use case: illustration-story. A single wide landscape painterly editorial illustration for a humorous Hindi personal essay about half-marathon runners. Scene: a water station on the left edge of a tree-lined Indian race route, folding table with volunteers and water bottles. One runner who was on the far side of the road makes a sudden diagonal turn towards the table, surprising two following runners who politely sidestep him with comically exasperated body language. A couple of discarded empty plastic water bottles in the foreground make the road feel like an impromptu football pitch; one runner carefully nudges a bottle out of the way. No one falls or is injured. Clear flowing composition makes the abrupt diagonal move immediately readable. Generic runners with different builds and simple non-realistic faces, no central author likeness, no bearded man in a cap. Warm textured gouache/storybook aesthetic, soft paper grain, muted terracotta, teal and olive with bright morning amber light, matching the other literary-blog race illustration. Understated observational humour, kind rather than grotesque. Single coherent scene, no collage or panels. Wide landscape approximately 3:2, no readable text, no slogans, brand logos, watermark, or captions.",
+      "generation_mode": "built-in image generation",
+      "image": "/images/2026/half-marathon/water-station.jpg"
+    }
+  ],
+  "text": "Accepted Hindi prose draft from this conversation, with the selected new title. Illustrations inserted only between complete paragraphs."
+}
