@@ -801,7 +801,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
                 return item + sub + '</li>\n'
             return item + '</li>\n' + sub
         items = ''.join(render(c, 1) for c in kids.get(0, []))
-        return ('<section id="comments" class="comments-area"><h2 class="comments-title">In the margins <span>%s</span></h2><ol class="comment-list">%s</ol>'
+        return ('<section id="comments" class="comments-area"><h2 class="comments-title">Comments <span>%s</span></h2><ol class="comment-list">%s</ol>'
                 '%s</section>') % (plural(len(cs), 'comment'), items, '' if getattr(self, 'comments_config', {}).get('enabled') else '<p class="mono">Comments are closed.</p>')
 
     def live_comments_html(self, post):
@@ -810,7 +810,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             return ''
         section_id = 'new-comments' if post['comments'] else 'comments'
         return ('<section id="%s" class="live-comments" data-blog-comments data-post-id="%s" data-endpoint="%s" data-publishable-key="%s" data-turnstile-site-key="%s" data-preview="%s">'
-                '<div data-live-comments hidden><h2 class="comments-title">In the margins</h2><ol class="comment-list" data-comment-list></ol><button type="button" class="comments-more" data-comments-more hidden>More comments</button></div>'
+                '<div data-live-comments hidden><h2 class="comments-title">Comments</h2><ol class="comment-list" data-comment-list></ol><button type="button" class="comments-more" data-comments-more hidden>More comments</button></div>'
                 '<details class="comment-compose"><summary>Leave a comment</summary><form class="comment-form">'
                 '<p class="comment-form-note">Your name and approved comment will be public. No email address is collected.</p>'
                 '<div class="comment-reply-context"><span data-reply-context></span><button type="button" data-cancel-reply hidden>Cancel reply</button></div>'

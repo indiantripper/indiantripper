@@ -150,3 +150,6 @@
 .entry-content .race-finish-gallery img{border-radius:3px}
 .row-thumbnail img[src$="daudkar-wapas-wahin/medal-cover.jpg"],.share-preview img[src$="daudkar-wapas-wahin/medal-cover.jpg"]{object-position:50% 70%}
 @media(max-width:600px){.entry-content .race-finish-gallery{columns:2;column-gap:10px}.entry-content .race-running-gallery{gap:10px}.entry-content figure.race-portrait:has(img){max-width:min(100%,380px)!important}}
+
+/* Separate the next paragraph from an uncaptioned race gallery. */
+.entry-content .race-running-gallery+p{margin-top:2em}
