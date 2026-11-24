@@ -817,7 +817,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
                 '<label>Your name<input name="author_name" required minlength="2" maxlength="60" autocomplete="name"></label>'
                 '<label>Your comment<textarea name="body" required minlength="2" maxlength="10000" rows="5"></textarea></label>'
                 '<label class="comment-honeypot" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>'
-                '<div data-turnstile></div><button class="comment-send" type="submit" disabled>Send for approval</button>'
+                '<div data-turnstile></div><button class="comment-send" type="submit" disabled>Submit</button>'
                 '<p class="comment-form-status" data-comment-status role="status" aria-live="polite"></p></form></details>'
                 '<noscript><p class="comment-form-note">JavaScript is needed to load new comments and send a reply.</p></noscript></section>') % (
                     section_id, esc(post['id']), esc(cfg['supabase_url'] + '/functions/v1/blog-comments'), esc(cfg['publishable_key']),

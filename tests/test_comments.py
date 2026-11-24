@@ -50,7 +50,7 @@ class Comments(unittest.TestCase):
         self.assertEqual(dated, site.live_comments_html(post))
         self.assertIn('data-post-id="42"', dated)
         self.assertIn('data-preview="false"', dated)
-        self.assertIn('Send for approval', dated)
+        self.assertIn('Submit', dated)
         self.assertNotIn('name="email"', dated)
         self.assertIn('type="submit" disabled', dated)
 
