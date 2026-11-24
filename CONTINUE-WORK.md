@@ -71,4 +71,4 @@ See `BACKLOG.md`. The ordered अंतर्द्वंद series page, follow
 
 Never open a new article body with a photo. Begin with prose. Cover photos belong in front matter for listings and sharing; place in-article photos only after paragraphs. Keep real event photos intact and distinguish multi-race albums from photos of the particular race described.
 
-Email alerts are paused at the user’s request. Prepared work is saved separately on this Mac at `/Users/harshsingh/Documents/ChatGPT/GG/comment-alerts-in-progress/RESUME.txt`; none of its backend or builder changes should be bundled into a post publication.
+Comment approval email alerts are enabled and delivery-tested as of 24 November 2026. See `COMMENTS.md` for protected configuration, the private outbox and automatic retry job. The old `comment-alerts-in-progress` folder is a superseded snapshot, not source to copy over production.

@@ -9,6 +9,8 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 - [x] Add compact thumbnails when a suitable existing local image is available. Keep posts without images typographic; do not force artwork onto every post.
 - [x] Create **Start here** with ten selected pieces across poetry, reflections, journeys and the early archive. Link it from desktop navigation, the mobile menu, the homepage and footer.
 
+- [x] Enable private new-comment approval emails through Resend, with automatic retries and a delivered test. See `COMMENTS.md`.
+
 ## Next — helps everyone
 
 - [ ] Add a way to follow by email or WhatsApp. Decide on a subscription service or provide a WhatsApp Channel URL before implementation; do not expose personal contact details by assumption.

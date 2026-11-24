@@ -8,6 +8,16 @@ Enabled on 24 November 2026. The private database migration, `blog-comments` Edg
 
 The single `Connection test` submission is retained privately for verification, never approved or shown publicly. It can be rejected in the dashboard without deleting it. Historic comments remain intact. The function checks Turnstile server-side; the secret is stored only in Supabase's protected function settings.
 
+## Approval email alerts
+
+Enabled and tested on 24 November 2026. A real guest comment remained pending and private while its notification reached the owner address with Resend status **Delivered**. Each alert contains the post title, comment preview, article link, moderation link and comment ID. The current sender is `Time Turner <onboarding@resend.dev>` and the recipient is the Resend account owner. This is a moderation alert, not a reader subscription service.
+
+The sending-only Resend key and recipient/sender settings are stored in protected Edge Function secrets: `RESEND_API_KEY`, `COMMENTS_NOTIFY_TO`, `COMMENTS_NOTIFY_FROM`. `COMMENTS_NOTIFY_TOKEN` authenticates the private retry worker; its matching value is encrypted in Vault as `blog_comments_notify_token`. Never save actual values in Git or chat. Moving to a custom sender requires verifying that domain in Resend first.
+
+`202611240002_comment_notifications.sql` adds a private outbox and service-only claim/prepare/finish functions. `schedule-comment-notifications.sql` installs the active `blog-comment-alerts` job, once per minute. The guest endpoint attempts delivery after saving a comment, and the job retries queued failures. A delivery failure never discards a comment or blocks its submission. Exact email payloads and stable idempotency keys are retained across retries. Retries stop after 8 attempts or 23 hours; inspect private `blog_comment_notifications` for failed records. Already moderated or withdrawn posts are skipped before sending. Existing comments are not backfilled.
+
+The retry route is `POST /functions/v1/blog-comments?task=notify`, protected by `x-comments-notify-token`; public browser keys cannot invoke it. To pause alerts, disable the named cron job and remove the notification configuration from the function. Do not alter public comment permissions. The additional `Notification test` comment is retained pending and must not be approved as reader content.
+
 ## Readers
 
 Each published article has a collapsed **Leave a comment** form. Readers supply a name and comment, without an account or email address. Every new comment is pending until approved. Only approved comments and their public fields are returned to visitors. Replies to new approved comments are supported. Archived comments remain read-only.
@@ -56,7 +66,7 @@ Use Python with `requirements.txt` installed and Node 20+:
 
 ```sh
 python -m unittest discover -s tests -v
-node --test tests/comments-function.test.mjs
+node --test tests/comments-function.test.mjs tests/comment-notifications.test.mjs
 python build.py
 ```
 
