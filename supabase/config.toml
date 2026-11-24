@@ -1,0 +1,5 @@
+project_id = "uyncwplmenormkebmecn"
+
+[functions.blog-comments]
+# Guest endpoint. Every submission is checked with Turnstile and server-side limits.
+verify_jwt = false

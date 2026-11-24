@@ -1,6 +1,6 @@
 # Blog backlog
 
-Updated 18 November 2026. Prioritise changes that help new and returning readers before reader-specific additions. Existing post addresses and historical comments must stay intact. New comments remain closed.
+Updated 18 November 2026. Prioritise changes that help new and returning readers before reader-specific additions. Existing post addresses and historical comments must stay intact. New moderated guest comments have been explicitly requested; see `COMMENTS.md` for rollout status.
 
 ## Completed — discovery batch
 
@@ -26,7 +26,7 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 - [ ] Surface older writing with **On this day** or **Around this time, years ago**, with a fallback for dates without a matching post.
 - [ ] Add thoughtful connections between new and old writing, starting with college-era posts related to **48 घंटे का दिन**. Add reading links outside the original prose rather than rewriting historical posts.
 - [ ] Develop a named, numbered recurring series, potentially Epic Retellings; define the editorial sequence without automatically retitling older work.
-- [ ] Consider an optional closing question or reply link. Confirm the intended public reply address/channel first; do not reopen comments.
+- [ ] Consider an optional closing question or reply link. Confirm the intended public reply address/channel first; follow the separately requested moderated comments workflow.
 
 ## Deferred by request
 
@@ -53,7 +53,7 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 - [ ] Review image positions in Rajmachi and A Tale of Two Kids where they interrupt a sentence.
 - [ ] Verify the source/licence of Rajmachi's firefly image and replace or credit it appropriately.
 - [ ] Check and attribute Kasol's song-lyric captions; verify sources before editing.
-- [ ] Evaluate a reply option alongside following. Historic comments remain intact; new comments stay closed until an explicit decision.
+- [ ] Evaluate a reply option alongside following. Historic comments remain intact; new comments now have an explicit request for a moderated Supabase workflow.
 
 ### Writing and factual review
 
@@ -102,3 +102,10 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 ## Code-only archive — 18 November 2026
 
 - [x] Withdraw the three formerly password-protected posts (IDs 165, 181, 3593) from the website using `status: private`. Keep original text, metadata and comments in the public repository with the user’s explicit permission. Exclude them from direct pages, listings, search, feed, random selection, navigation and sitemap. Do not republish without a new instruction.
+
+## Comments integration — 24 November 2026
+
+- [x] Prepare guest form and server-side moderation/spam checks; preserve archived comments and withdrawn posts.
+- [x] Create private Supabase tables and verify anonymous access is denied.
+- [ ] Deploy the comment service, configure restricted Turnstile and verify a real pending submission before activation.
+- [ ] Set up recurring private exports/backups for new comments; these are not stored in GitHub.

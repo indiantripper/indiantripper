@@ -4,7 +4,7 @@ A static copy of the blog, built from plain files. No WordPress or content datab
 
 ## What is where
 - `content/posts/<year>/` — one file per post. Top lines are the title, date, categories and tags; the rest is the post.
-- `content/comments/<year>/` — the old comments for each post. Comments are closed; these are display-only.
+- `content/comments/<year>/` — the old comments for each post. These remain a read-only archive; see `COMMENTS.md` for new guest comments.
 - `content/site.json` — site title, menu, home page and About text.
 - `theme/` — the open notebook stylesheet and reading-preference script.
 - `static/` — optional. Anything placed here is copied to the site as-is, e.g. `static/images/goa.jpg` appears at `/images/goa.jpg`.
@@ -55,7 +55,7 @@ The brand links home. Threads (`/threads/`) browses categories; Years (`/years/`
 
 The moon/sun button changes appearance. The sliders button opens text size and post-language controls. Text size and appearance stay in that reader’s browser. Reading text starts at 21px; the size controls range from 19px to 27px. English category labels are `name_en` in `content/categories.json`.
 
-Only posts with existing comments show a discussion. New comments stay closed. Tags have no links or labels in the theme; old tag archive addresses are retained as unlisted, noindex compatibility pages.
+Archived discussions remain intact. New guest comments use a separate moderated Supabase service; deployment and approval instructions are in `COMMENTS.md`. No empty discussion heading is shown. Tags have no links or labels in the theme; old tag archive addresses are retained as unlisted, noindex compatibility pages.
 
 A preview build still uses `/indiantripper/`, `noindex`, and blocking robots.txt. Do not add a CNAME or switch DNS until the domain migration is approved.
 

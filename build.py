@@ -405,6 +405,15 @@ class Site:
         self.cat_name = {c['slug']: c['name'] for c in self.cats}
         tpath = os.path.join(CONTENT, 'tags.json')
         self.tag_name = json.load(open(tpath, encoding='utf-8')) if os.path.exists(tpath) else {}
+        comments_file = os.path.join(CONTENT, 'comments.json')
+        self.comments_config = {}
+        if os.path.exists(comments_file):
+            with open(comments_file, encoding='utf-8') as source:
+                self.comments_config = json.load(source)
+        if self.comments_config.get('enabled'):
+            cfg = self.comments_config
+            if not re.fullmatch(r'https://[a-z0-9]+\.supabase\.co', cfg.get('supabase_url', '')) or not cfg.get('publishable_key', '').startswith('sb_publishable_') or not cfg.get('turnstile_site_key'):
+                raise ValueError('Comments need a Supabase URL, publishable key and Turnstile site key. Never put a secret key here.')
         self.posts, self.problems = load(self.site)
         self.share_paths = self.load_share_paths()
         counts = self.cat_counts()
@@ -615,7 +624,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 <details class="preferences"><summary class="icon-btn" aria-label="Reading controls">%(settings_icon)s</summary><div class="preferences-panel"><h2>Reading comfort</h2><div class="preference-row"><span>Text size</span><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div></div>%(story_filter)s</div></details></nav></header>
 <div id="content">%(body)s</div>
 <footer class="wrap site-footer"><div><a class="footer-title" href="%(home)s">%(site)s</a><p>Somewhere between a memory and a thought.</p></div><nav aria-label="Footer"><a href="%(start)s">Favourites</a><a href="%(threads)s">Threads</a><a href="%(years)s">The years</a><a href="%(about)s">About</a><a href="%(random)s">Surprise me</a><a href="%(feed)s">RSS</a><span>© %(year)s Harsh</span></nav></footer>
-<div class="toast" id="tt-toast" role="status" aria-live="polite"></div><script src="%(js)s" defer></script></body></html>''' % {
+<div class="toast" id="tt-toast" role="status" aria-live="polite"></div><script src="%(js)s" defer></script>%(comments_script)s</body></html>''' % {
             'lang': esc(s.get('language', 'en-US')), 'base': esc(self.base), 'title': esc(html.unescape(title)),
             'description': esc(description), 'robots': robots, 'canonical': esc(self.canonical(path)),
             'site': esc(s['title']), 'og_type': og_type, 'feed': self.u('/feed.xml'), 'fonts': esc(FONTS),
@@ -630,6 +639,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             'years_current': selected(path.startswith('/years/') or re.match(r'^/\d{4}/', path)),
             'user_icon': icon('user'), 'search_icon': icon('search'), 'moon': icon('moon'), 'sun': icon('sun'),
             'settings_icon': icon('settings'), 'story_filter': story_filter,
+            'comments_script': ('<script src="%s" defer></script>' % esc(self.u('/assets/comments.js') + self.asset_v)) if singular and self.comments_config.get('enabled') else '',
             'social_image': esc(self.canonical(social_image)), 'social_alt': esc(social_alt)}
 
     def search_form(self):
@@ -792,7 +802,26 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             return item + '</li>\n' + sub
         items = ''.join(render(c, 1) for c in kids.get(0, []))
         return ('<section id="comments" class="comments-area"><h2 class="comments-title">In the margins <span>%s</span></h2><ol class="comment-list">%s</ol>'
-                '<p class="mono">Comments are closed.</p></section>') % (plural(len(cs), 'comment'), items)
+                '%s</section>') % (plural(len(cs), 'comment'), items, '' if getattr(self, 'comments_config', {}).get('enabled') else '<p class="mono">Comments are closed.</p>')
+
+    def live_comments_html(self, post):
+        cfg = self.comments_config
+        if not cfg.get('enabled'):
+            return ''
+        section_id = 'new-comments' if post['comments'] else 'comments'
+        return ('<section id="%s" class="live-comments" data-blog-comments data-post-id="%s" data-endpoint="%s" data-publishable-key="%s" data-turnstile-site-key="%s" data-preview="%s">'
+                '<div data-live-comments hidden><h2 class="comments-title">In the margins</h2><ol class="comment-list" data-comment-list></ol><button type="button" class="comments-more" data-comments-more hidden>More comments</button></div>'
+                '<details class="comment-compose"><summary>Leave a comment</summary><form class="comment-form">'
+                '<p class="comment-form-note">Your name and approved comment will be public. No email address is collected.</p>'
+                '<div class="comment-reply-context"><span data-reply-context></span><button type="button" data-cancel-reply hidden>Cancel reply</button></div>'
+                '<label>Your name<input name="author_name" required minlength="2" maxlength="60" autocomplete="name"></label>'
+                '<label>Your comment<textarea name="body" required minlength="2" maxlength="10000" rows="5"></textarea></label>'
+                '<label class="comment-honeypot" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>'
+                '<div data-turnstile></div><button class="comment-send" type="submit" disabled>Send for approval</button>'
+                '<p class="comment-form-status" data-comment-status role="status" aria-live="polite"></p></form></details>'
+                '<noscript><p class="comment-form-note">JavaScript is needed to load new comments and send a reply.</p></noscript></section>') % (
+                    section_id, esc(post['id']), esc(cfg['supabase_url'] + '/functions/v1/blog-comments'), esc(cfg['publishable_key']),
+                    esc(cfg['turnstile_site_key']), 'true' if self.preview else 'false')
 
     def single(self, i):
         p = self.posts[i]
@@ -813,7 +842,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             'title': esc(html.unescape(p['title'])), 'author': esc(self.site.get('author', 'Harsh')),
             'iso': p['date'].isoformat(), 'date': fmt_date(p['date'], 'long'), 'reading': self.reading(p),
             'content': render_body(p['raw'], self.site, self.base), 'cats': cats, 'about': self.u('/about/'),
-            'comments': self.comments_html(p), 'nav': nav, 'share': self.share_controls(p, image)}
+            'comments': self.comments_html(p) + self.live_comments_html(p), 'nav': nav, 'share': self.share_controls(p, image)}
         desc = html.unescape(p.setdefault('excerpt_html', excerpt_of(p)))[:300]
         title = '%s – %s' % (html.unescape(p['title']), self.site['title'])
         self.write(p['path'], self.page(p['path'], title, body,
@@ -843,6 +872,8 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             shutil.copytree(static, self.out, dirs_exist_ok=True)
 
         posts = self.posts
+        self.write('/comments-posts.json', json.dumps({'posts': [p['id'] for p in posts]}, separators=(',', ':')))
+        self.pages_written -= 1
         for i in range(len(posts)):
             self.single(i)
 

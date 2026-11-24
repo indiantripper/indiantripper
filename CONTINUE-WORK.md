@@ -18,7 +18,7 @@ Open the existing blog folder in the app, then ask the new chat to read this fil
 
 ## Another Mac or computer
 
-Clone `https://github.com/indiantripper/indiantripper.git`, then open the cloned folder. All public posts, comments, site settings, theme, web images and publishing workflow come with it. A different GitHub account must be invited as a collaborator to publish to the same repo; a different ChatGPT account alone does not grant GitHub access. Keep the existing repo and domain; a fork is not needed for continuing this site.
+Clone `https://github.com/indiantripper/indiantripper.git`, then open the cloned folder. All public posts, historic comments, site settings, theme, web images and publishing workflow come with it. New live comments are in Supabase and need a separate private export/backup; read `COMMENTS.md`. A different GitHub account must be invited as a collaborator to publish to the same repo; a different ChatGPT account alone does not grant GitHub access. Keep the existing repo and domain; a fork is not needed for continuing this site.
 
 For writing only, use the browser editor from any device with the authorised GitHub login. Saving publishes immediately after the deployment completes. No drafts workflow is configured.
 
@@ -51,7 +51,7 @@ To preview: `python build.py --serve`. Commit the source changes and push to `ma
 - Compact desktop/mobile header; light/dark appearance and reader text-size controls.
 - Navigation uses Favourites, Threads and Through the years. No large introductory hero or Harsh's notebook block.
 - Only categories, English names; no tags UI. Stable legacy category slugs remain.
-- Preserve original post URLs, post text and all historical comments except posts explicitly withdrawn from the website. Comments stay closed; no empty-comments section.
+- Preserve original post URLs, post text and all historical comments except posts explicitly withdrawn from the website. New guest comments are explicitly authorised and require owner approval before publication; follow `COMMENTS.md`. Keep no empty-comments section.
 - Three formerly password-protected posts are deliberately code-only (`status: private`): IDs 165 (Sorry ....), 181 (That girl ....), and 3593 (Is it falling apart or moving on ????). Keep their source and comments in GitHub, but do not publish them, list them, or recreate their website pages. The user explicitly accepts that the public repository exposes these sources. The builder excludes non-published status from all generated output.
 - Short `/read/.../` links serve the complete article with the original address canonical. Share controls use the short link; old links and archive entries stay intact.
 - Link previews: when a post's share image is heavier than 200 KB, `build.py` (`social_card`) writes a smaller copy to `/images/share/auto/` in the built site and points `og:image` at it, because WhatsApp drops heavy preview images. Nothing to do per post; needs Pillow from `requirements.txt`.
@@ -65,4 +65,4 @@ To preview: `python build.py --serve`. Commit the source changes and push to `ma
 
 ## Remaining priorities
 
-See `BACKLOG.md`. The ordered अंतर्द्वंद series page, follow-by-email/WhatsApp, archive resurfacing, image recovery and editorial proofreading remain separate tasks. Do not rewrite historical prose or reopen comments just because external feedback recommends it.
+See `BACKLOG.md`. The ordered अंतर्द्वंद series page, follow-by-email/WhatsApp, archive resurfacing, image recovery and editorial proofreading remain separate tasks. Do not rewrite historical prose just because external feedback recommends it. New moderated comments have now been explicitly requested; consult `COMMENTS.md` for rollout status.
