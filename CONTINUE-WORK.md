@@ -66,3 +66,9 @@ To preview: `python build.py --serve`. Commit the source changes and push to `ma
 ## Remaining priorities
 
 See `BACKLOG.md`. The ordered अंतर्द्वंद series page, follow-by-email/WhatsApp, archive resurfacing, image recovery and editorial proofreading remain separate tasks. Do not rewrite historical prose just because external feedback recommends it. New moderated comments have now been explicitly requested; consult `COMMENTS.md` for rollout status.
+
+## Article images
+
+Never open a new article body with a photo. Begin with prose. Cover photos belong in front matter for listings and sharing; place in-article photos only after paragraphs. Keep real event photos intact and distinguish multi-race albums from photos of the particular race described.
+
+Email alerts are paused at the user’s request. Prepared work is saved separately on this Mac at `/Users/harshsingh/Documents/ChatGPT/GG/comment-alerts-in-progress/RESUME.txt`; none of its backend or builder changes should be bundled into a post publication.

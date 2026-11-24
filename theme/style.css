@@ -136,3 +136,17 @@
 
 /* New guest comments, alongside the untouched historical archive. */
 .live-comments{max-width:var(--col);margin:30px auto 0}.live-comments [hidden]{display:none!important}.live-comments .comment-list{margin-bottom:28px}.comment-compose{border-block:1px solid var(--line);padding:19px 0}.comment-compose>summary{cursor:pointer;color:var(--teal);font-size:18px;font-weight:500;min-height:32px}.comment-form{padding-top:20px;display:grid;gap:16px}.comment-form label{display:grid;gap:7px;font-size:16px}.comment-form input,.comment-form textarea{width:100%;max-width:100%;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:11px 13px;font-size:18px;line-height:1.6}.comment-form textarea{resize:vertical;min-height:150px}.comment-form-note,.comment-form-status{font-size:15px;line-height:1.7;color:var(--muted)}.comment-form-status[data-state=error]{color:var(--accent)}.comment-form-status[data-state=success]{color:var(--teal)}.comment-form-status:empty{display:none}.comment-send,.comments-more{justify-self:start;min-height:44px;padding:9px 17px;border:1px solid var(--teal);border-radius:22px;background:var(--teal);color:var(--bg);font-size:16px}.comment-send:hover,.comments-more:hover{color:var(--bg);opacity:.85}.comment-reply{border:0;padding:5px 0;color:var(--teal);font-size:14px;min-height:36px}.comment-owner-label{font-size:12px;color:var(--teal)}.comment-reply-context{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:15px;color:var(--muted)}.comment-reply-context button{border:0;color:var(--teal);text-decoration:underline}.comment-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}.live-comments .children .children .children .children{padding-left:0;border-left:0}.comment-form [data-turnstile]{min-height:65px;max-width:100%;overflow:hidden}
+
+/* Race albums preserve the original photos; collages reflow without baked-in crops. */
+.entry-content figure.race-portrait:has(img){max-width:420px!important;margin:1.8em auto!important}
+.entry-content .race-running-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:1.8em auto 0;align-items:start}
+.entry-content .race-running-gallery figure:has(img){width:100%!important;margin:0!important}
+.entry-content .race-running-gallery .race-wide{grid-column:1/-1}
+.entry-content .race-photo-note{font:14px/1.7 var(--body);color:var(--muted);text-align:center;margin:12px 0 1.8em}
+.entry-content .race-album{clear:both;border-top:1px solid var(--line);margin-top:2em;padding-top:1em}
+.entry-content .race-album h2{font-size:1.15em;margin-bottom:.4em}
+.entry-content .race-finish-gallery{columns:3;column-gap:12px}
+.entry-content .race-finish-gallery figure:has(img){display:inline-block;break-inside:avoid;width:100%!important;margin:0 0 12px!important;vertical-align:top}
+.entry-content .race-finish-gallery img{border-radius:3px}
+.row-thumbnail img[src$="daudkar-wapas-wahin/medal-cover.jpg"],.share-preview img[src$="daudkar-wapas-wahin/medal-cover.jpg"]{object-position:50% 70%}
+@media(max-width:600px){.entry-content .race-finish-gallery{columns:2;column-gap:10px}.entry-content .race-running-gallery{gap:10px}.entry-content figure.race-portrait:has(img){max-width:min(100%,380px)!important}}
