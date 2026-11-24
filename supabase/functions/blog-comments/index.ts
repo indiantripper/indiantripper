@@ -13,7 +13,7 @@ export function createHandler(env, fetcher = fetch) {
   const dbURL = env.SUPABASE_URL || '';
   const dbKey = defaultKey(env.SUPABASE_SECRET_KEYS) || env.SUPABASE_SERVICE_ROLE_KEY || '';
   const publicKey = defaultKey(env.SUPABASE_PUBLISHABLE_KEYS) || env.COMMENTS_PUBLISHABLE_KEY || '';
-  let manifest = null, manifestTime = 0;
+  let manifest = null, manifestTime = 0, postDetails = {};
   async function isLive(id) {
     // Read only the builder's current public IDs. A withdrawal applies automatically.
     if (!manifest || Date.now() - manifestTime > 15000) {
@@ -21,9 +21,56 @@ export function createHandler(env, fetcher = fetch) {
       if (!r.ok) throw new Error('manifest_unavailable');
       const data = await r.json();
       if (!Array.isArray(data.posts) || data.posts.some(x => typeof x !== 'string')) throw new Error('invalid_manifest');
-      manifest = new Set(data.posts); manifestTime = Date.now();
+      manifest = new Set(data.posts); postDetails = data.details || {}; manifestTime = Date.now();
     }
     return manifest.has(id);
+  }
+  async function rpc(name, data = {}) {
+    const response = await fetcher(dbURL + '/rest/v1/rpc/' + name, { method:'POST',
+      headers:{apikey:dbKey,'Content-Type':'application/json'},body:JSON.stringify(data),signal:AbortSignal.timeout(8000) });
+    if (!response.ok) throw new Error('queue_unavailable');
+    return response.status === 204 ? null : response.json();
+  }
+  function notificationsReady() {
+    return !!(env.RESEND_API_KEY && env.COMMENTS_NOTIFY_TO && env.COMMENTS_NOTIFY_FROM);
+  }
+  async function deliverNotification() {
+    if (!notificationsReady()) return { processed:0, configured:false };
+    let row;
+    try {
+      const rows = await rpc('claim_blog_comment_notification');
+      row = rows?.[0];
+      if (!row) return { processed:0, configured:true };
+      if (!await isLive(row.post_id)) {
+        await rpc('finish_blog_comment_notification',{p_id:row.comment_id,p_lease:row.lease_token,p_error:'post_unavailable',p_skip:true});
+        return {processed:1,skipped:true};
+      }
+      let payload = row.payload;
+      if (!payload) {
+        const detail = postDetails[row.post_id] || {};
+        const title = Array.from(String(detail.title || ('Post ' + row.post_id)).replace(/[\r\n]/g,' ')).slice(0,120).join('');
+        const path = typeof detail.path === 'string' && detail.path.startsWith('/') && !detail.path.startsWith('//') ? detail.path : '/';
+        payload = await rpc('prepare_blog_comment_notification',{p_id:row.comment_id,p_lease:row.lease_token,p_payload:{
+          from:env.COMMENTS_NOTIFY_FROM,to:[env.COMMENTS_NOTIFY_TO],subject:'Time Turner: new comment on ' + title,
+          text:'A comment is waiting for your approval.\n\nPost: ' + title + '\nFrom: ' + row.author_name +
+            '\n\n' + Array.from(row.body).slice(0,1000).join('') + (Array.from(row.body).length>1000?'…':'') +
+            '\n\nRead the post: ' + site + path + '\nApprove or reject in Supabase:\nhttps://supabase.com/dashboard/project/uyncwplmenormkebmecn/editor/17654?schema=public' +
+            '\n\nComment ID: ' + row.comment_id + '\n\nThe comment is not public until you approve it.' }});
+      }
+      if (!payload) return {processed:0,lease_expired:true};
+      const response = await fetcher('https://api.resend.com/emails',{method:'POST',signal:AbortSignal.timeout(10000),
+        headers:{Authorization:'Bearer ' + env.RESEND_API_KEY,'Content-Type':'application/json','Idempotency-Key':'comment-alert/' + row.comment_id},body:JSON.stringify(payload)});
+      if (!response.ok) throw new Error('provider_http_' + response.status);
+      const accepted = await response.json();
+      if (typeof accepted.id !== 'string') throw new Error('provider_unconfirmed');
+      await rpc('finish_blog_comment_notification',{p_id:row.comment_id,p_lease:row.lease_token});
+      return {processed:1,sent:true};
+    } catch(error) {
+      const reason = /^provider_http_\d{3}$/.test(error?.message) ? error.message : 'notification_retry';
+      if (row) await rpc('finish_blog_comment_notification',{p_id:row.comment_id,p_lease:row.lease_token,p_error:reason}).catch(()=>{});
+      // Do not log comment text, recipient, provider response or credentials.
+      return {processed:row?1:0,retry:true};
+    }
   }
   async function boundedJSON(req) {
     const reader = req.body?.getReader(); if (!reader) throw new Error('bad_json');
@@ -49,6 +96,12 @@ export function createHandler(env, fetcher = fetch) {
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'apikey, content-type', 'Access-Control-Max-Age': '600' } });
     if (!['GET','POST'].includes(req.method)) return reply(405, { error: 'Method not allowed.' });
     if (!dbURL || !dbKey || !publicKey) return reply(503, { error: 'Comments are temporarily unavailable.' });
+    if (new URL(req.url).searchParams.get('task') === 'notify') {
+      const supplied = req.headers.get('x-comments-notify-token') || '', expected = env.COMMENTS_NOTIFY_TOKEN || '';
+      if (req.method !== 'POST' || expected.length < 32 || supplied !== expected) return reply(401,{error:'Not authorized.'});
+      if (!notificationsReady()) return reply(503,{error:'Notifications are not configured.'});
+      return reply(200,await deliverNotification());
+    }
     if (req.headers.get('apikey') !== publicKey) return reply(401, { error: 'A publishable key is required.' });
     try {
       if (req.method === 'GET') {
@@ -103,6 +156,11 @@ export function createHandler(env, fetcher = fetch) {
         if (error.message === 'rate_limit') return reply(429, { error: 'Too many comments. Please wait before trying again.' }, { 'Retry-After': '600' });
         if (error.message === 'invalid_parent' || error.message === 'invalid_request') return reply(400, { error: 'This reply could not be added. Please refresh the discussion.' });
         return reply(503, { error: 'Your comment could not be saved. Your text is still here; please try again.' });
+      }
+      if (notificationsReady()) {
+        const job = deliverNotification();
+        if (typeof EdgeRuntime !== 'undefined') EdgeRuntime.waitUntil(job);
+        else await job;
       }
       return reply(202, { status: 'pending', message: 'Thank you. Your comment will appear after approval.' });
     } catch {

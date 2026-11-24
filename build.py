@@ -872,7 +872,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             shutil.copytree(static, self.out, dirs_exist_ok=True)
 
         posts = self.posts
-        self.write('/comments-posts.json', json.dumps({'posts': [p['id'] for p in posts]}, separators=(',', ':')))
+        self.write('/comments-posts.json', json.dumps({'posts': [p['id'] for p in posts], 'details': {p['id']: {'title': html.unescape(p['title']), 'path': p['path']} for p in posts}}, ensure_ascii=False, separators=(',', ':')))
         self.pages_written -= 1
         for i in range(len(posts)):
             self.single(i)
