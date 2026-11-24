@@ -107,5 +107,5 @@ Updated 18 November 2026. Prioritise changes that help new and returning readers
 
 - [x] Prepare guest form and server-side moderation/spam checks; preserve archived comments and withdrawn posts.
 - [x] Create private Supabase tables and verify anonymous access is denied.
-- [ ] Deploy the comment service, configure restricted Turnstile and verify a real pending submission before activation.
+- [x] Deploy the comment service, configure restricted Turnstile and verify a real pending submission before activation (24 November 2026).
 - [ ] Set up recurring private exports/backups for new comments; these are not stored in GitHub.

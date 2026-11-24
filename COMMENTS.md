@@ -4,7 +4,9 @@ The blog stays on GitHub Pages. New comments are stored separately in the Time T
 
 ## Current rollout
 
-The database migration has been applied. Frontend activation remains off in `content/comments.json` until the Edge Function and Cloudflare Turnstile have been deployed and checked end to end. Do not enable the form before that check.
+Enabled on 24 November 2026. The private database migration, `blog-comments` Edge Function and hostname-restricted Cloudflare Turnstile widget are live. An actual guest submission was verified in the database as `pending`, `is_author = false`, and excluded from the public endpoint. Failed spam checks and direct anonymous database access are denied. The unlinked verification page was removed after testing.
+
+The single `Connection test` submission is retained privately for verification, never approved or shown publicly. It can be rejected in the dashboard without deleting it. Historic comments remain intact. The function checks Turnstile server-side; the secret is stored only in Supabase's protected function settings.
 
 ## Readers
 
@@ -32,7 +34,7 @@ Create a Turnstile widget restricted to `indiantripper.in` and `www.indiantrippe
 
 Supabase supplies `SUPABASE_URL`, `SUPABASE_SECRET_KEYS` and `SUPABASE_PUBLISHABLE_KEYS`; the function uses the `default` key from each dictionary. Legacy fallback variables are `SUPABASE_SERVICE_ROLE_KEY` and `COMMENTS_PUBLISHABLE_KEY`. The server key is never sent to readers. The handler uses the default production origin/hostname pair; only override `COMMENTS_SITE_URL`, `COMMENTS_ORIGINS` or `COMMENTS_HOSTNAMES` deliberately. No local origins are enabled in production.
 
-Before activation, confirm the endpoint can read approved comments, rejects invalid submissions/withdrawn posts and holds a real guest submission for approval. Then set `enabled` to true and publish. Local `--preview` builds show the form but intentionally make no comment/captcha requests or submissions.
+For any future redeployment, confirm the endpoint can read approved comments, rejects invalid submissions/withdrawn posts and holds a real guest submission for approval. Then set `enabled` to true and publish. Local `--preview` builds show the form but intentionally make no comment/captcha requests or submissions.
 
 ## Abuse controls and privacy
 
