@@ -73,6 +73,6 @@ Never open a new article body with a photo. Begin with prose. Cover photos belon
 
 Comment approval email alerts are enabled and delivery-tested as of 24 November 2026. See `COMMENTS.md` for protected configuration, the private outbox and automatic retry job. The old `comment-alerts-in-progress` folder is a superseded snapshot, not source to copy over production.
 
-## Underlined quote diary
+## Removed quote diary
 
-Published at `/underlined/`, linked only from About as “Some quotes that I really like →”. Keep it out of the main navigation. `content/quotes.json` holds 35 imported Goodreads favourites; display exact text with curly quotation marks, author and book. Shuffle opens randomly and exhausts the collection before repeating; Back restores history. There are no individual quote pages, quote links, categories or counters. Original 41-entry import and six entries needing attribution/book review are saved locally at `/Users/harshsingh/Documents/ChatGPT/GG/underlined-preview/`; do not automatically publish the review entries.
+The user requested complete removal of Underlined on 26 November 2026. Do not restore its page, assets or About link without a new request. The original Goodreads import and local preview remain on this Mac at `/Users/harshsingh/Documents/ChatGPT/GG/underlined-preview/`.

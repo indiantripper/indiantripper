@@ -866,24 +866,6 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             self.write(share_path, self.page(p['path'], title, body, noindex=True,
                        body_class='single single-post', description=desc, singular=True, og_type='article', social_image=social, social_alt=image_alt))
 
-    def underlined(self):
-        quotes = json.load(open(os.path.join(CONTENT, 'quotes.json'), encoding='utf-8'))
-        if not quotes:
-            raise ValueError('Underlined needs at least one quote')
-        first = quotes[0]
-        lang = 'hi' if is_hindi(first['quote']) else 'en'
-        body = ('<main class="quote-diary wrap"><div class="diary-heading"><h1>Underlined<span aria-hidden="true"></span></h1><p>Words I wanted to keep.</p></div>'
-                '<section class="diary-sheet" aria-label="A favourite passage" data-quotes="%s">'
-                '<figure id="passage" aria-live="polite" aria-atomic="true"><span class="diary-quote-mark" aria-hidden="true">“</span><blockquote id="quote-text" lang="%s">%s</blockquote>'
-                '<figcaption><span id="quote-author">%s</span><cite id="quote-book">%s</cite></figcaption></figure>'
-                '<nav class="diary-controls" aria-label="Browse favourite passages"><button id="quote-back" disabled>← Back</button>'
-                '<button id="quote-shuffle" disabled>Shuffle <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.36-6.36L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.36 6.36L3 16M8 16H3v5"/></svg></span></button></nav></section></main>'
-                '<script src="%s" defer></script>') % (
-                    esc(json.dumps(quotes, ensure_ascii=False)), lang, esc(first['quote']), esc(first['author']), esc(first['book']),
-                    esc(self.u('/assets/underlined.js') + self.asset_v))
-        self.write('/underlined/', self.page('/underlined/', 'Underlined – ' + self.site['title'], body,
-                   body_class='underlined', noindex=True, story_filter='', description='Some quotes that I really like.'))
-
     # ---- everything
 
     def build(self):
@@ -925,10 +907,9 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
                                         'Different places. Different versions of me. The same little corner of the internet.')
         self.listing('/years/', [p for p in posts if p['date'].year == latest_year], 'The years – ' + s['title'],
                      intro=years_intro, noindex=True)
-        about = '<main class="wrap about-page">%s<div class="about-copy"><p>%s</p><p>The name Time Turner comes from Harry Potter, a favourite of mine. This blog previously lived at magicalharsh.com.</p></div><div class="about-reading-links"><a class="text-link" href="%s">Meet me through the years →</a><p><a class="text-link" href="%s">Some quotes that I really like →</a></p></div></main>' % (
-            self.archive_intro('The person behind the pages', "Hi, I’m Harsh."), esc(s['about']), self.u('/years/'), self.u('/underlined/'))
+        about = '<main class="wrap about-page">%s<div class="about-copy"><p>%s</p><p>The name Time Turner comes from Harry Potter, a favourite of mine. This blog previously lived at magicalharsh.com.</p></div><a class="text-link" href="%s">Meet me through the years →</a></main>' % (
+            self.archive_intro('The person behind the pages', "Hi, I’m Harsh."), esc(s['about']), self.u('/years/'))
         self.write('/about/', self.page('/about/', 'About Harsh – ' + s['title'], about, body_class='about'))
-        self.underlined()
         # categories, tags, dates
         for c in self.cats:
             sel = [p for p in posts if c['slug'] in p['cats']]
