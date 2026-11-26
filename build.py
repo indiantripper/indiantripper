@@ -890,7 +890,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             self.single(i)
 
         # Compact notebook home; the brand is the home link.
-        intro = '<section class="intro intro-compact"><div class="intro-copy"><p>%s <a class="start-link" href="%s">Favourites →</a></p></div></section>' % (esc(s['description']), self.u('/favourites/'))
+        intro = '<section class="intro intro-compact"><div class="intro-copy"><p>%s</p></div></section>' % esc(s['description'])
         home_title = '%s – %s' % (s['title'], s['description'])
         self.listing('/', posts, home_title, intro=intro, body_class='home blog')
         self.start_here()
