@@ -877,7 +877,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
                 '<figure id="passage" aria-live="polite" aria-atomic="true"><span class="diary-quote-mark" aria-hidden="true">“</span><blockquote id="quote-text" lang="%s">%s</blockquote>'
                 '<figcaption><span id="quote-author">%s</span><cite id="quote-book">%s</cite></figcaption></figure>'
                 '<nav class="diary-controls" aria-label="Browse favourite passages"><button id="quote-back" disabled>← Back</button>'
-                '<button id="quote-shuffle" disabled>Shuffle <span aria-hidden="true">↻</span></button></nav></section></main>'
+                '<button id="quote-shuffle" disabled>Shuffle <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.36-6.36L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.36 6.36L3 16M8 16H3v5"/></svg></span></button></nav></section></main>'
                 '<script src="%s" defer></script>') % (
                     esc(json.dumps(quotes, ensure_ascii=False)), lang, esc(first['quote']), esc(first['author']), esc(first['book']),
                     esc(self.u('/assets/underlined.js') + self.asset_v))
