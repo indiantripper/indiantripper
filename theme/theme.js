@@ -29,20 +29,28 @@
   applyTheme();
   if (themeButton) themeButton.addEventListener('click', function () { theme = theme === 'dark' ? 'light' : 'dark'; store('tt-theme', theme); applyTheme(); });
   if (system.addEventListener) system.addEventListener('change', function (e) { if (!read('tt-theme')) { theme = e.matches ? 'dark' : 'light'; applyTheme(); } });
-  var fs = Number(read('tt-fs-v2')) || 21, buttons = document.querySelectorAll('[data-tt-size]');
+  var fs = Number(read('tt-fs-v2')) || 21;
+  var sizeButton = document.getElementById('tt-text-size');
+  var sizes = [19, 21, 25], sizeNames = ['Small', 'Normal', 'Large'];
   function applySize() {
-    fs = Math.max(19, Math.min(27, fs)); root.style.setProperty('--fs', fs + 'px');
-    buttons.forEach(function (b) { b.disabled = Number(b.dataset.ttSize) < 0 ? fs <= 19 : fs >= 27; });
+    fs = Math.max(19, Math.min(27, fs));
+    root.style.setProperty('--fs', fs + 'px');
+    if (sizeButton) {
+      var current = fs <= 19 ? 0 : fs <= 21 ? 1 : 2;
+      var next = (current + 1) % sizes.length;
+      var label = 'Text size: ' + sizeNames[current] + '. Switch to ' + sizeNames[next] + '.';
+      sizeButton.setAttribute('aria-label', label);
+      sizeButton.title = label;
+    }
   }
   applySize();
-  buttons.forEach(function (b) { b.addEventListener('click', function () { fs += Number(b.dataset.ttSize); applySize(); store('tt-fs-v2', fs); }); });
+  if (sizeButton) sizeButton.addEventListener('click', function () {
+    var current = fs <= 19 ? 0 : fs <= 21 ? 1 : 2;
+    fs = sizes[(current + 1) % sizes.length];
+    applySize(); store('tt-fs-v2', fs);
+  });
   var storyLanguage = document.getElementById('tt-story-language');
   if (storyLanguage) storyLanguage.addEventListener('change', function () { location.assign(storyLanguage.value); });
-  var preferences = document.querySelector('.preferences');
-  if (preferences) {
-    document.addEventListener('click', function (e) { if (!preferences.contains(e.target)) preferences.open = false; });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && preferences.open) { preferences.open = false; preferences.querySelector('summary').focus(); } });
-  }
   var mobileMenu = document.querySelector('.mobile-menu');
   if (mobileMenu) {
     document.addEventListener('click', function (e) { if (!mobileMenu.contains(e.target)) mobileMenu.open = false; });

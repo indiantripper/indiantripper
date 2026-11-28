@@ -53,7 +53,7 @@ addresses were never imported.
 ## Open notebook theme
 The brand links home. Threads (`/threads/`) browses categories; Years (`/years/`) browses the dated archive. Each thread and year has its own paginated, directly linkable page. The post-language choice in Reading controls filters stories within the selected thread or year. Thread names use English and are ordered by post count, highest first. Counts and ordering update on every build.
 
-The moon/sun button changes appearance. The sliders button opens text size and post-language controls. Text size and appearance stay in that reader’s browser. Reading text starts at 21px; the size controls range from 19px to 27px. English category labels are `name_en` in `content/categories.json`.
+The moon/sun button changes appearance. The Aa button cycles Small (19px), Normal (21px) and Large (25px) text. Text size and appearance stay in that reader’s browser. Language selection is on thread and year archive pages. English category labels are `name_en` in `content/categories.json`.
 
 Archived discussions remain intact. New guest comments use a separate moderated Supabase service; deployment and approval instructions are in `COMMENTS.md`. No empty discussion heading is shown. Tags have no links or labels in the theme; old tag archive addresses are retained as unlisted, noindex compatibility pages.
 

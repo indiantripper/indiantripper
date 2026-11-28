@@ -633,7 +633,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
 <details class="mobile-menu"><summary class="icon-btn" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></summary><nav class="mobile-menu-panel" aria-label="Explore"><a href="%(start)s">Favourites</a><a href="%(threads)s">Threads</a><a href="%(years)s">Through the years</a><a href="%(about)s">About Harsh</a></nav></details>
 <a class="icon-btn profile-link" href="%(about)s" aria-label="About Harsh">%(user_icon)s</a><a class="icon-btn" href="%(search)s" aria-label="Search the notebook">%(search_icon)s</a>
 <button class="icon-btn" id="tt-theme" aria-label="Switch light or dark mode"><span class="theme-dark">%(moon)s</span><span class="theme-light">%(sun)s</span></button>
-<details class="preferences"><summary class="icon-btn" aria-label="Reading controls">%(settings_icon)s</summary><div class="preferences-panel"><h2>Reading comfort</h2><div class="preference-row"><span>Text size</span><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div></div>%(story_filter)s</div></details></nav></header>
+<button class="icon-btn text-size-icon" id="tt-text-size" aria-label="Change text size" title="Change text size">Aa</button></nav></header>
 <div id="content">%(body)s</div>
 <footer class="wrap site-footer"><div><a class="footer-title" href="%(home)s">%(site)s</a><p>Somewhere between a memory and a thought.</p></div><nav aria-label="Footer"><a href="%(start)s">Favourites</a><a href="%(threads)s">Threads</a><a href="%(years)s">The years</a><a href="%(about)s">About</a><a href="%(random)s">Surprise me</a><a href="%(feed)s">RSS</a><span>© %(year)s Harsh</span></nav></footer>
 <div class="toast" id="tt-toast" role="status" aria-live="polite"></div><script src="%(js)s" defer></script>%(comments_script)s</body></html>''' % {
@@ -769,6 +769,8 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             heading = self.category_label(current_cat) if current_cat else current_year
             hub_heading = '<h2 class="hub-title">%s</h2><p class="hub-count">%s · newest first</p>' % (heading, plural(len(posts), 'page')) if side else ''
             filters = '' if is_home else '<div class="list-toolbar"><h2 class="label">The pages</h2></div>'
+            if side:
+                filters += '<div class="archive-language">%s</div>' % self.story_language_control(root, lang)
             content = '%s%s%s%s' % (hub_heading, filters, rows, self.pagination(base_path, n, total))
             if side:
                 content = '<div class="browse-layout">%s<div class="browse-posts">%s</div></div>' % (side, content)
@@ -846,7 +848,7 @@ document.addEventListener('error',function(e){var i=e.target;if(i&&i.tagName==='
             nav += '<a href="%s"><span class="label">%s</span><h2 lang="%s">%s</h2></a>' % (
                 self.u(other['path']), label, other['lang'], esc(html.unescape(other['title']))) if other else '<span></span>'
         cats = ''.join('<a href="%s">%s</a>' % (self.u('/category/%s/' % c), self.category_label(c)) for c in p['cats'])
-        body = '''<main class="wrap reader"><div class="reader-tools"><a class="back" href="%(home)s">← <span class="back-long">Back to the notebook</span><span class="back-short">Home</span></a><div class="reader-actions"><div class="sizer"><button class="icon-btn" data-tt-size="-1" aria-label="Smaller text">A−</button><button class="icon-btn" data-tt-size="1" aria-label="Larger text">A+</button></div>%(share)s</div></div>
+        body = '''<main class="wrap reader"><div class="reader-tools"><a class="back" href="%(home)s">← <span class="back-long">Back to the notebook</span><span class="back-short">Home</span></a><div class="reader-actions">%(share)s</div></div>
 <article id="post-%(id)s" class="single-entry post">%(cat)s<h1 class="entry-title" lang="%(lang)s">%(title)s</h1><div class="byline"><span class="author-initial" aria-hidden="true">H</span><div><span>%(author)s</span><time datetime="%(iso)s">%(date)s</time></div><span class="reading-time">%(reading)s</span></div><div class="entry-content" lang="%(lang)s">%(content)s</div><div class="article-ending"><span aria-hidden="true">✳</span><nav class="post-threads" aria-label="This post’s threads">%(cats)s</nav></div></article>
 <section class="author-note"><span class="author-initial" aria-hidden="true">H</span><div><h2>Written by %(author)s</h2><p>I’ve been keeping these pages since 2008. Some posts are trips, some are poems, most are just life.</p><a class="text-link" href="%(about)s">A little about me →</a></div></section>
 %(comments)s<section class="next-pages"><h2 class="label">STAY A LITTLE LONGER</h2><nav class="post-nav" aria-label="More posts">%(nav)s</nav></section></main>''' % {

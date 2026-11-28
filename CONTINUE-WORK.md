@@ -48,7 +48,7 @@ To preview: `python build.py --serve`. Commit the source changes and push to `ma
 ## Editorial decisions to preserve
 
 - Title: Time Turner. Subtitle: Stories from my life 🌱. Inspired by Harry Potter; earlier domain magicalharsh.com.
-- Compact desktop/mobile header; light/dark appearance and reader text-size controls.
+- Compact desktop/mobile header; light/dark appearance and a single Aa button cycling Small, Normal and Large text.
 - Navigation uses Favourites, Threads and Through the years. No large introductory hero or Harsh's notebook block.
 - Only categories, English names; no tags UI. Stable legacy category slugs remain.
 - Preserve original post URLs, post text and all historical comments except posts explicitly withdrawn from the website. New guest comments are explicitly authorised and require owner approval before publication; follow `COMMENTS.md`. Keep no empty-comments section.
